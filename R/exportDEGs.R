@@ -8,9 +8,9 @@
 #' @export
 #'
 #' @examples
-#' export_genelist(ranked_naive_vs_tol, "Naive-vs-tol")
-#' export_genelist(ranked_naive_vs_tol, "Naive-vs-tol", direction = "up")
-#' export_genelist(ranked_naive_vs_tol, "Naive-vs-tol", direction = "down")
+#' export_genelist(ranked_tolvsnaive, "Naive-vs-tol")
+#' export_genelist(ranked_tolvsnaive, "Naive-vs-tol", direction = "up")
+#' export_genelist(ranked_tolvsnaive, "Naive-vs-tol", direction = "down")
 export_genelist <- function(tab, filename, direction = NULL) {
   # if no direction is given
   if (is.null(direction)) {utils::write.csv(tab, file = BiocGenerics::paste(filename, ".csv", sep = ""))}

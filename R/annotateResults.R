@@ -4,6 +4,7 @@
 #'
 #' @param res dataframe built from DESeq results, must have ensembl gene ID in 'GeneID' column
 #' @param gm biomart genemap, contains GeneID and MGI_symbol columns
+#' @param gmattri list of strings, which attributes are present in the genemap, defaults to MGI_Symbol and MGI_Desc
 #'
 #' @return results object now with annotations
 #' @export
@@ -11,7 +12,7 @@
 #' @examples
 #' annotate_biomart(tol_vs_naive, gmap)
 #' annotate_biomart(tol_vs_naive, gmap, c("MGI_Symbol", "MGI_Desc"))
-annotate_biomart <- function(res, gm, gmattri = c("MGI_Symbol", "MGI_Desc", "GeneType")) {
+annotate_biomart <- function(res, gm, gmattri = c("MGI_Symbol", "MGI_Desc")) {
   # join the annotations with the results
   res <- dplyr::left_join(res, gm, by = c("GeneID" = "ensembl_gene_id"))
 

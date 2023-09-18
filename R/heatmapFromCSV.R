@@ -22,7 +22,7 @@ heatmapFromCSV <- function(plottitle, fname, met, counts_df, annocolors, cluster
   # create data frame with counts for corresponding genes
   heatmap_data <- dplyr::select(counts_df, -c(counts_df$MGI_Desc))
   heatmap_data <- dplyr::filter(heatmap_data, heatmap_data$MGI_Symbol %in% genelist$MGI_Symbol)
-  heatmap_data <-  dplyr::rownames_to_column(heatmap_data, var = "GeneID")
+  heatmap_data <-  tibble::rownames_to_column(heatmap_data, var = "GeneID")
 
   create_heatmap(plottitle, heatmap_data, met, annocolors, clusterRows, gaps, height)
 }

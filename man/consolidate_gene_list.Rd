@@ -18,5 +18,5 @@ data frame, all unique genes from each data frame combined
 Consolidate Gene List CSVs
 }
 \examples{
-consolidate_gene_list(genemap, "oxphos.csv", "activation.csv", "proliferation.csv")
+consolidate_gene_list(gmap, "oxphos.csv", "activation.csv", "proliferation.csv")
 }

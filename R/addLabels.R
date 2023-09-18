@@ -9,8 +9,8 @@
 #' @export
 #'
 #' @examples
-#' add_labels(dataframe1)
-#' add_labels(dataframe2, overlaps = 15)
+#' add_labels(ranked_tolvsnaive)
+#' add_labels(ranked_tolvsnaive, overlaps = 15)
 add_labels <- function(dat, overlaps = 6) {
   return(ggrepel::geom_label_repel(data = dat,ggplot2::aes(label = BiocGenerics::rownames(dat)),
                                    min.segment.length = 0, size = 3, point.padding = 1, label.padding = 0.2,

@@ -18,6 +18,6 @@ geom label repel object
 adds labels to each point on a ggplot
 }
 \examples{
-add_labels(dataframe1)
-add_labels(dataframe2, overlaps = 15)
+add_labels(ranked_tolvsnaive)
+add_labels(ranked_tolvsnaive, overlaps = 15)
 }

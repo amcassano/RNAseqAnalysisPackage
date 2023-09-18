@@ -20,7 +20,7 @@ CSV file exported to CWD
 Export Gene List
 }
 \examples{
-export_genelist(ranked_naive_vs_tol, "Naive-vs-tol")
-export_genelist(ranked_naive_vs_tol, "Naive-vs-tol", direction = "up")
-export_genelist(ranked_naive_vs_tol, "Naive-vs-tol", direction = "down")
+export_genelist(ranked_tolvsnaive, "Naive-vs-tol")
+export_genelist(ranked_tolvsnaive, "Naive-vs-tol", direction = "up")
+export_genelist(ranked_tolvsnaive, "Naive-vs-tol", direction = "down")
 }

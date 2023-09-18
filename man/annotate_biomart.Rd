@@ -4,12 +4,14 @@
 \alias{annotate_biomart}
 \title{Annotate Biomart}
 \usage{
-annotate_biomart(res, gm, gmattri = c("MGI_Symbol", "MGI_Desc", "GeneType"))
+annotate_biomart(res, gm, gmattri = c("MGI_Symbol", "MGI_Desc"))
 }
 \arguments{
 \item{res}{dataframe built from DESeq results, must have ensembl gene ID in 'GeneID' column}
 
 \item{gm}{biomart genemap, contains GeneID and MGI_symbol columns}
+
+\item{gmattri}{list of strings, which attributes are present in the genemap, defaults to MGI_Symbol and MGI_Desc}
 }
 \value{
 results object now with annotations

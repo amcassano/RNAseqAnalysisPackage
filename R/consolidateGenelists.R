@@ -7,7 +7,7 @@
 #' @export
 #'
 #' @examples
-#' consolidate_gene_list(genemap, "oxphos.csv", "activation.csv", "proliferation.csv")
+#' consolidate_gene_list(gmap, "oxphos.csv", "activation.csv", "proliferation.csv")
 consolidate_gene_list <- function(map, ...) {
   #set up the mulitple inputs for the interior loop
   filenames <- list(...)

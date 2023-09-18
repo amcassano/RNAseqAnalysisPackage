@@ -30,6 +30,6 @@ This function \itemize{
 \item and calculates a change metric which will combine direction, Log2 Fold Change, and adjusted Pvalue}
 }
 \examples{
-signif_deg(naive_vs_tol)
-signif_deg(naive_vs_tol, padj_cutoff = 0.01, l2fc_cutoff = 0.5)
+signif_deg(anno_tolvsnaive)
+signif_deg(anno_rejvstol, padj_cutoff = 0.01, l2fc_cutoff = 0.5)
 }

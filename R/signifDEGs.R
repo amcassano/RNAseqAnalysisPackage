@@ -20,11 +20,13 @@
 #' @export
 #'
 #' @examples
-#' signif_deg(naive_vs_tol)
-#' signif_deg(naive_vs_tol, padj_cutoff = 0.01, l2fc_cutoff = 0.5)
+#' signif_deg(anno_tolvsnaive)
+#' signif_deg(anno_rejvstol, padj_cutoff = 0.01, l2fc_cutoff = 0.5)
 signif_deg <- function(result, padj_cutoff = 0.05, l2fc_cutoff = 0.8) {
+  ranked <- tibble::rownames_to_column(result, "GeneID")
+
   # create new df, removing any samples with NA as the value for FC or Pvals
-  ranked <- tidyr::drop_na(result, c(Log2FoldChange, Adj_P_Value))
+  ranked <- tidyr::drop_na(ranked, c(Log2FoldChange, Adj_P_Value))
 
   # keep only results that have an adjusted pvalue of less than 0.05 and FC more than 0.8
   ranked <- dplyr::filter(ranked, Adj_P_Value <= padj_cutoff)
@@ -36,10 +38,11 @@ signif_deg <- function(result, padj_cutoff = 0.05, l2fc_cutoff = 0.8) {
   ranked <- dplyr::mutate(ranked, change_metric = Log2FoldChange * -log10(Adj_P_Value))
 
   # keep only the relevant columns & arrange in order of change metric
-  BiocGenerics::rownames(ranked) <- ranked$GeneID
-  ranked <- dplyr::select(ranked, MGI_Symbol, MGI_Desc, GeneType,
-                          Log2FoldChange, Adj_P_Value,
+  ranked <- dplyr::select(ranked,GeneID, MGI_Symbol, MGI_Desc, Log2FoldChange, Adj_P_Value,
                           "ChangeDirection" = change_dir,"ChangeMetric" = change_metric)
   ranked <- dplyr::arrange(ranked, dplyr::desc(abs(ChangeMetric)))
+
+  BiocGenerics::rownames(ranked) <- ranked$GeneID
+  ranked <- dplyr::select(ranked, -GeneID)
   return(ranked)
 }
