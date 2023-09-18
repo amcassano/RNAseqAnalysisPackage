@@ -11,11 +11,7 @@
 #' @export
 #'
 #' @examples
-#' plot_venndiagram(list("Treg \n Depleted     " = ranked_TregNaive$MGI_Symbol,
-#'                  "Tolerant" = ranked_TolNaive$MGI_Symbol,
-#'                  "Tolerant" = ranked_TolNaive$MGI_Symbol,
-#'                    plt_title = "# DEGs vs. Naive",
-#'                   edgecolor = c(tregcolor, tolcolor, rejcolor))
+#' plot_venndiagram(list("Treg" = ranked_TregNaive$MGI_Symbol, "Tol" = ranked_TolNaive$MGI_Symbol))
 #'
 #'
 plot_venndiagram <- function(degs_list, plt_title = "", edgecolor = c("#000000")) {

@@ -16,8 +16,7 @@
 #'
 #' @examples
 #' volcano_plot(tol_vs_naive, "Tolerant vs. Naive", "Tolerant", "Naive")
-#' volcano_plot(tol_vs_naive, "Tolerant vs. Naive", "Tolerant", "Naive",
-#'              l2fc_cutoff = 3, pval_cutoff = 0.005)
+#' volcano_plot(tol_vs_naive, "Tolerant vs. Naive", "Tolerant", "Naive", pval_cutoff = 0.005)
 volcano_plot <- function(deg_df, plotTitle, cond1, cond2, l2fc_cutoff = 2, pval_cutoff = 0.01,
                          dircolors = c("#a50000", "#00009c", "gray50"), dirshapes = c(19, 19, 19)) {
   #make labels for genes

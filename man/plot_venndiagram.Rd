@@ -21,11 +21,7 @@ Plot a venn diagram showing the number of shared DEGs between 2+ comparisons
 Can be any number of lists but for best Venn Diagram
 }
 \examples{
-plot_venndiagram(list("Treg \n Depleted     " = ranked_TregNaive$MGI_Symbol,
-                 "Tolerant" = ranked_TolNaive$MGI_Symbol,
-                 "Tolerant" = ranked_TolNaive$MGI_Symbol,
-                   plt_title = "# DEGs vs. Naive",
-                  edgecolor = c(tregcolor, tolcolor, rejcolor))
+plot_venndiagram(list("Treg Depleted" = ranked_TregNaive$MGI_Symbol, "Tolerant" = ranked_TolNaive$MGI_Symbol))
 
 
 }

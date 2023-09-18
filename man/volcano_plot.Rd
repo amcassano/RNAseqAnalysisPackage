@@ -40,6 +40,5 @@ creates a volcano plot showing the relationship between log2foldchange and p val
 }
 \examples{
 volcano_plot(tol_vs_naive, "Tolerant vs. Naive", "Tolerant", "Naive")
-volcano_plot(tol_vs_naive, "Tolerant vs. Naive", "Tolerant", "Naive",
-             l2fc_cutoff = 3, pval_cutoff = 0.005)
+volcano_plot(tol_vs_naive, "Tolerant vs. Naive", "Tolerant", "Naive", pval_cutoff = 0.005)
 }
