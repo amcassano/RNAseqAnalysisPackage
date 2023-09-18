@@ -13,31 +13,23 @@
 #' @export
 #'
 #' @examples
-#' pairwiseDEGresults("tolerant", "naive", dseq)
-#' pairwiseDEGresults("rejecting", "tolerant", dseq, "Condition", log2FCshrink = TRUE)
+#' pairwiseDEGresults("Tolerant", "Naive", dseqobj)
+#' pairwiseDEGresults("Rejecting", "Tolerant", dseqobj, log2FCshrink = TRUE)
 #'
-
-pairwiseDEGresults <- function(numerator, denominator, deseq_obj, contrast_str = "Group", tidy_result = TRUE, log2FCshrink = FALSE){
-  #create comparison for results
-  con <- c(contrast_str, numerator, denominator)
-
-  if(log2FCshrink){
-    results <- DESeq2::lfcShrink(dds = deseq_obj,
-                                 contrast = con,
-                                 type = "ashr",
-                                 quiet = TRUE)
-
-    if(tidy_result){
-      results <- BiocGenerics::as.data.frame(results)
-      results <- tibble::rownames_to_column(results, var = "GeneID")
+pairwiseDEGresults <-
+  function(numerator, denominator, deseq_obj, contrast_str = "Group", tidy_result = TRUE, log2FCshrink = FALSE) {
+    # create comparison for results
+    con <- c(contrast_str, numerator, denominator)
+    if (log2FCshrink) {
+      res <- DESeq2::lfcShrink(dds = deseq_obj, contrast = con, type = "ashr", quiet = TRUE)
+      if (tidy_result) {
+        res <- BiocGenerics::as.data.frame(res)
+        res <- tibble::rownames_to_column(res, var = "GeneID")
+      }
     }
+    else {
+      res <- DESeq2::results(deseq_obj, con, tidy = tidy_result)
+      if (tidy_result) {res <- dplyr::rename(res, "GeneID" = "row")}
+    }
+    return(res)
   }
-  else{
-    results <- DESeq2::results(deseq_obj, con, tidy = tidy_result)
-
-    if(tidy_result){ results <- dplyr::rename(results, "GeneID" = "row") }
-  }
-
-  return(results)
-
-}

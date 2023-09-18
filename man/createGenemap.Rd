@@ -27,6 +27,7 @@ dataframe containing all ensmbl IDs and corresponding MGI symbols and descriptio
 create a reference dataframe containing ensembl gene IDs and corresponding MGI symbols for use in data annotation
 }
 \examples{
-createGenemap(normalizedcounts)
-createGenemap(normalizedcounts, GMattributes = c("ensembl_gene_id", "mgi_symbol"))
+createGenemap(allcounts = allgenes)
+createGenemap(allgenes, GMattributes = c("ensembl_gene_id", "mgi_symbol"))
+
 }

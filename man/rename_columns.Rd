@@ -15,3 +15,7 @@ string, edited column name
 \description{
 rename columns, this allows for consistent naming and easier access to data
 }
+\examples{
+rename_columns("hi")
+rename_columns("mgi_symbol")
+}

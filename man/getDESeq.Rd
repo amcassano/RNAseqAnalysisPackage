@@ -11,7 +11,7 @@ getDESeq(countsmatrix, metadata, expt_design)
 
 \item{metadata}{data frame, cleaned up metadata table from RNA seq experiment}
 
-\item{expt_design}{string, experimental design}
+\item{expt_design}{formula, experimental design}
 }
 \value{
 DESeqDataSet object
@@ -20,5 +20,5 @@ DESeqDataSet object
 This function will return the DESeq data object from which normalized counts and pairwise comparison results can be generated
 }
 \examples{
-getDESeq(rawcounts, meta, "~Group")
+getDESeq(raw, meta, ~Group)
 }

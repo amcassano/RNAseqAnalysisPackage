@@ -7,17 +7,23 @@
 #'
 #' @return results object now with annotations
 #' @export
-
-annotate_biomart <- function(res, gm) {
-
+#'
+#' @examples
+#' annotate_biomart(tol_vs_naive, gmap)
+#' annotate_biomart(tol_vs_naive, gmap, c("MGI_Symbol", "MGI_Desc"))
+annotate_biomart <- function(res, gm, gmattri = c("MGI_Symbol", "MGI_Desc", "GeneType")) {
   # join the annotations with the results
-  res <- res %>% dplyr::left_join(gm, by = c("GeneID" = "ensembl_gene_id"))
+  res <- dplyr::left_join(res, gm, by = c("GeneID" = "ensembl_gene_id"))
+
+  res <- dplyr::select(res, -`genemap$ensembl_gene_id`)
 
   # rename the columns
   colList <- BiocGenerics::colnames(res)
   newCols <- purrr::map(colList, rename_columns)
   BiocGenerics::colnames(res) <- NULL
   BiocGenerics::colnames(res) <- newCols
+
+  res <- reorder_columns(res, gmattri)
 
   # return annotated results table
   return(res)

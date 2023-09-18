@@ -11,24 +11,23 @@
 #' @export
 #'
 #' @examples
-#' createGenemap(normalizedcounts)
-#' createGenemap(normalizedcounts, GMattributes = c("ensembl_gene_id", "mgi_symbol"))
+#' createGenemap(allcounts = allgenes)
+#' createGenemap(allgenes, GMattributes = c("ensembl_gene_id", "mgi_symbol"))
+#'
 createGenemap <- function(allcounts, bio_mart = "ensembl", map_genome = "mmusculus_gene_ensembl",
-                          GMattributes = c("ensembl_gene_id", "mgi_symbol", "mgi_description", "gene_biotype")){
-  #get list of all gene ids from the list of all counts
-  all_genes <- BiocGenerics::as.data.frame(allcounts$GeneID)
+                          GMattributes = c("ensembl_gene_id", "mgi_symbol", "mgi_description", "gene_biotype")) {
+  # get list of all gene ids from the list of all counts
+  all_genes <- as.data.frame(allcounts$GeneID)
 
+  # create biomart object
+  ensembl <-
+    biomaRt::useMart(biomart = bio_mart, dataset = map_genome)
 
-  #create biomart object
-  ensembl <- biomaRt::useMart(biomart = bio_mart, dataset = map_genome)
+  genemap <-
+    biomaRt::getBM(attributes = GMattributes, filters = "ensembl_gene_id", values = all_genes, mart = ensembl)
 
-  genemap <- biomaRt::getBM(attributes = GMattributes,
-                            filters = "ensembl",
-                            values = all_genes,
-                            mart = ensembl)
-
-  genemap <- genemap %>% dplyr::distinct(ensembl_gene_id, .keep_all = TRUE)
+  genemap <-
+    dplyr::distinct(genemap, genemap$ensembl_gene_id, .keep_all = TRUE)
 
   return(genemap)
-
 }

@@ -21,7 +21,6 @@ data frame with columns in correct order and geneID set to row name
 reorder Columns
 }
 \examples{
-reorder_columns(rlogcounts_df)
-reorder_columns(rejecting_vs_naive)
-reorder_columns(rejecting_vs_naive, move2front=c("MGI_Symbol"))
+reorder_columns(anno_tolvsnaive)
+reorder_columns(anno_rejvstol, move2front = c("MGI_Symbol", "MGI_Symbol"))
 }

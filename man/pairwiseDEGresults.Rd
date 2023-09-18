@@ -33,7 +33,7 @@ DESeq Results object, or a dataframe
 Get the results of a deseq object
 }
 \examples{
-pairwiseDEGresults("tolerant", "naive", dseq)
-pairwiseDEGresults("rejecting", "tolerant", dseq, "Condition", log2FCshrink = TRUE)
+pairwiseDEGresults("Tolerant", "Naive", dseqobj)
+pairwiseDEGresults("Rejecting", "Tolerant", dseqobj, log2FCshrink = TRUE)
 
 }

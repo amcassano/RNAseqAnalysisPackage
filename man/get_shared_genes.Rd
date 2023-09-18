@@ -9,13 +9,13 @@ get_shared_genes(suffix_list, dataframe1, dataframe2, ..., samedir = TRUE)
 \arguments{
 \item{suffix_list}{list of strings, one for each data frame in the}
 
+\item{dataframe1}{data frame, contains at least MGI symbol and description, log 2 fold change, adjusted p value, and change direction}
+
+\item{dataframe2}{data frame, contains at least MGI symbol and description, log 2 fold change, adjusted p value, and change direction}
+
 \item{...}{data frames, contains at least MGI symbol and description, log 2 fold change, adjusted p value, and change direction}
 
 \item{samedir}{boolean, defaults to true, dictates if the changes need to be in the same direction}
-
-\item{d1}{data frame, contains at least MGI symbol and description, log 2 fold change, adjusted p value, and change direction}
-
-\item{d2}{data frame, contains at least MGI symbol and description, log 2 fold change, adjusted p value, and change direction}
 }
 \value{
 data frame, contains all the genes significantly up/down across given data frames including fc, p val,
@@ -26,5 +26,5 @@ Get Shared Genes
 \examples{
 get_shared_genes(c(".tol", ".rej"), naive_vs_tol, naive_vs_rej)
 get_shared_genes(c(".tol", ".rej", ".ex-tol"), naive_vs_tol, naive_vs_rej, naive_vs_extol)
-get_shared_genes(c(".tol", ".rej", ".ex-tol"), naive_vs_tol, naive_vs_rej, naive_vs_extol, samedir = FALSE)
+get_shared_genes(c(".tol", ".rej"), naive_vs_tol, naive_vs_rej, samedir = FALSE)
 }

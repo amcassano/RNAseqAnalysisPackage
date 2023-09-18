@@ -7,17 +7,15 @@
 #' @export
 #'
 #' @examples
-#' reorder_columns(rlogcounts_df)
-#' reorder_columns(rejecting_vs_naive)
-#' reorder_columns(rejecting_vs_naive, move2front=c("MGI_Symbol"))
-reorder_columns <- function(annotated_df, move2front = c("MGI_Symbol", "MGI_Desc", "GeneType")){
+#' reorder_columns(anno_tolvsnaive)
+#' reorder_columns(anno_rejvstol, move2front = c("MGI_Symbol", "MGI_Symbol"))
+reorder_columns <- function(annotated_df, move2front = c("MGI_Symbol", "MGI_Desc", "GeneType")) {
   #set GeneID as the row name
   BiocGenerics::rownames(annotated_df) <- annotated_df$GeneID
 
   #remove gene ID column, move desired columns to the front
-  annotated_df <- annotated_df %>%
-    dplyr::select(-GeneID) %>%
-    dplyr::relocate(move2front)
+  annotated_df <- dplyr::select(annotated_df, -GeneID)
+  annotated_df <- dplyr::relocate(annotated_df, move2front)
 
   return(annotated_df)
 }

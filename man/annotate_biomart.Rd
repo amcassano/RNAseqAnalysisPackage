@@ -4,7 +4,7 @@
 \alias{annotate_biomart}
 \title{Annotate Biomart}
 \usage{
-annotate_biomart(res, gm)
+annotate_biomart(res, gm, gmattri = c("MGI_Symbol", "MGI_Desc", "GeneType"))
 }
 \arguments{
 \item{res}{dataframe built from DESeq results, must have ensembl gene ID in 'GeneID' column}
@@ -16,4 +16,8 @@ results object now with annotations
 }
 \description{
 add human readable gene IDs, descriptions, and gene biotypes to the data
+}
+\examples{
+annotate_biomart(tol_vs_naive, gmap)
+annotate_biomart(tol_vs_naive, gmap, c("MGI_Symbol", "MGI_Desc"))
 }
