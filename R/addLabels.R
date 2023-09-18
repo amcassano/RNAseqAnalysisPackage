@@ -9,8 +9,8 @@
 #' @export
 #'
 #' @examples
-#' add_labels(ranked_tolvsnaive)
-#' add_labels(ranked_tolvsnaive, overlaps = 15)
+#' pca_data <- DESeq2::plotPCA(rlognorm, intgroup = Group, returnData = TRUE)
+#' add_labels(pca_data)
 add_labels <- function(dat, overlaps = 6) {
   return(ggrepel::geom_label_repel(data = dat,ggplot2::aes(label = BiocGenerics::rownames(dat)),
                                    min.segment.length = 0, size = 3, point.padding = 1, label.padding = 0.2,

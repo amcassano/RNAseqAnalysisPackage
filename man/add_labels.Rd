@@ -18,6 +18,6 @@ geom label repel object
 adds labels to each point on a ggplot
 }
 \examples{
-add_labels(ranked_tolvsnaive)
-add_labels(ranked_tolvsnaive, overlaps = 15)
+pca_data <- DESeq2::plotPCA(rlognorm, intgroup = Group, returnData = TRUE)
+add_labels(pca_data)
 }
