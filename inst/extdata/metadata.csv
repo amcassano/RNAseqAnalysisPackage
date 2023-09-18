@@ -1,0 +1,16 @@
+SampleID,Condition
+Naive_11,NaiveTCR75
+Naive_16,NaiveTCR75
+Naive_38,NaiveTCR75
+Naive_56,NaiveTCR75
+Naive_82,NaiveTCR75
+Naive_85,NaiveTCR75
+Rejecting_74,Rejecting
+Rejecting_76,Rejecting
+Rejecting_78,Rejecting
+Rejecting_80,Rejecting
+Tolerant_34,Tolerant
+Tolerant_36,Tolerant
+Tolerant_68,Tolerant
+Tolerant_70,Tolerant
+Tolerant_72,Tolerant
