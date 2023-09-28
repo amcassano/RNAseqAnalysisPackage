@@ -27,7 +27,7 @@ volcano_plot <- function(deg_df, plotTitle, cond1, cond2, l2fc_cutoff = 1, pval_
   names(dirshapes) <- c(dirUp, dirDown, notsig)
 
   # save dataframe of differentially expressed genes as a new data frame for manipulation, filter out unannotated genes
-  volcanoData <- dplyr::distinct(deg_df, deg_df$MGI_Symbol, .keep_all = TRUE)
+  volcanoData <- dplyr::distinct(deg_df, MGI_Symbol, .keep_all = TRUE)
 
   # keep only padj & log2 fold change columns, remove NA rows
   volcanoData <- dplyr::select(volcanoData, c(volcanoData$Adj_P_Value, volcanoData$Log2FoldChange, volcanoData$MGI_Symbol))

@@ -19,7 +19,7 @@
 #' plot_genecounts("Tcf7", vst_df, metadata, treatment_aes, comparisons = stat_comparisons)
 #'
 plot_genecounts <- function(mgi, norm_df, metadat, plot_aes, comparisons = list(),
-                            label_samples = FALSE, overlaps_allowed = 10, yaxistozero = FALSE, kw_hjust = 0.5, kw_vjust = 1,
+                            label_samples = FALSE, overlaps_allowed = 10, yaxistozero = FALSE, kw_hjust = 0.2, kw_vjust = 1,
                             yaxis = "rLog Normalized Reads"){
 
   norm_plotdata <- data.frame(t(norm_df[norm_df$MGI_Symbol == as.character(mgi), ]))
