@@ -30,10 +30,10 @@ volcano_plot <- function(deg_df, plotTitle, cond1, cond2, l2fc_cutoff = 1, pval_
   volcanoData <- dplyr::distinct(deg_df, MGI_Symbol, .keep_all = TRUE)
 
   # keep only padj & log2 fold change columns, remove NA rows
-  volcanoData <- dplyr::select(volcanoData, c(volcanoData$Adj_P_Value, volcanoData$Log2FoldChange, volcanoData$MGI_Symbol))
-  volcanoData <- dplyr::filter(volcanoData, !is.na(volcanoData$Adj_P_Value))
-  volcanoData <- dplyr::filter(volcanoData, !is.na(volcanoData$Log2FoldChange))
-  volcanoData <- dplyr::filter(volcanoData, !is.na(volcanoData$MGI_Symbol))
+  volcanoData <- dplyr::select(volcanoData, c(Adj_P_Value, Log2FoldChange, MGI_Symbol))
+  volcanoData <- dplyr::filter(volcanoData, !is.na(Adj_P_Value))
+  volcanoData <- dplyr::filter(volcanoData, !is.na(Log2FoldChange))
+  volcanoData <- dplyr::filter(volcanoData, !is.na(MGI_Symbol))
 
   # add change direction to significantly up or significantly down genes
   volcanoData$ChangeDir <- notsig
@@ -48,8 +48,8 @@ volcano_plot <- function(deg_df, plotTitle, cond1, cond2, l2fc_cutoff = 1, pval_
   volcanoPlot <-
     ggplot2::ggplot(
       volcanoData,
-      ggplot2::aes(x = volcanoData$Log2FoldChange, y = -log10(volcanoData$Adj_P_Value), color = volcanoData$ChangeDir,
-                   shape = volcanoData$ChangeDir, fill = volcanoData$ChangeDir, label = volcanoData$signifGeneLabel)) +
+      ggplot2::aes(x = Log2FoldChange, y = -log10(Adj_P_Value), color = ChangeDir,
+                   shape = ChangeDir, fill = ChangeDir, label = signifGeneLabel)) +
     ggplot2::geom_point(size = 2) +
     ggplot2::scale_color_manual(name = "", values = dircolors) +
     ggplot2::scale_fill_manual(name = "", values = dircolors) +
