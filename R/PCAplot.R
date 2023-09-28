@@ -22,13 +22,18 @@ pca_analysis <-
     # get the percent variation of the PCA data so that we can add that to the plot
     percent_variation <- round(100 * attr(pca_data, "percentVar"))
 
+    labs <- plot_aes$labels
+    outlines <- plot_aes$outlineID
+    fills <- plot_aes$fillID
+    shapes <- plot_aes$shapeID
+
     # create plot
     pca_plot <-
-      ggplot2::ggplot(pca_data, ggplot2::aes(x = pca_data$PC1, y = pca_data$PC2, color = grouping_var, shape = grouping_var, fill = grouping_var)) +
+      ggplot2::ggplot(pca_data, ggplot2::aes(x = PC1, y = PC2, color = grouping_var, shape = grouping_var, fill = grouping_var)) +
       ggplot2::geom_point(size = 3.5, stroke = 2.25) +
-      ggplot2::scale_color_manual(labels = plot_aes$labels, values = plot_aes$outlineID, name = grouping_var) +
-      ggplot2::scale_fill_manual(labels = plot_aes$labels, values = plot_aes$fillID, name = grouping_var) +
-      ggplot2::scale_shape_manual(labels = plot_aes$labels, values = plot_aes$shapeID, name = grouping_var) +
+      ggplot2::scale_color_manual(labels = labs, values = outlines, name = grouping_var) +
+      ggplot2::scale_fill_manual(labels = labs, values = fills, name = grouping_var) +
+      ggplot2::scale_shape_manual(labels = labs, values = shapes, name = grouping_var) +
       ggplot2::xlab(paste0("PC1: ", percent_variation[1], "% variance")) +
       ggplot2::ylab(paste0("PC2: ", percent_variation[2], "% variance")) +
       ggplot2::labs(title = plot_title)
