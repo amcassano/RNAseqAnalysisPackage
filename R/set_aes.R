@@ -16,6 +16,7 @@
 #'   c("blue", "green", "red", "orange"))
 #'
 set_aes <- function(label, shapes, outlines, fills){
+
   # data frame, color choices
   colorpalette <-
     data.frame(

@@ -8,14 +8,14 @@ plot_genecounts(
   mgi,
   norm_df,
   metadat,
-  comparisons,
   plot_aes,
+  comparisons = list(),
   grouping_var = "Group",
   label_samples = FALSE,
   overlaps_allowed = 10,
   yaxistozero = FALSE,
-  kw_hjust = 0.3,
-  kw_vjust = 1.5,
+  kw_hjust = 0.5,
+  kw_vjust = 1,
   yaxis = "rLog Normalized Reads"
 )
 }
@@ -26,9 +26,9 @@ plot_genecounts(
 
 \item{metadat}{dataframe, meta data}
 
-\item{comparisons}{list of length 2 lists, each length 2 list is the comparisons to use for stats}
-
 \item{plot_aes}{dataframe, containing labels, colors, shapes, and fills for the data points being plotted}
+
+\item{comparisons}{list of length 2 lists, each length 2 list is the comparisons to use for stats, defaults to an empty list}
 
 \item{grouping_var}{string, defaults to Group, what is the grouping variable for this data}
 

@@ -5,7 +5,7 @@
 #' @param label_samples boolean, defaults to FALSE, if true, adds labels for samples while avoiding overlaps
 #' @param overlaps_allowed number, defaults to 10, increase to allow more overlaps in labeling
 #' @param yaxistozero boolean, defaults to FALSE, if true the Y axis will
-#' @param comparisons list of length 2 lists, each length 2 list is the comparisons to use for stats
+#' @param comparisons list of length 2 lists, each length 2 list is the comparisons to use for stats, defaults to an empty list
 #' @param kw_hjust integer, dictates the horizontal position of the kruskal wallis value
 #' @param kw_vjust integer, dictates the vertical position of the kruskal wallis value
 #' @param yaxis string, label for the Y axis
@@ -19,8 +19,8 @@
 #' @examples
 #' plot_genecounts("Tcf7", vst_df, metadata, treatment_aes, comparisons = stat_comparisons)
 #'
-plot_genecounts <- function(mgi, norm_df, metadat, comparisons, plot_aes, grouping_var = "Group",
-                            label_samples = FALSE, overlaps_allowed = 10, yaxistozero = FALSE, kw_hjust = 0.3, kw_vjust = 1.5,
+plot_genecounts <- function(mgi, norm_df, metadat, plot_aes, comparisons = list(), grouping_var = "Group",
+                            label_samples = FALSE, overlaps_allowed = 10, yaxistozero = FALSE, kw_hjust = 0.5, kw_vjust = 1,
                             yaxis = "rLog Normalized Reads"){
 
   norm_plotdata <- data.frame(t(norm_df[norm_df$MGI_Symbol == as.character(mgi), ]))

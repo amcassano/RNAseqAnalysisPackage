@@ -11,7 +11,7 @@ volcano_plot(
   cond2,
   l2fc_cutoff = 2,
   pval_cutoff = 0.01,
-  dircolors = c("#a50000", "#00009c", "gray50"),
+  dircolors = c("#a50000", "#00009c", "gray70"),
   dirshapes = c(19, 19, 19)
 )
 }
