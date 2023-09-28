@@ -13,7 +13,6 @@
 getOE_analysis <- function(deg_df, pval_cutoff = 0.05, l2fc_cutoff = 0.5, ontol = "ALL"){
   #remove any rows with no Gene ID or with duplicates (there shouldn't be any but it'd mess everything up)
   tibble::rownames_to_column(deg_df, var = "GeneID")
-  deg_df <- dplyr::filter(deg_df, !is.na(GeneID))
   deg_df <- dplyr::distinct(deg_df, GeneID)
 
   allGenes <- deg_df$GeneID

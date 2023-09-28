@@ -20,8 +20,8 @@
 volcano_plot <- function(deg_df, plotTitle, cond1, cond2, l2fc_cutoff = 1, pval_cutoff = 0.01,
                          dircolors = c("#a50000", "#00009c", "gray70"), dirshapes = c(19, 19, 19)) {
   #make labels for genes
-  dirUp <- paste("Upregulated in", cond1, "", sep = "\n")
-  dirDown <- paste("Upregulated in", cond2, "", sep = "\n")
+  dirUp <- paste("Upregulated in", cond1, "", sep = " ")
+  dirDown <- paste("Upregulated in", cond2, "", sep = " ")
   notsig <- paste("Not significantly", "differentially expressed", sep = "\n")
   names(dircolors) <- c(dirUp, dirDown, notsig)
   names(dirshapes) <- c(dirUp, dirDown, notsig)
