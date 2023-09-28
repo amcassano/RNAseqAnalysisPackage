@@ -22,6 +22,7 @@ Imports:
     ggrepel,
     ggVennDiagram,
     knitr,
+    org.Mm.eg.db,
     pheatmap,
     purrr,
     RColorBrewer,

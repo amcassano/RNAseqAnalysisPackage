@@ -9,7 +9,7 @@ volcano_plot(
   plotTitle,
   cond1,
   cond2,
-  l2fc_cutoff = 2,
+  l2fc_cutoff = 1,
   pval_cutoff = 0.01,
   dircolors = c("#a50000", "#00009c", "gray70"),
   dirshapes = c(19, 19, 19)
@@ -24,7 +24,7 @@ volcano_plot(
 
 \item{cond2}{string, name of condition 2}
 
-\item{l2fc_cutoff}{number, log2 fold change threshold for significance, defaults to 2}
+\item{l2fc_cutoff}{number, log2 fold change threshold for significance, defaults to 1}
 
 \item{pval_cutoff}{number, adjusted p value threshold for significance, defaults to 0.01}
 

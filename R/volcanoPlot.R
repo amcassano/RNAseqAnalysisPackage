@@ -5,7 +5,7 @@
 #' @param deg_df data frame, pairwise comparison results, should contain at minimum Log2FC MGI symbol, and adjusted p value
 #' @param dircolors list of strings, colors for significant up, down, and insignificant, defaults to red, blue and grey
 #' @param dirshapes list of numbers, shapes for points up, down, and insignificant, defaults to circles for all
-#' @param l2fc_cutoff number, log2 fold change threshold for significance, defaults to 2
+#' @param l2fc_cutoff number, log2 fold change threshold for significance, defaults to 1
 #' @param pval_cutoff number, adjusted p value threshold for significance, defaults to 0.01
 #' @param plotTitle string, plot title
 #' @param cond1 string, name of condition 1
@@ -17,7 +17,7 @@
 #' @examples
 #' volcano_plot(tol_vs_naive, "Tolerant vs. Naive", "Tolerant", "Naive")
 #' volcano_plot(tol_vs_naive, "Tolerant vs. Naive", "Tolerant", "Naive", pval_cutoff = 0.005)
-volcano_plot <- function(deg_df, plotTitle, cond1, cond2, l2fc_cutoff = 2, pval_cutoff = 0.01,
+volcano_plot <- function(deg_df, plotTitle, cond1, cond2, l2fc_cutoff = 1, pval_cutoff = 0.01,
                          dircolors = c("#a50000", "#00009c", "gray70"), dirshapes = c(19, 19, 19)) {
   #make labels for genes
   dirUp <- paste("Upregulated in", cond1, "", sep = "\n")
