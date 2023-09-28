@@ -36,7 +36,7 @@ plot_genecounts <- function(mgi, norm_df, metadat, plot_aes, comparisons = list(
 
   # create ggplot
   countPlot <-
-    ggplot2::ggplot(norm_plotdata, ggplot2::aes(x = grouping_var, y = norm, color = Group, shape = Group, fill = Group)) +
+    ggplot2::ggplot(norm_plotdata, ggplot2::aes(x = Group, y = norm, color = Group, shape = Group, fill = Group)) +
     ggplot2::ggtitle(gene_info$MGI_Symbol, subtitle = gene_info$MGI_Desc) +
     ggplot2::scale_color_manual(labels = plot_aes$labels, values = plot_aes$outlineID, name = "Group: ") +
     ggplot2::scale_shape_manual(labels = plot_aes$labels, values = plot_aes$shapeID, name = "Group: ") +
