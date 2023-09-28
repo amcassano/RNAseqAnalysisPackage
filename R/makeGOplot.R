@@ -12,18 +12,8 @@
 #'
 #' @examples
 #' makeGOplot(onevstwo_GSEA_BP, "One Vs Two Dotplot", "dot")
-makeGOplot <- function(GO_obj, plot_title, plot_type, categories_to_show = 30, fontsize = 9, splitby = NULL){
+makeGOplot <- function(GO_obj, plot_title, plot_type, categories_to_show = 30, fontsize = 9){
   if (stringi::stri_cmp_equiv(plot_type, "dot", strength = 1)) {
-    if (!is.null(split)) {
-      dotplot <-
-        enrichplot::dotplot(GO_obj, color = "p.adjust", size = "Percentage",
-                                     showCategory = categories_to_show,
-                                     split = splitby,
-                                     label_format = 75, font.size = fontsize,
-                                     title = plot_title)  +
-        DOSE::facet_grid(.~!!splitby)
-    }
-    else{
       dotplot <-
         enrichplot::dotplot(GO_obj, color = "p.adjust",  size = "Percentage",
                                      showCategory = categories_to_show,
