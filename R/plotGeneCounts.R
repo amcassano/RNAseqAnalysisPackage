@@ -11,7 +11,6 @@
 #' @param yaxis string, label for the Y axis
 #' @param metadat dataframe, meta data
 #' @param plot_aes dataframe, containing labels, colors, shapes, and fills for the data points being plotted
-#' @param grouping_var string, defaults to Group, what is the grouping variable for this data
 #'
 #' @return plot of normalized gene counts
 #' @export
@@ -19,7 +18,7 @@
 #' @examples
 #' plot_genecounts("Tcf7", vst_df, metadata, treatment_aes, comparisons = stat_comparisons)
 #'
-plot_genecounts <- function(mgi, norm_df, metadat, plot_aes, comparisons = list(), grouping_var = "Group",
+plot_genecounts <- function(mgi, norm_df, metadat, plot_aes, comparisons = list(),
                             label_samples = FALSE, overlaps_allowed = 10, yaxistozero = FALSE, kw_hjust = 0.5, kw_vjust = 1,
                             yaxis = "rLog Normalized Reads"){
 
@@ -37,12 +36,12 @@ plot_genecounts <- function(mgi, norm_df, metadat, plot_aes, comparisons = list(
 
   # create ggplot
   countPlot <-
-    ggplot2::ggplot(norm_plotdata, ggplot2::aes(x = grouping_var, y = norm, color = grouping_var, shape = grouping_var, fill = grouping_var)) +
+    ggplot2::ggplot(norm_plotdata, ggplot2::aes(x = grouping_var, y = norm, color = Group, shape = Group, fill = Group)) +
     ggplot2::ggtitle(gene_info$MGI_Symbol, subtitle = gene_info$MGI_Desc) +
-    ggplot2::scale_color_manual(labels = plot_aes$labels, values = plot_aes$outlineID, name = grouping_var) +
-    ggplot2::scale_shape_manual(labels = plot_aes$labels, values = plot_aes$shapeID, name = grouping_var) +
-    ggplot2::scale_fill_manual(labels = plot_aes$labels, values = plot_aes$fillID, name = grouping_var) +
-    ggplot2::xlab(BiocGenerics::paste(grouping_var)) +
+    ggplot2::scale_color_manual(labels = plot_aes$labels, values = plot_aes$outlineID, name = "Group: ") +
+    ggplot2::scale_shape_manual(labels = plot_aes$labels, values = plot_aes$shapeID, name = "Group: ") +
+    ggplot2::scale_fill_manual(labels = plot_aes$labels, values = plot_aes$fillID, name = "Group: ") +
+    ggplot2::xlab(BiocGenerics::paste("Group")) +
     ggplot2::ylab(yaxis) +
     ggplot2::scale_y_continuous(n.breaks = 8)
 
