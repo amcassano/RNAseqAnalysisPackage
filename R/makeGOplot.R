@@ -20,11 +20,10 @@ makeGOplot <- function(GO_obj, plot_title, plot_type, categories_to_show = 30, f
                                      label_format = 75, font.size = fontsize,
                                      title = plot_title) +
         ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
-    }
 
     return(dotplot)
   }
-  else if(stringi::stri_cmp_equiv(plot_type, "ridge", strength = 1)){
+  else if(stringi::stri_cmp_equiv(plot_type, "ridge", strength = 1)) {
     ridge <-
       enrichplot::ridgeplot(GO_obj, label_format = 75, showCategory = categories_to_show, fill = "p.adjust") +
       ggplot2::labs(x = "Enrichment Distribution", title = plot_title) +
@@ -32,14 +31,14 @@ makeGOplot <- function(GO_obj, plot_title, plot_type, categories_to_show = 30, f
 
     return(ridge)
   }
-  else if(stringi::stri_cmp_equiv(plot_type, "cluster", strength = 1)){
+  else if(stringi::stri_cmp_equiv(plot_type, "cluster", strength = 1)) {
     emap <-
       enrichplot::emapplot(GO_obj, showCategory = categories_to_show, label_format = 75, font.size = fontsize) +
       ggplot2::labs(title = plot_title)
 
     return(emap)
   }
-  else{
+  else {
     return(paste("Please set plot_type to be one of the following", "dot", "ridge", "cluster", sep = "\n"))
   }
 }
