@@ -29,7 +29,7 @@ pca_analysis <-
     # create plot
     pca_plot <-
       ggplot2::ggplot(pca_data, ggplot2::aes(x = PC1, y = PC2, color = Group, shape = Group, fill = Group)) +
-      ggplot2::geom_point(size = 3.5, stroke = 2.25) +
+      ggplot2::geom_point(size = 3.5, stroke = 2) +
       ggplot2::scale_color_manual(labels = labs, values = outlines, name = "Group: ") +
       ggplot2::scale_fill_manual(labels = labs, values = fills, name = "Group: ") +
       ggplot2::scale_shape_manual(labels = labs, values = shapes, name = "Group: ") +
