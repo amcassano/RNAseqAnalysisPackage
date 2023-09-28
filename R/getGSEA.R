@@ -11,7 +11,7 @@
 getGSEAobj <- function(degs, ontol = "ALL"){
   #set up the gene set - get fold change and gene names
   geneset <- degs$Log2FoldChange
-  tibble::rownames_to_column(degs, var = "GeneID")
+  degs <- tibble::rownames_to_column(degs, var = "GeneID")
   names(geneset) <- degs$GeneID
   geneset <- stats::na.omit(geneset)
   geneset <- sort(geneset, decreasing = TRUE)
