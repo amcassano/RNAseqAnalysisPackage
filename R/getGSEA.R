@@ -53,7 +53,7 @@ kegg_GSEA <- function(degs){
   gsea <- clusterProfiler::gseKEGG(geneList = geneset,
                                    organism = "mmu",
                                    minGSSize = 10,
-                                   maxGSSize = 800,
+                                   maxGSSize = 1000,
                                    pvalueCutoff = 0.05)
 
   return(gsea)
