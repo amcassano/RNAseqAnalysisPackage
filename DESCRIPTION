@@ -20,6 +20,8 @@ Imports:
     ggplot2,
     ggpubr,
     ggrepel,
+    ggridges,
+    ggupset,
     ggVennDiagram,
     knitr,
     org.Mm.eg.db,
