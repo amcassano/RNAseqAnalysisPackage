@@ -4,7 +4,7 @@
 \alias{signif_deg}
 \title{Filter and Rank Significant Differentially Expressed Genes}
 \usage{
-signif_deg(result, padj_cutoff = 0.05, l2fc_cutoff = 0.8)
+signif_deg(result, padj_cutoff = 0.05, l2fc_cutoff = 0.8, entrezid = TRUE)
 }
 \arguments{
 \item{result}{dataframe contains \itemize{
@@ -14,6 +14,8 @@ signif_deg(result, padj_cutoff = 0.05, l2fc_cutoff = 0.8)
 \item{padj_cutoff}{double, cutoff level for adjusted P vals to keep, defaults to 0.05}
 
 \item{l2fc_cutoff}{double, cutoff level for log2 fold change, defaults to 0.8 (abs value)}
+
+\item{entrezid}{boolean, if entrez id is included}
 }
 \value{
 ranked, a sorted and filtered data frame containing \itemize{

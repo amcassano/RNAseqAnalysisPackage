@@ -4,7 +4,7 @@
 \alias{annotate_biomart}
 \title{Annotate Biomart}
 \usage{
-annotate_biomart(res, gm, gmattri = c("MGI_Symbol", "MGI_Desc"))
+annotate_biomart(res, gm, gmattri = c("MGI_Symbol", "MGI_Desc", "EntrezID"))
 }
 \arguments{
 \item{res}{dataframe built from DESeq results, must have ensembl gene ID in 'GeneID' column}

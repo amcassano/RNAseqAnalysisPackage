@@ -8,7 +8,8 @@ createGenemap(
   allcounts,
   bio_mart = "ensembl",
   map_genome = "mmusculus_gene_ensembl",
-  GMattributes = c("ensembl_gene_id", "mgi_symbol", "mgi_description", "gene_biotype")
+  GMattributes = c("ensembl_gene_id", "mgi_symbol", "mgi_description", "entrezgene_id",
+    "gene_biotype")
 )
 }
 \arguments{

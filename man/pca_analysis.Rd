@@ -7,7 +7,6 @@
 pca_analysis(
   dseq_transform,
   plot_aes,
-  grouping_var = "Group",
   plot_title = "Principal Component Analysis",
   label_samples = FALSE
 )
@@ -16,8 +15,6 @@ pca_analysis(
 \item{dseq_transform}{DESeqTransform object}
 
 \item{plot_aes}{dataframe, containing labels, colors, shapes, and fills for the data points being plotted}
-
-\item{grouping_var}{string, defaults to Group, what is the grouping variable for this data}
 
 \item{plot_title}{string, defaults to "Principal Component Analysis"}
 

@@ -10,6 +10,7 @@
 #' \item log2 FC and adjusted p value}
 #' @param padj_cutoff double, cutoff level for adjusted P vals to keep, defaults to 0.05
 #' @param l2fc_cutoff double, cutoff level for log2 fold change, defaults to 0.8 (abs value)
+#' @param entrezid boolean, if entrez id is included
 #'
 #' @return ranked, a sorted and filtered data frame containing \itemize{
 #' \item annotations
@@ -22,7 +23,7 @@
 #' @examples
 #' signif_deg(anno_tolvsnaive)
 #' signif_deg(anno_rejvstol, padj_cutoff = 0.01, l2fc_cutoff = 0.5)
-signif_deg <- function(result, padj_cutoff = 0.05, l2fc_cutoff = 0.8) {
+signif_deg <- function(result, padj_cutoff = 0.05, l2fc_cutoff = 0.8, entrezid = TRUE) {
   ranked <- tibble::rownames_to_column(result, "GeneID")
 
   # create new df, removing any samples with NA as the value for FC or Pvals
@@ -38,10 +39,16 @@ signif_deg <- function(result, padj_cutoff = 0.05, l2fc_cutoff = 0.8) {
   ranked <- dplyr::mutate(ranked, change_metric = Log2FoldChange * -log10(Adj_P_Value))
 
   # keep only the relevant columns & arrange in order of change metric
-  ranked <- dplyr::select(ranked,GeneID, MGI_Symbol, MGI_Desc, Log2FoldChange, Adj_P_Value,
+  if(entrezid){
+    ranked <- dplyr::select(ranked,GeneID, MGI_Symbol, MGI_Desc, EntrezID, Log2FoldChange, Adj_P_Value,
+                            "ChangeDirection" = change_dir,"ChangeMetric" = change_metric)
+    ranked <- dplyr::arrange(ranked, dplyr::desc(abs(ChangeMetric)))
+  }
+  else {
+    ranked <- dplyr::select(ranked,GeneID, MGI_Symbol, MGI_Desc, Log2FoldChange, Adj_P_Value,
                           "ChangeDirection" = change_dir,"ChangeMetric" = change_metric)
-  ranked <- dplyr::arrange(ranked, dplyr::desc(abs(ChangeMetric)))
-
+    ranked <- dplyr::arrange(ranked, dplyr::desc(abs(ChangeMetric)))
+  }
   BiocGenerics::rownames(ranked) <- ranked$GeneID
   ranked <- dplyr::select(ranked, -GeneID)
   return(ranked)

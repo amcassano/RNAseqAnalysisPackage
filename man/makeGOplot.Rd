@@ -9,8 +9,7 @@ makeGOplot(
   plot_title,
   plot_type,
   categories_to_show = 30,
-  fontsize = 9,
-  splitby = NULL
+  fontsize = 9
 )
 }
 \arguments{

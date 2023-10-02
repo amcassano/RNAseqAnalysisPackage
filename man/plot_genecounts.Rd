@@ -10,11 +10,10 @@ plot_genecounts(
   metadat,
   plot_aes,
   comparisons = list(),
-  grouping_var = "Group",
   label_samples = FALSE,
   overlaps_allowed = 10,
   yaxistozero = FALSE,
-  kw_hjust = 0.5,
+  kw_hjust = 0.2,
   kw_vjust = 1,
   yaxis = "rLog Normalized Reads"
 )
@@ -29,8 +28,6 @@ plot_genecounts(
 \item{plot_aes}{dataframe, containing labels, colors, shapes, and fills for the data points being plotted}
 
 \item{comparisons}{list of length 2 lists, each length 2 list is the comparisons to use for stats, defaults to an empty list}
-
-\item{grouping_var}{string, defaults to Group, what is the grouping variable for this data}
 
 \item{label_samples}{boolean, defaults to FALSE, if true, adds labels for samples while avoiding overlaps}
 

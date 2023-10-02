@@ -6,13 +6,13 @@
 \usage{
 reorder_columns(
   annotated_df,
-  move2front = c("MGI_Symbol", "MGI_Desc", "GeneType")
+  move2front = c("MGI_Symbol", "MGI_Desc", "EntrezID")
 )
 }
 \arguments{
 \item{annotated_df}{dataframe, annotated results data frame, must include GeneID column}
 
-\item{move2front}{list of strings, which columns to move to the front of the data frame, defaults to mgi symbol, description and genetype}
+\item{move2front}{list of strings, which columns to move to the front of the data frame, defaults to mgi symbol, description and entrez ID}
 }
 \value{
 data frame with columns in correct order and geneID set to row name
