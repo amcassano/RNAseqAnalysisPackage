@@ -70,7 +70,7 @@ makeGSEplot <- function(GSE_obj, plot_title, plot_type, categories_to_show = 30,
   }
   else if(stringi::stri_cmp_equiv(plot_type, "tree", strength = 1)) {
     GSE_obj <- enrichplot::pairwise_termsim(GSE_obj)
-    trees <-
+    tree <-
       enrichplot::treeplot(GSE_obj, showCategory = categories_to_show,
                            label_format = label_length,
                            cex_category = 0.8, cex_label_category = 0.5) +
