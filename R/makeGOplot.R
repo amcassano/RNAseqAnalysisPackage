@@ -39,7 +39,7 @@ makeGSEplot <- function(GSE_obj, plot_title, plot_type, categories_to_show = 30,
       ggplot2::labs(title = plot_title) +
       ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
 
-    return(web)
+    return("This isnt working right now, fix it later")
   }
   else if(stringi::stri_cmp_equiv(plot_type, "heat", strength = 1)) {
     heat <-
@@ -61,12 +61,23 @@ makeGSEplot <- function(GSE_obj, plot_title, plot_type, categories_to_show = 30,
     GSE_obj <- enrichplot::pairwise_termsim(GSE_obj)
     emap <-
       enrichplot::emapplot(GSE_obj, showCategory = categories_to_show,
-                           label_format = label_length,
+                           label_format = label_length, label_format_cladelab = label_length,
                            cex_category = 0.8, cex_label_category = 0.5) +
       ggplot2::labs(title = plot_title) +
       ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
 
     return(emap)
+  }
+  else if(stringi::stri_cmp_equiv(plot_type, "tree", strength = 1)) {
+    GSE_obj <- enrichplot::pairwise_termsim(GSE_obj)
+    trees <-
+      enrichplot::treeplot(GSE_obj, showCategory = categories_to_show,
+                           label_format = label_length,
+                           cex_category = 0.8, cex_label_category = 0.5) +
+      ggplot2::labs(title = plot_title) +
+      ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
+
+    return(tree)
   }
   else if(stringi::stri_cmp_equiv(plot_type, "traditional", strength = 1)) {
     gse <-
