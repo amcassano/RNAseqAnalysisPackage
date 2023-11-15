@@ -2,7 +2,7 @@
 #'
 #' @param GSE_obj go object, result of either getOE_analysis or get_GSEA
 #' @param plot_title string
-#' @param plot_type string, one of "dot", "ridge", "cluster", "web", "heat", "upset","tree", "traditional"
+#' @param plot_type string, one of "dot", "ridge", "cluster", "heat", "upset","tree", "traditional"
 #' @param categories_to_show number; defaults to 30
 #' @param label_length number; defaults to 75, how long to let a label be before wrapping
 #' @param fontsize number; defaults to 9
@@ -32,14 +32,6 @@ makeGSEplot <- function(GSE_obj, plot_title, plot_type, categories_to_show = 30,
                      plot.title = ggplot2::element_text(hjust = 0.5))
 
     return(ridge)
-  }
-  else if(stringi::stri_cmp_equiv(plot_type, "web", strength = 1)) {
-    web <-
-      enrichplot::goplot(GSE_obj, showCategory = categories_to_show) +
-      ggplot2::labs(title = plot_title) +
-      ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
-
-    return("This isnt working right now, fix it later")
   }
   else if(stringi::stri_cmp_equiv(plot_type, "heat", strength = 1)) {
     heat <-
@@ -87,7 +79,7 @@ makeGSEplot <- function(GSE_obj, plot_title, plot_type, categories_to_show = 30,
   }
   else {
     return(paste("Please set plot_type to be one of the following:",
-                 "dot", "ridge", "cluster", "web", "heat", "upset","tree", "or traditional",
+                 "dot", "ridge", "cluster", "heat", "upset","tree", "or traditional",
                  sep = " "))
   }
 }
