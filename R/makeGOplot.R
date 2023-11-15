@@ -2,7 +2,7 @@
 #'
 #' @param GSE_obj go object, result of either getOE_analysis or get_GSEA
 #' @param plot_title string
-#' @param plot_type string, one of "dot", "ridge", "cluster",
+#' @param plot_type string, one of "dot", "ridge", "cluster", "web", "heat", "upset","tree", "traditional"
 #' @param categories_to_show number; defaults to 30
 #' @param label_length number; defaults to 75, how long to let a label be before wrapping
 #' @param fontsize number; defaults to 9
@@ -87,7 +87,7 @@ makeGSEplot <- function(GSE_obj, plot_title, plot_type, categories_to_show = 30,
   }
   else {
     return(paste("Please set plot_type to be one of the following:",
-                 "dot", "ridge", "cluster", "web", "heat", "upset", "or traditional",
+                 "dot", "ridge", "cluster", "web", "heat", "upset","tree", "or traditional",
                  sep = " "))
   }
 }

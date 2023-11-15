@@ -18,7 +18,7 @@ makeGSEplot(
 
 \item{plot_title}{string}
 
-\item{plot_type}{string, one of "dot", "ridge", "cluster",}
+\item{plot_type}{string, one of "dot", "ridge", "cluster", "web", "heat", "upset","tree", "traditional"}
 
 \item{categories_to_show}{number; defaults to 30}
 
