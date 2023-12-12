@@ -6,13 +6,14 @@
 #' @param categories_to_show number; defaults to 30
 #' @param label_length number; defaults to 75, how long to let a label be before wrapping
 #' @param fontsize number; defaults to 9
+#' @param foldChangeList list, defaults to null, fold changes with names attached - needed for coloring by FC
 #'
 #' @return a plot or a string
 #' @export
 #'
 #' @examples
 #' makeGSEplot(onevstwo_GSEA_BP, "One Vs Two Dotplot", "dot")
-makeGSEplot <- function(GSE_obj, plot_title, plot_type, categories_to_show = 30, fontsize = 9, label_length = 75){
+makeGSEplot <- function(GSE_obj, plot_title, plot_type, categories_to_show = 30, fontsize = 9, label_length = 75, foldChangeList = NULL){
   if (stringi::stri_cmp_equiv(plot_type, "dot", strength = 1)) {
     dotplot <-
       enrichplot::dotplot(GSE_obj,
@@ -34,8 +35,9 @@ makeGSEplot <- function(GSE_obj, plot_title, plot_type, categories_to_show = 30,
     return(ridge)
   }
   else if(stringi::stri_cmp_equiv(plot_type, "heat", strength = 1)) {
+    GSE_read <- DOSE::setReadable(GSE_obj, "org.Mm.eg.db", "ENSEMBL")
     heat <-
-      enrichplot::heatplot(GSE_obj, showCategory = categories_to_show, label_format = label_length) +
+      enrichplot::heatplot(GSE_read, showCategory = categories_to_show, label_format = label_length) +
       ggplot2::labs(title = plot_title) +
       ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
 

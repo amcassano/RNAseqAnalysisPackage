@@ -19,8 +19,6 @@ categorynetplot <- function(go_obj, deg_df, pval_cutoff = 0.05, l2fc_cutoff = 0.
   deg_df <- dplyr::filter(deg_df, !is.na(GeneID))
   deg_df <- dplyr::distinct(deg_df, GeneID, .keep_all = TRUE)
 
-  allGenes <- deg_df$GeneID
-
   sigDEGs <- dplyr::filter(deg_df, Adj_P_Value <= pval_cutoff)
   sigDEGs <- dplyr::filter(sigDEGs, abs(Log2FoldChange) >= l2fc_cutoff)
 

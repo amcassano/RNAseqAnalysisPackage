@@ -10,7 +10,8 @@ makeGSEplot(
   plot_type,
   categories_to_show = 30,
   fontsize = 9,
-  label_length = 75
+  label_length = 75,
+  foldChangeList = NULL
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ makeGSEplot(
 \item{fontsize}{number; defaults to 9}
 
 \item{label_length}{number; defaults to 75, how long to let a label be before wrapping}
+
+\item{foldChangeList}{list, defaults to null, fold changes with names attached - needed for coloring by FC}
 }
 \value{
 a plot or a string
