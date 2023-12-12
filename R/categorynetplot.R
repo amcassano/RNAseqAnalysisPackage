@@ -26,12 +26,14 @@ categorynetplot <- function(go_obj, deg_df, pval_cutoff = 0.05, l2fc_cutoff = 0.
 
   sigGenesFC <- sigDEGs$Log2FoldChange
   names(sigGenesFC) <- sigDEGs$GeneID
+  sigGenesFC <-  sort(sigGenesFC, decreasing = TRUE)
+  go_read <- DOSE::setReadable(go_obj, "org.Mm.eg.db", "ENSEMBL")
   set.seed(seed)
   cnet <-
-    enrichplot::cnetplot(go_obj,
+    enrichplot::cnetplot(go_read,
                          showCategory = categories_to_show,
                          color.params = list(foldChange = sigGenesFC, edge = TRUE, category = "#a71919"),
-                         cex.params = list(category_label = 0.9, gene_label = 0.75),
+                         cex.params = list(category_label = 0.9, gene_label = 0.85),
                          layout = shape)
 
   return(cnet)
