@@ -10,7 +10,6 @@ categorynetplot(
   pval_cutoff = 0.05,
   l2fc_cutoff = 0.5,
   categories_to_show = 30,
-  ontol = "ALL",
   seed = 2,
   shape = "circle"
 )
@@ -25,8 +24,6 @@ categorynetplot(
 \item{l2fc_cutoff}{number}
 
 \item{categories_to_show}{number; defaults to 30}
-
-\item{ontol}{string; either "ALL", "BP", "MF", or "CC"}
 
 \item{seed}{number; defaults to 2, for set seed for reproducibility}
 

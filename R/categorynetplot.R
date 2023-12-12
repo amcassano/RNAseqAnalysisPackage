@@ -28,8 +28,11 @@ categorynetplot <- function(go_obj, deg_df, pval_cutoff = 0.05, l2fc_cutoff = 0.
   names(sigGenesFC) <- sigDEGs$GeneID
   set.seed(seed)
   cnet <-
-    enrichplot::cnetplot(go_obj, showCategory = categories_to_show, foldChange = sigGenesFC,
-                         layout = shape, colorEdge = TRUE)
+    enrichplot::cnetplot(go_obj,
+                         showCategory = categories_to_show,
+                         color.params = list(foldChange = sigGenesFC, edge = TRUE, category = "#a71919"),
+                         cex.params = list(category_label = 0.9, gene_label = 0.75),
+                         layout = shape)
 
   return(cnet)
 }
