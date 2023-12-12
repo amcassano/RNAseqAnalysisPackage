@@ -14,7 +14,7 @@ makeGSEplot(
 )
 }
 \arguments{
-\item{GSE_obj}{go object, result of either getOE_analysis or get_GSEA}
+\item{GSE_obj}{go object, result of either go_GSEA}
 
 \item{plot_title}{string}
 

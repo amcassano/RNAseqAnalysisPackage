@@ -41,7 +41,7 @@ consolidate_gene_list <- function(map, ...) {
   genelist_temp <- interior_loop(num_of_lists, num_of_lists, filenames)
 
   combined_genelist <- dplyr::inner_join(x = genelist_temp, y = map, by = c("MGI_Symbol" = "mgi_symbol"))
-  combined_genelist <- dplyr::select(combined_genelist, c("GeneID" = combined_genelist$ensembl_gene_id, combined_genelist$MGI_Symbol))
+  combined_genelist <- dplyr::select(combined_genelist, c("GeneID" = ensembl_gene_id, MGI_Symbol))
 
   return(combined_genelist)
 }

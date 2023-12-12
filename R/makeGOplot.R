@@ -1,6 +1,6 @@
 #' Make Gene Set Enrichment Plot
 #'
-#' @param GSE_obj go object, result of either getOE_analysis or get_GSEA
+#' @param GSE_obj go object, result of either go_GSEA
 #' @param plot_title string
 #' @param plot_type string, one of "dot", "ridge", "cluster", "heat", "upset","tree", "traditional"
 #' @param categories_to_show number; defaults to 30
