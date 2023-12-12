@@ -19,18 +19,22 @@ categorynetplot <- function(go_obj, deg_df, pval_cutoff = 0.05, l2fc_cutoff = 0.
   deg_df <- dplyr::filter(deg_df, !is.na(GeneID))
   deg_df <- dplyr::distinct(deg_df, GeneID, .keep_all = TRUE)
 
-  sigDEGs <- dplyr::filter(deg_df, Adj_P_Value <= pval_cutoff)
-  sigDEGs <- dplyr::filter(sigDEGs, abs(Log2FoldChange) >= l2fc_cutoff)
+  degFCs <- deg_df$Log2FoldChange
+  names(degFCs) <- deg_df$GeneID
+  degFCs <- sort(degFCs, decreasing = TRUE)
 
-  sigGenesFC <- sigDEGs$Log2FoldChange
-  names(sigGenesFC) <- sigDEGs$GeneID
-  sigGenesFC <-  sort(sigGenesFC, decreasing = TRUE)
+  # sigDEGs <- dplyr::filter(deg_df, Adj_P_Value <= pval_cutoff)
+  # sigDEGs <- dplyr::filter(sigDEGs, abs(Log2FoldChange) >= l2fc_cutoff)
+  #
+  # sigGenesFC <- sigDEGs$Log2FoldChange
+  # names(sigGenesFC) <- sigDEGs$GeneID
+  # sigGenesFC <-  sort(sigGenesFC, decreasing = TRUE)
   go_read <- DOSE::setReadable(go_obj, "org.Mm.eg.db", "ENSEMBL")
   set.seed(seed)
   cnet <-
     enrichplot::cnetplot(go_read,
                          showCategory = categories_to_show,
-                         color.params = list(foldChange = sigGenesFC, edge = TRUE, category = "#a71919"),
+                         color.params = list(foldChange = degFCs, edge = TRUE, category = "#a71919"),
                          cex.params = list(category_label = 0.9, gene_label = 0.85),
                          layout = shape)
 

@@ -9,15 +9,9 @@
 #' @examples
 #' go_GSEA(tol_vs_naive, ontol = "BP")
 go_GSEA <- function(degs, ontol = "ALL"){
-  #set up the gene set - get fold change and gene names
-  geneset <- degs$Log2FoldChange
-  degs <- tibble::rownames_to_column(degs, var = "GeneID")
-  names(geneset) <- degs$GeneID
-  geneset <- stats::na.omit(geneset)
-  geneset <- sort(geneset, decreasing = TRUE)
-
+  FCs <- getFoldChanges(degs)
   #call gene set function
-  gsea <- clusterProfiler::gseGO(geneList = geneset,
+  gsea <- clusterProfiler::gseGO(geneList = FCs,
                       ont = ontol,
                       keyType = "ENSEMBL",
                       minGSSize = 1,
