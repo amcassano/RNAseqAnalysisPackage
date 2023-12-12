@@ -11,7 +11,8 @@ categorynetplot(
   l2fc_cutoff = 0.5,
   categories_to_show = 30,
   ontol = "ALL",
-  seed = 2
+  seed = 2,
+  shape = "circle"
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ categorynetplot(
 \item{ontol}{string; either "ALL", "BP", "MF", or "CC"}
 
 \item{seed}{number; defaults to 2, for set seed for reproducibility}
+
+\item{shape}{string; one of "star", "circle", "gem", "dh", 'graphopt', 'grid', 'mds', 'randomly', 'fr', 'kk', 'drl' or 'lgl'.}
 }
 \value{
 category netplot
