@@ -37,7 +37,7 @@ makeGSEplot <- function(GSE_obj, plot_title, plot_type, categories_to_show = 30,
   else if(stringi::stri_cmp_equiv(plot_type, "heat", strength = 1)) {
     GSE_read <- DOSE::setReadable(GSE_obj, "org.Mm.eg.db", "ENSEMBL")
     heat <-
-      enrichplot::heatplot(GSE_read, showCategory = categories_to_show, label_format = label_length) +
+      enrichplot::heatplot(GSE_read, showCategory = categories_to_show, label_format = label_length, foldChange = foldChangeList) +
       ggplot2::labs(title = plot_title) +
       ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
 
