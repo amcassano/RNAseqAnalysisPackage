@@ -11,7 +11,7 @@ categorynetplot(
   l2fc_cutoff = 0.5,
   categories_to_show = 30,
   seed = 2,
-  shape = "circle"
+  shape = "star"
 )
 }
 \arguments{

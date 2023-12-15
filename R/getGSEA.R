@@ -2,13 +2,14 @@
 #'
 #' @param degs annotated, pairwise comparison dataframe, *not* the significant genes
 #' @param ontol string, either "BP", "MF", "CC", or "ALL", defaults to ALL
+#' @param pval_cutoff number, defaults to 0.05, p value cutoff value
 #'
 #' @return GSEA object
 #' @export
 #'
 #' @examples
 #' go_GSEA(tol_vs_naive, ontol = "BP")
-go_GSEA <- function(degs, ontol = "ALL"){
+go_GSEA <- function(degs, ontol = "ALL",  pval_cutoff = 0.05){
   FCs <- getFoldChanges(degs)
   #call gene set function
   gsea <- clusterProfiler::gseGO(geneList = FCs,
@@ -16,7 +17,7 @@ go_GSEA <- function(degs, ontol = "ALL"){
                       keyType = "ENSEMBL",
                       minGSSize = 1,
                       maxGSSize = 1000,
-                      pvalueCutoff = 0.05,
+                      pvalueCutoff = pval_cutoff,
                       verbose = F,
                       OrgDb = "org.Mm.eg.db",
                       pAdjustMethod = "fdr")
