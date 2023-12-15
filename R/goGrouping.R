@@ -29,3 +29,23 @@ goGrouping <- function(genes, pval_cutoff = 0.05, l2fc_cutoff = 0.5, ontol = "BP
   gg <- dplyr::arrange(gg, desc(Count))
   return(gg)
 }
+
+#' Gene List from Go Grouping
+#'
+#' @param gogroup dataframe, output of goGrouping function
+#' @param rownum number, which row to return genes from
+#'
+#' @return dataframe, MGI symbols
+#' @export
+#'
+#' @examples
+#' genelistFromGOGroup(goGrouping(one_vs_two), 2)
+genelistFromGOGroup <- function(gogroup, rownum){
+  gogroup <- dplyr::slice(gogroup, rownum)
+  allgenes <- gogroup$geneID
+  listgenes <- stringr::str_split(allgenes, "/")
+  listgenes <- listgenes[[1]]
+  listgenes <- as.data.frame(listgenes)
+  listgenes <- dplyr::rename(listgenes, MGI_Symbol = listgenes)
+  return(listgenes)
+}
