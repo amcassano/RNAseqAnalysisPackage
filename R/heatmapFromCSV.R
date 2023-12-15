@@ -18,6 +18,7 @@ heatmapFromCSV <- function(plottitle, fname, met, counts_df, annocolors, cluster
   #read in the list of genes to include in the heatmap
   genelist <- utils::read.csv(fname, header = FALSE)
   colnames(genelist) <- "MGI_Symbol"
+  genelist <- dplyr::distinct(genelist, MGI_Symbol)
 
   # create data frame with counts for corresponding genes
   heatmap_data <- dplyr::select(counts_df, -MGI_Desc)
