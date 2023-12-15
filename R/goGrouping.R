@@ -17,7 +17,7 @@ goGrouping <- function(genes, pval_cutoff = 0.05, l2fc_cutoff = 0.5, ontol = "BP
   genes <- dplyr::filter(genes, abs(Log2FoldChange) >= l2fc_cutoff)
   genes <- dplyr::distinct(genes, GeneID)
 
-  gg <- clusterProfiler::groupGO(gene = genes,
+  gg <- clusterProfiler::groupGO(gene = genes$GeneID,
                                  OrgDb = "org.Mm.eg.db",
                                  ont = ontol,
                                  keyType = "ENSEMBL",
