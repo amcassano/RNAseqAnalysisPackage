@@ -19,7 +19,7 @@
 #' volcano_plot(tol_vs_naive, "Tolerant vs. Naive", "Tolerant", "Naive", pval_cutoff = 0.005)
 volcano_plot <- function(deg_df, plotTitle, cond1, cond2, l2fc_cutoff = 1, pval_cutoff = 0.01,
                          dircolors = c("#a50000", "#00009c", "gray70"), dirshapes = c(19, 19, 19)) {
-  #make labels for genes
+  # make labels for genes
   dirUp <- paste("Upregulated in", cond1, "", sep = " ")
   dirDown <- paste("Upregulated in", cond2, "", sep = " ")
   notsig <- paste("Not significantly", "differentially expressed", sep = "\n")
@@ -48,33 +48,41 @@ volcano_plot <- function(deg_df, plotTitle, cond1, cond2, l2fc_cutoff = 1, pval_
   volcanoPlot <-
     ggplot2::ggplot(
       volcanoData,
-      ggplot2::aes(x = Log2FoldChange, y = -log10(Adj_P_Value), color = ChangeDir,
-                   shape = ChangeDir, fill = ChangeDir, label = signifGeneLabel)) +
+      ggplot2::aes(
+        x = Log2FoldChange, y = -log10(Adj_P_Value), color = ChangeDir,
+        shape = ChangeDir, fill = ChangeDir, label = signifGeneLabel
+      )
+    ) +
     ggplot2::geom_point(size = 2) +
     ggplot2::scale_color_manual(name = "", values = dircolors) +
     ggplot2::scale_fill_manual(name = "", values = dircolors) +
     ggplot2::scale_shape_manual(name = "", values = dirshapes) +
     ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = 0.25)) +
     ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = 0.15)) +
-    ggplot2::labs(title = plotTitle, subtitle = paste(cond1, "vs.", cond2),
-                  caption = paste("Log2 FC cutoff: ", l2fc_cutoff, "\n Adj. P val. cutoff: ", pval_cutoff, sep = ""),
-                  x = "Log2 Fold Change", y = "-Log10(Adj. P Value)") +
+    ggplot2::labs(
+      title = plotTitle, subtitle = paste(cond1, "vs.", cond2),
+      caption = paste("Log2 FC cutoff: ", l2fc_cutoff, "\n Adj. P val. cutoff: ", pval_cutoff, sep = ""),
+      x = "Log2 Fold Change", y = "-Log10(Adj. P Value)"
+    ) +
     ggplot2::geom_vline(xintercept = c(-1 * l2fc_cutoff, l2fc_cutoff), col = "#767676") +
     ggplot2::geom_hline(yintercept = -log10(pval_cutoff), col = "#767676") +
-    ggrepel::geom_label_repel(min.segment.length = 0, size = 2.25, point.padding = 0.25, label.padding = 0.2, box.padding = 0.25,
-                              max.overlaps = 45, show.legend = FALSE, fill = "white") +
-    ggplot2::theme(panel.background = ggplot2::element_rect(fill = "transparent"),
-                   plot.background = ggplot2::element_rect(fill = "transparent", color = NA),
-                   axis.line = ggplot2::element_line("black", 1),
-                   aspect.ratio = (10 / 12),
-                   panel.grid = ggplot2::element_blank(),
-                   plot.title = ggplot2::element_text(hjust = 0.5, size = 12, face = "bold" ),
-                   plot.subtitle = ggplot2::element_text(hjust = 0.5, size = 11, face = "italic"),
-                   axis.text = ggplot2::element_text(size = 9),
-                   axis.title = ggplot2::element_text(size = 10),
-                   legend.title = ggplot2::element_text(size = 11),
-                   legend.text = ggplot2::element_text(size = 9))
+    ggrepel::geom_label_repel(
+      min.segment.length = 0, size = 2.25, point.padding = 0.25, label.padding = 0.2, box.padding = 0.25,
+      max.overlaps = 70, show.legend = FALSE, fill = "white"
+    ) +
+    ggplot2::theme(
+      panel.background = ggplot2::element_rect(fill = "transparent"),
+      plot.background = ggplot2::element_rect(fill = "transparent", color = NA),
+      axis.line = ggplot2::element_line("black", 1),
+      aspect.ratio = (10 / 12),
+      panel.grid = ggplot2::element_blank(),
+      plot.title = ggplot2::element_text(hjust = 0.5, size = 12, face = "bold"),
+      plot.subtitle = ggplot2::element_text(hjust = 0.5, size = 11, face = "italic"),
+      axis.text = ggplot2::element_text(size = 9),
+      axis.title = ggplot2::element_text(size = 10),
+      legend.title = ggplot2::element_text(size = 11),
+      legend.text = ggplot2::element_text(size = 9)
+    )
 
   return(volcanoPlot)
-
 }
