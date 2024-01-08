@@ -10,6 +10,7 @@
 #' @param plotTitle string, plot title
 #' @param cond1 string, name of condition 1
 #' @param cond2 string, name of condition 2
+#' @param overlaps number, defaults to 75, for labels
 #'
 #' @return ggplot volcano plot
 #' @export
@@ -18,7 +19,7 @@
 #' volcano_plot(tol_vs_naive, "Tolerant vs. Naive", "Tolerant", "Naive")
 #' volcano_plot(tol_vs_naive, "Tolerant vs. Naive", "Tolerant", "Naive", pval_cutoff = 0.005)
 volcano_plot <- function(deg_df, plotTitle, cond1, cond2, l2fc_cutoff = 1, pval_cutoff = 0.01,
-                         dircolors = c("#a50000", "#00009c", "gray70"), dirshapes = c(19, 19, 19)) {
+                         dircolors = c("#a50000", "#00009c", "gray70"), dirshapes = c(19, 19, 19), overlaps = 75) {
   # make labels for genes
   dirUp <- paste("Upregulated in", cond1, "", sep = " ")
   dirDown <- paste("Upregulated in", cond2, "", sep = " ")
@@ -68,7 +69,7 @@ volcano_plot <- function(deg_df, plotTitle, cond1, cond2, l2fc_cutoff = 1, pval_
     ggplot2::geom_hline(yintercept = -log10(pval_cutoff), col = "#767676") +
     ggrepel::geom_label_repel(
       min.segment.length = 0, size = 2.25, point.padding = 0.25, label.padding = 0.2, box.padding = 0.25,
-      max.overlaps = 70, show.legend = FALSE, fill = "white"
+      max.overlaps = overlaps, show.legend = FALSE, fill = "white"
     ) +
     ggplot2::theme(
       panel.background = ggplot2::element_rect(fill = "transparent"),

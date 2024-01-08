@@ -12,7 +12,8 @@ volcano_plot(
   l2fc_cutoff = 1,
   pval_cutoff = 0.01,
   dircolors = c("#a50000", "#00009c", "gray70"),
-  dirshapes = c(19, 19, 19)
+  dirshapes = c(19, 19, 19),
+  overlaps = 75
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ volcano_plot(
 \item{dircolors}{list of strings, colors for significant up, down, and insignificant, defaults to red, blue and grey}
 
 \item{dirshapes}{list of numbers, shapes for points up, down, and insignificant, defaults to circles for all}
+
+\item{overlaps}{number, defaults to 75, for labels}
 }
 \value{
 ggplot volcano plot
