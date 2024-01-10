@@ -12,7 +12,8 @@ makeGSEplot(
   fontsize = 9,
   label_length = 75,
   foldChangeList = NULL,
-  legend_loc = "bottom"
+  legend_loc = "bottom",
+  seed = 5
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ makeGSEplot(
 \item{foldChangeList}{list, defaults to null, fold changes with names attached - needed for coloring by FC}
 
 \item{legend_loc}{string; defaults to "bottom" where the legend should be placed}
+
+\item{seed}{number; defaults to 5, for reproducibility}
 }
 \value{
 a plot or a string
