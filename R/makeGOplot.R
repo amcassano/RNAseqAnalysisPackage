@@ -7,20 +7,22 @@
 #' @param label_length number; defaults to 75, how long to let a label be before wrapping
 #' @param fontsize number; defaults to 9
 #' @param foldChangeList list, defaults to null, fold changes with names attached - needed for coloring by FC
+#' @param legend_loc string; defaults to "bottom" where the legend should be placed
 #'
 #' @return a plot or a string
 #' @export
 #'
 #' @examples
 #' makeGSEplot(onevstwo_GSEA_BP, "One Vs Two Dotplot", "dot")
-makeGSEplot <- function(GSE_obj, plot_title, plot_type, categories_to_show = 30, fontsize = 9, label_length = 75, foldChangeList = NULL){
+makeGSEplot <- function(GSE_obj, plot_title, plot_type, categories_to_show = 30, fontsize = 9, label_length = 75, foldChangeList = NULL, legend_loc = "bottom"){
   if (stringi::stri_cmp_equiv(plot_type, "dot", strength = 1)) {
     dotplot <-
       enrichplot::dotplot(GSE_obj,
                           showCategory = categories_to_show,
                           label_format = label_length, font.size = fontsize,
                           title = plot_title) +
-      ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
+      ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5),
+                     legend.position = legend_loc)
 
     return(dotplot)
   }
@@ -30,16 +32,18 @@ makeGSEplot <- function(GSE_obj, plot_title, plot_type, categories_to_show = 30,
                             showCategory = categories_to_show, fill = "p.adjust") +
       ggplot2::labs(x = "Enrichment Distribution", title = plot_title) +
       ggplot2::theme(axis.text.y = ggplot2::element_text(size = fontsize),
-                     plot.title = ggplot2::element_text(hjust = 0.5))
+                     plot.title = ggplot2::element_text(hjust = 0.5),
+                     legend.position = legend_loc)
 
     return(ridge)
   }
   else if(stringi::stri_cmp_equiv(plot_type, "heat", strength = 1)) {
     GSE_read <- DOSE::setReadable(GSE_obj, "org.Mm.eg.db", "ENSEMBL")
     heat <-
-      enrichplot::heatplot(GSE_read, showCategory = categories_to_show, label_format = label_length, foldChange = foldChangeList) +
+      enrichplot::heatplot(GSE_read, showCategory = categories_to_show, label_format = label_length, foldChange = foldChangeList, symbol = "dot") +
       ggplot2::labs(title = plot_title) +
-      ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
+      ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5),
+                     legend.position = legend_loc)
 
     return(heat)
   }
@@ -47,7 +51,8 @@ makeGSEplot <- function(GSE_obj, plot_title, plot_type, categories_to_show = 30,
     upset <-
       enrichplot::upsetplot(GSE_obj, n = categories_to_show) +
       ggplot2::labs(title = plot_title) +
-      ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
+      ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5),
+                     legend.position = legend_loc)
 
     return(upset)
   }
@@ -58,7 +63,8 @@ makeGSEplot <- function(GSE_obj, plot_title, plot_type, categories_to_show = 30,
                            label_format = label_length, label_format_cladelab = label_length,
                            cex_category = 0.8, cex_label_category = 0.5) +
       ggplot2::labs(title = plot_title) +
-      ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
+      ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5),
+                     legend.position = legend_loc)
 
     return(emap)
   }
@@ -69,7 +75,8 @@ makeGSEplot <- function(GSE_obj, plot_title, plot_type, categories_to_show = 30,
                            label_format = label_length,
                            cex_category = 0.8, cex_label_category = 0.5) +
       ggplot2::labs(title = plot_title) +
-      ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5))
+      ggplot2::theme(plot.title = ggplot2::element_text(hjust = 0.5),
+                     legend.position = legend_loc)
 
     return(tree)
   }
