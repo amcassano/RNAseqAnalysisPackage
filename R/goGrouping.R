@@ -11,18 +11,20 @@
 #'
 #' @examples
 #' goGrouping(one_vs_two, 0.01, 0.8, "BP", 4)
-goGrouping <- function(genes, pval_cutoff = 0.05, l2fc_cutoff = 0.5, ontol = "BP", lvl = 2){
+goGrouping <- function(genes, pval_cutoff = 0.05, l2fc_cutoff = 0.5, ontol = "BP", lvl = 2) {
   genes <- tibble::rownames_to_column(genes, var = "GeneID")
   genes <- dplyr::filter(genes, Adj_P_Value <= pval_cutoff)
   genes <- dplyr::filter(genes, abs(Log2FoldChange) >= l2fc_cutoff)
   genes <- dplyr::distinct(genes, GeneID)
 
-  gg <- clusterProfiler::groupGO(gene = genes$GeneID,
-                                 OrgDb = "org.Mm.eg.db",
-                                 ont = ontol,
-                                 keyType = "ENSEMBL",
-                                 level = lvl,
-                                 readable = TRUE)
+  gg <- clusterProfiler::groupGO(
+    gene = genes$GeneID,
+    OrgDb = "org.Mm.eg.db",
+    ont = ontol,
+    keyType = "ENSEMBL",
+    level = lvl,
+    readable = TRUE
+  )
 
   gg <- as.data.frame(gg)
   gg <- dplyr::filter(gg, Count > 0)
@@ -40,8 +42,14 @@ goGrouping <- function(genes, pval_cutoff = 0.05, l2fc_cutoff = 0.5, ontol = "BP
 #'
 #' @examples
 #' genelistFromGOGroup(goGrouping(one_vs_two), 2)
-genelistFromGOGroup <- function(gogroup, rownum){
-  gogroup <- dplyr::slice(gogroup, rownum)
+genelistFromGOGroup <- function(gogroup, rownum = NULL, goid = NULL) {
+  if (!is.null(rownum)) {
+    gogroup <- dplyr::slice(gogroup, rownum)
+  } else if (!is.null(goid)) {
+    gogroup <- dplyr::filter(gogroup, stringr::str_detect(ID, goid))
+  } else {
+    gogroup <- dplyr::slice(gogroup, 1)
+  }
   allgenes <- gogroup$geneID
   listgenes <- stringr::str_split(allgenes, "/")
   listgenes <- listgenes[[1]]
