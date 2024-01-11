@@ -66,8 +66,7 @@ makeGSEplot <-
           GSE_read,
           showCategory = categories_to_show,
           label_format = label_length,
-          foldChange = foldChangeList,
-          symbol = "dot"
+          foldChange = foldChangeList
         ) +
         ggplot2::labs(title = plot_title) +
         ggplot2::theme(
