@@ -9,18 +9,20 @@
 #'
 #' @examples
 #' go_GSEA(tol_vs_naive, ontol = "BP")
-go_GSEA <- function(degs, ontol = "ALL",  pval_cutoff = 0.05){
+go_GSEA <- function(degs, ontol = "ALL", pval_cutoff = 0.05) {
   FCs <- getFoldChanges(degs)
-  #call gene set function
-  gsea <- clusterProfiler::gseGO(geneList = FCs,
-                      ont = ontol,
-                      keyType = "ENSEMBL",
-                      minGSSize = 5,
-                      maxGSSize = 800,
-                      pvalueCutoff = pval_cutoff,
-                      verbose = F,
-                      OrgDb = "org.Mm.eg.db",
-                      pAdjustMethod = "fdr")
+  # call gene set function
+  gsea <- clusterProfiler::gseGO(
+    geneList = FCs,
+    ont = ontol,
+    keyType = "ENSEMBL",
+    minGSSize = 1,
+    maxGSSize = 800,
+    pvalueCutoff = pval_cutoff,
+    verbose = F,
+    OrgDb = "org.Mm.eg.db",
+    pAdjustMethod = "fdr"
+  )
 
   return(gsea)
 }
@@ -34,22 +36,24 @@ go_GSEA <- function(degs, ontol = "ALL",  pval_cutoff = 0.05){
 #'
 #' @examples
 #' kegg_GSEA(tol_vs_naive)
-kegg_GSEA <- function(degs){
+kegg_GSEA <- function(degs) {
   degs <- stats::na.omit(degs)
   degs <- dplyr::distinct(degs, EntrezID, .keep_all = TRUE)
 
-  #set up the gene set - get fold change and gene names
+  # set up the gene set - get fold change and gene names
   geneset <- degs$Log2FoldChange
   names(geneset) <- degs$EntrezID
   geneset <- stats::na.omit(geneset)
   geneset <- sort(geneset, decreasing = TRUE)
 
-  #call gene set function
-  gsea <- clusterProfiler::gseKEGG(geneList = geneset,
-                                   organism = "mmu",
-                                   minGSSize = 10,
-                                   maxGSSize = 1000,
-                                   pvalueCutoff = 0.05)
+  # call gene set function
+  gsea <- clusterProfiler::gseKEGG(
+    geneList = geneset,
+    organism = "mmu",
+    minGSSize = 10,
+    maxGSSize = 1000,
+    pvalueCutoff = 0.05
+  )
 
   return(gsea)
 }

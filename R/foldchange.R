@@ -7,9 +7,9 @@
 #'
 #' @examples
 #' getFoldChanges(one_vs_two)
-getFoldChanges <- function(degs){
-  geneset <- degs$Log2FoldChange
+getFoldChanges <- function(degs) {
   degs <- tibble::rownames_to_column(degs, var = "GeneID")
+  geneset <- degs$Log2FoldChange
   names(geneset) <- degs$GeneID
   geneset <- stats::na.omit(geneset)
   geneset <- sort(geneset, decreasing = TRUE)
