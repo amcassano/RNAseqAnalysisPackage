@@ -8,7 +8,7 @@
 #' @param gaps list of numbers, defaults to empty list, dictates where there would be gaps if desired between conditions
 #' @param height number, defaults to 10, dictates how tall the cells in the heatmap will be
 #' @param annocolors list of strings, list of colors for use in labeling
-#' @param colorscale colorRampPalette funciton call - sets the color scale, defaults to red (hi) white blue (low)
+#' @param colorscale list of 3 colors sets the color scale, defaults to red (hi) white blue (low)
 #'
 #' @return heatmap plot
 #' @export
@@ -23,7 +23,7 @@ heatmapFromCSV <- function(plottitle,
                            clusterRows = TRUE,
                            gaps = c(),
                            height = 10,
-                           colorscale = grDevices::colorRampPalette(c("blue3", "white", "red2")) (100)) {
+                           colorscale = c("blue4", "white", "red3")) {
   #read in the list of genes to include in the heatmap
   genelist <- utils::read.csv(fname, header = FALSE)
   colnames(genelist) <- "MGI_Symbol"

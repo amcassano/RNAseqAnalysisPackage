@@ -13,7 +13,7 @@ heatmapFromDF(
   clusterRows = TRUE,
   gaps = c(),
   height = 10,
-  colorscale = (grDevices::colorRampPalette(c("blue3", "white", "red2")))(100)
+  colorscale = c("blue4", "white", "red3")
 )
 }
 \arguments{
@@ -33,7 +33,7 @@ heatmapFromDF(
 
 \item{height}{number, defaults to 10, dictates how tall the cells in the heatmap will be}
 
-\item{colorscale}{colorRampPalette funciton call - sets the color scale, defaults to red (hi) white blue (low)}
+\item{colorscale}{list of 3 colors sets the color scale, defaults to red (hi) white blue (low)}
 }
 \value{
 heatmap plot

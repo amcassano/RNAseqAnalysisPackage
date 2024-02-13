@@ -8,7 +8,7 @@
 #' @param gaps list of numbers, defaults to empty list, dictates where there would be gaps if desired between conditions
 #' @param height number, defaults to 10, dictates how tall the cells in the heatmap will be
 #' @param annocolors list of strings, list of colors for use in labeling
-#' @param colorscale colorRampPalette funciton call - sets the color scale, defaults to red (hi) white blue (low)
+#' @param colorscale list of 3 colors sets the color scale, defaults to red (hi) white blue (low)
 #'
 #' @return heatmap plot
 #' @export
@@ -24,7 +24,7 @@ heatmapFromDF <- function(plottitle,
                           clusterRows = TRUE,
                           gaps = c(),
                           height = 10,
-                          colorscale = grDevices::colorRampPalette(c("blue3", "white", "red2")) (100)) {
+                          colorscale = c("blue4", "white", "red3")) {
   #create data frame for heatmap that combines the genes to plot and counts
   heatmap_data <- dplyr::select(counts_df, -MGI_Desc)
   heatmap_data <-  dplyr::filter(heatmap_data, MGI_Symbol %in% genelist$MGI_Symbol)

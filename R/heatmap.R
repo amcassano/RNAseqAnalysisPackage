@@ -7,7 +7,7 @@
 #' @param height number, defaults to 10, dictates how tall the cells in the heatmap will be
 #' @param annocolors list of strings, list of colors for use in labeling
 #' @param genes_and_counts data frame, contains genes of interest and the corresponding normalized read counts
-#' @param colorscale colorRampPalette funciton call - sets the color scale, defaults to red (hi) white blue (low)
+#' @param colorscale list of 3 colors sets the color scale, defaults to red (hi) white blue (low)
 #'
 #' @return pheatmap plot
 #' @export
@@ -21,13 +21,13 @@ create_heatmap <- function(title,
                            clusterRows = TRUE,
                            gaps = c(),
                            height = 10,
-                           colorscale = grDevices::colorRampPalette(c("blue3", "white", "red2")) (100)) {
+                           colorscale = c("blue4", "white", "red3")) {
   if (length(genes_and_counts) == 0) {return("No genes match")}
   else{
     heatmap <-
       pheatmap::pheatmap(
         genes_and_counts[3:ncol(genes_and_counts)],
-        color = colorscale,
+        color = grDevices::colorRampPalette(colorscale) (100),
         cluster_rows = clusterRows, cluster_cols = FALSE, clustering_distance_rows = "correlation",
         gaps_col = gaps, annotation_col = met, annotation_colors = annocolors,
         scale = "row", labels_row = genes_and_counts[, 2], labels_col = c(rep("", ncol(genes_and_counts))),
