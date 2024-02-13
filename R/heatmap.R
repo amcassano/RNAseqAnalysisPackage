@@ -32,7 +32,7 @@ create_heatmap <- function(title,
         gaps_col = gaps, annotation_col = met, annotation_colors = annocolors,
         scale = "row", labels_row = genes_and_counts[, 2], labels_col = c(rep("", ncol(genes_and_counts))),
         fontsize = height + 1.5, fontsize_row = height + 0.25, fontsize_col = 10,
-        cellheight = height, cellwidth = height + 3,
+        cellheight = height, cellwidth = height + 2,
         main = title, border_color = NA, annotation_legend = TRUE)
     return(heatmap)
   }
