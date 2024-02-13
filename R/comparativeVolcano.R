@@ -3,8 +3,7 @@
 #' @param deg_df1 dataframe of pairwise comparison results, must be annotated
 #' @param deg_df2 dataframe of pairwise comparison results, must be annotated
 #' @param plotTitle string, plot title
-#' @param cond1 string, the name of the comparison in deg_df1 (ideally as "X vs. Y")
-#' @param cond2 string, the name of the comparison in deg_df2 (ideally as "X vs. Y")
+#' @param conditions list of 4 strings, c("numerator for df1", "denominator for df1", "numerator for df2", "denominator for df2")
 #' @param l2fc_cutoff number, where to draw the cutoff lines for log2 fold changes and to determine which points to color/label
 #' @param pval_cutoff number, points with P value lower than this in either dataframe will not be plotted
 #' @param dircolors list of 5 colors (strings) for both up, both down, up in 1 & down in 2, up in 2 & down in 1, and not changed
@@ -15,7 +14,9 @@
 #' @export
 #'
 #' @examples comp_volcano(Rej_vs_Tol, Naive_vs_Tol, "Naive and Rejecting comparison", "Rejecting", "Naive", "tolerant")
-comp_volcano <- function (deg_df1, deg_df2, plotTitle, cond1, cond2, l2fc_cutoff = 0.8, pval_cutoff = 0.45,
+comp_volcano <- function (deg_df1, deg_df2, plotTitle,
+                          conditions = c("numerator1", "denominator1", "num2", "denom2"),
+                          l2fc_cutoff = 0.8, pval_cutoff = 0.45,
                           dircolors = c("#a50000", "#00009c", "darkgreen", "purple4", "gray70"),
                           dirshapes = c(24, 25, 23, 23, 21), overlaps = 50)
 {
@@ -41,12 +42,27 @@ comp_volcano <- function (deg_df1, deg_df2, plotTitle, cond1, cond2, l2fc_cutoff
   deg_df1 <- dplyr::filter(deg_df1, MGI_Symbol != "", !dupe, !is.na(MGI_Symbol))
   deg_df2 <- dplyr::filter(deg_df2, MGI_Symbol != "", !dupe, !is.na(MGI_Symbol))
 
+  #condition labels
+  cond1 <- paste(conditions[1], "/", conditions[2], sep = "")
+  cond2 <- paste(conditions[3], "/", conditions[4], sep = "")
+
   #set labels
-  bothUp <- paste("Up in both", cond1, "and", cond2, sep = " ")
-  oneUpOnly <- paste("Up in", cond1, "and down in", cond2, sep = " ")
-  twoUpOnly <- paste("Up in", cond2, "and down in", cond1, sep = " ")
-  bothDown <- paste("Down in both",cond1, "and", cond2, sep = " ")
-  notsig <- paste("Not up or down", "in either", cond1, "or", cond2, sep = " ")
+  if (conditions[2] == conditions[4]) {
+    bothUp <- paste("Up in both ", conditions[1], " & ", conditions[3], " (vs. ", conditions[2], ")", sep = "")
+    oneUpOnly <- paste("Up in ", conditions[1], " & down in ", conditions[3], " (vs. ", conditions[2], ")", sep = "")
+    twoUpOnly <- paste("Up in ", conditions[3], " & down in ", conditions[1], " (vs. ", conditions[2], ")", sep = "")
+    bothDown <- paste("Down in both ", conditions[1], " & ", conditions[3], " (vs. ", conditions[2], ")", sep = "")
+    notsig <- paste("Not up or down in either ", conditions[1], " or ", conditions[3], " (vs. ", conditions[2], ")", sep = "")
+    full_title <- paste(conditions[1], "and", conditions[3], "vs", conditions[2])
+  }
+  else{
+    bothUp <- paste("Up in both", cond1, "&", cond2, sep = " ")
+    oneUpOnly <- paste("Up in", cond1, "& down in", cond2, sep = " ")
+    twoUpOnly <- paste("Up in", cond2, "& down in", cond1, sep = " ")
+    bothDown <- paste("Down in both", cond1, "&", cond2, sep = " ")
+    notsig <- paste("Not up or down", "in either", cond1, "or", cond2, sep = " ")
+    full_title <- paste(cond1, "and", cond2)
+  }
   names(dircolors) <- c(bothUp, bothDown, oneUpOnly, twoUpOnly, notsig)
   names(dirshapes) <- c(bothUp, bothDown, oneUpOnly, twoUpOnly, notsig)
   legorder <- c(bothUp, bothDown, oneUpOnly, twoUpOnly, notsig)
@@ -80,7 +96,7 @@ comp_volcano <- function (deg_df1, deg_df2, plotTitle, cond1, cond2, l2fc_cutoff
     ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = 0.25)) +
     ggplot2::scale_y_continuous(expand = ggplot2::expansion(mult = 0.15)) +
     ggplot2::labs(title = plotTitle,
-                  subtitle = paste(cond1, " DEGs vs. ", cond2," DEGs", sep = ""),
+                  subtitle = paste(full_title," DEGs", sep = ""),
                   caption = paste("\n Log2 FC cutoff: ", l2fc_cutoff,
                                   "\n", "\n",
                                   "Not showing any points with adj. P value of greater than ", pval_cutoff,

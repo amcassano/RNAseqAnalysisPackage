@@ -8,8 +8,7 @@ comp_volcano(
   deg_df1,
   deg_df2,
   plotTitle,
-  cond1,
-  cond2,
+  conditions = c("numerator1", "denominator1", "num2", "denom2"),
   l2fc_cutoff = 0.8,
   pval_cutoff = 0.45,
   dircolors = c("#a50000", "#00009c", "darkgreen", "purple4", "gray70"),
@@ -24,9 +23,7 @@ comp_volcano(
 
 \item{plotTitle}{string, plot title}
 
-\item{cond1}{string, the name of the comparison in deg_df1 (ideally as "X vs. Y")}
-
-\item{cond2}{string, the name of the comparison in deg_df2 (ideally as "X vs. Y")}
+\item{conditions}{list of 4 strings, c("numerator for df1", "denominator for df1", "numerator for df2", "denominator for df2")}
 
 \item{l2fc_cutoff}{number, where to draw the cutoff lines for log2 fold changes and to determine which points to color/label}
 
