@@ -7,7 +7,7 @@
 #' @param height number, defaults to 10, dictates how tall the cells in the heatmap will be
 #' @param annocolors list of strings, list of colors for use in labeling
 #' @param genes_and_counts data frame, contains genes of interest and the corresponding normalized read counts
-#' @param colorscale list of 3 colors sets the color scale, defaults to red (hi) white blue (low)
+#' @param colorscale list of 3 colors sets the color scale
 #'
 #' @return pheatmap plot
 #' @export
@@ -21,7 +21,7 @@ create_heatmap <- function(title,
                            clusterRows = TRUE,
                            gaps = c(),
                            height = 10,
-                           colorscale = c("blue4", "white", "red3")) {
+                           colorscale) {
   if (length(genes_and_counts) == 0) {return("No genes match")}
   else{
     heatmap <-

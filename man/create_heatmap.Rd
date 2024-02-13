@@ -12,7 +12,7 @@ create_heatmap(
   clusterRows = TRUE,
   gaps = c(),
   height = 10,
-  colorscale = c("blue4", "white", "red3")
+  colorscale
 )
 }
 \arguments{
@@ -30,7 +30,7 @@ create_heatmap(
 
 \item{height}{number, defaults to 10, dictates how tall the cells in the heatmap will be}
 
-\item{colorscale}{list of 3 colors sets the color scale, defaults to red (hi) white blue (low)}
+\item{colorscale}{list of 3 colors sets the color scale}
 }
 \value{
 pheatmap plot
