@@ -4,7 +4,7 @@
 \alias{genelistFromGOGroup}
 \title{Gene List from Go Grouping}
 \usage{
-genelistFromGOGroup(gogroup, rownum)
+genelistFromGOGroup(gogroup, rownum = NULL, goid = NULL)
 }
 \arguments{
 \item{gogroup}{dataframe, output of goGrouping function}

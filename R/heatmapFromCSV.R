@@ -8,13 +8,22 @@
 #' @param gaps list of numbers, defaults to empty list, dictates where there would be gaps if desired between conditions
 #' @param height number, defaults to 10, dictates how tall the cells in the heatmap will be
 #' @param annocolors list of strings, list of colors for use in labeling
+#' @param colorscale colorRampPalette funciton call - sets the color scale, defaults to red (hi) white blue (low)
 #'
 #' @return heatmap plot
 #' @export
 #'
 #' @examples
 #' heatmapFromCSV("OxPhos", "oxphos.csv", metadata, rlog_df, c("blue", "red"))
-heatmapFromCSV <- function(plottitle, fname, met, counts_df, annocolors, clusterRows = TRUE, gaps = c(), height = 10) {
+heatmapFromCSV <- function(plottitle,
+                           fname,
+                           met,
+                           counts_df,
+                           annocolors,
+                           clusterRows = TRUE,
+                           gaps = c(),
+                           height = 10,
+                           colorscale = grDevices::colorRampPalette(c("blue3", "white", "red2")) (100)) {
   #read in the list of genes to include in the heatmap
   genelist <- utils::read.csv(fname, header = FALSE)
   colnames(genelist) <- "MGI_Symbol"
@@ -25,5 +34,12 @@ heatmapFromCSV <- function(plottitle, fname, met, counts_df, annocolors, cluster
   heatmap_data <- dplyr::filter(heatmap_data, MGI_Symbol %in% genelist$MGI_Symbol)
   heatmap_data <-  tibble::rownames_to_column(heatmap_data, var = "GeneID")
 
-  create_heatmap(plottitle, heatmap_data, met, annocolors, clusterRows, gaps, height)
+  create_heatmap(title = plottitle,
+                 genes_and_counts = heatmap_data,
+                 met = met,
+                 annocolors = annocolors,
+                 clusterRows = clusterRows,
+                 gaps = gaps,
+                 height = height,
+                 colorscale = colorscale)
 }

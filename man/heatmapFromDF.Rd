@@ -12,7 +12,8 @@ heatmapFromDF(
   annocolors,
   clusterRows = TRUE,
   gaps = c(),
-  height = 10
+  height = 10,
+  colorscale = (grDevices::colorRampPalette(c("blue3", "white", "red2")))(100)
 )
 }
 \arguments{
@@ -31,6 +32,8 @@ heatmapFromDF(
 \item{gaps}{list of numbers, defaults to empty list, dictates where there would be gaps if desired between conditions}
 
 \item{height}{number, defaults to 10, dictates how tall the cells in the heatmap will be}
+
+\item{colorscale}{colorRampPalette funciton call - sets the color scale, defaults to red (hi) white blue (low)}
 }
 \value{
 heatmap plot

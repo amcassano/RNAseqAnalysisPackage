@@ -3,6 +3,7 @@
 export(add_labels)
 export(annotate_biomart)
 export(categorynetplot)
+export(comp_volcano)
 export(consolidate_gene_list)
 export(createGenemap)
 export(create_heatmap)
