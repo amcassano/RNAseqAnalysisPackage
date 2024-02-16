@@ -4,12 +4,14 @@
 \alias{add_labels}
 \title{Add Labels}
 \usage{
-add_labels(dat, overlaps = 6)
+add_labels(dat, overlaps = 6, boxed = TRUE)
 }
 \arguments{
 \item{dat}{data frame}
 
 \item{overlaps}{numeric, number of overlaps allowed}
+
+\item{boxed}{boolean, if there should be a box drawn under the label}
 }
 \value{
 geom label repel object

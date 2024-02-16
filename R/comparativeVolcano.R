@@ -107,9 +107,10 @@ comp_volcano <- function (deg_df1, deg_df2, plotTitle,
     ggplot2::geom_hline(yintercept = c(-1 * l2fc_cutoff,l2fc_cutoff), col = "gray85") +
     ggrepel::geom_text_repel(min.segment.length = 0,
                              size = 2.75,
-                             point.padding = 0.2,
-                             box.padding = 0.3,
+                             point.padding = 0.25,
+                             box.padding = 0.7,
                              force = 1.35,
+                             force_pull = 1.2,
                              max.overlaps = overlaps,
                              show.legend = FALSE,
                              na.rm =  TRUE) +
