@@ -113,7 +113,8 @@ comp_volcano <- function (deg_df1, deg_df2, plotTitle,
                              force_pull = 1.2,
                              max.overlaps = overlaps,
                              show.legend = FALSE,
-                             na.rm =  TRUE) +
+                             na.rm =  TRUE,
+                             segment.size = 0.35) +
     ggplot2::theme(panel.background = ggplot2::element_rect(fill = "transparent"),
                    plot.background = ggplot2::element_rect(fill = "transparent", color = NA),
                    axis.line = ggplot2::element_line("black", 1),

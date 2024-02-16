@@ -68,8 +68,8 @@ volcano_plot <- function(deg_df, plotTitle, cond1, cond2, l2fc_cutoff = 1, pval_
     ggplot2::geom_vline(xintercept = c(-1 * l2fc_cutoff, l2fc_cutoff), col = "#767676") +
     ggplot2::geom_hline(yintercept = -log10(pval_cutoff), col = "#767676") +
     ggrepel::geom_text_repel(
-      min.segment.length = 0, size = 2.25, point.padding = 0.25, box.padding = 0.55,
-      max.overlaps = overlaps, show.legend = FALSE, na.rm = TRUE
+      min.segment.length = 0.25, size = 2.25, point.padding = 0.25, box.padding = 0.55,
+      max.overlaps = overlaps, show.legend = FALSE, na.rm = TRUE, segment.size = 0.35
     ) +
     ggplot2::theme(
       panel.background = ggplot2::element_rect(fill = "transparent"),

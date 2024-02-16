@@ -17,7 +17,7 @@ add_labels <- function(dat, overlaps = 6, boxed = TRUE) {
     return(ggrepel::geom_label_repel(
       data = dat,
       ggplot2::aes(label = BiocGenerics::rownames(dat)),
-      color = "white", segment.color = "black",
+      color = "white", segment.color = "black", segment.size = 0.35,
       min.segment.length = 0,
       size = 3,
       point.padding = 0.25, label.padding = 0.5, box.padding = 0.75,
@@ -30,7 +30,7 @@ add_labels <- function(dat, overlaps = 6, boxed = TRUE) {
     return(ggrepel::geom_text_repel(
       data = dat,
       ggplot2::aes(label = BiocGenerics::rownames(dat)),
-      color = "white", segment.color = "black",
+      color = "white", segment.color = "black",  segment.size = 0.35,
       min.segment.length = 0,
       size = 3,
       point.padding = 0.25, box.padding = 0.75,
