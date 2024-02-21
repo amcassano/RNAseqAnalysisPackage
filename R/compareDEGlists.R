@@ -12,7 +12,7 @@
 #'
 #' @examples
 #' compareDEGlists(one_vs_two, three_vs_two, conditions = c("one", "two", "three", "two"), l2fc_cutoff = 1.2, pval_cutoff = 0.25)
-compareDEGlists<- function(deg_df1, deg_df2, conditions = c("numerator1", "denominator1", "num2", "denom2"),
+compareDEGlists <- function(deg_df1, deg_df2, conditions = c("numerator1", "denominator1", "num2", "denom2"),
                            l2fc_cutoff = 0.8, pval_cutoff = 0.45, export = FALSE){
   #filter out NA & insignificant P values
   deg_df1 <- dplyr::filter(deg_df1, !is.na(Adj_P_Value), Adj_P_Value < pval_cutoff)
@@ -43,7 +43,7 @@ compareDEGlists<- function(deg_df1, deg_df2, conditions = c("numerator1", "denom
     twoUpOnly <- paste("Up in", cond2, "& down in", cond1, sep = " ")
     bothDown <- paste("Down in both", cond1, "&", cond2, sep = " ")
     notsig <- paste("Not up or down", "in either", cond1, "or", cond2, sep = " ")
-    full_title <- paste(cond1, "and", cond2)
+    full_title <- paste(cond1, "and", cond2, sep = "_")
   }
   #combine data frames
   combinedData <- dplyr::inner_join(x = deg_df1, y = deg_df2, by = "ENSMBL", suffix = c(".df1", ".df2"))
@@ -68,10 +68,10 @@ compareDEGlists<- function(deg_df1, deg_df2, conditions = c("numerator1", "denom
 
   if(export) {
     #export
-    analyzeRNA::export_genelist(dplyr::filter(combinedData, ChangeDir == bothUp), paste(full_title, "up in both"))
-    analyzeRNA::export_genelist(dplyr::filter(combinedData, ChangeDir == bothDown), paste(full_title, "down in both"))
-    analyzeRNA::export_genelist(dplyr::filter(combinedData, ChangeDir == oneUpOnly), paste(full_title, "up in", conditions[1], "v", conditions[2]))
-    analyzeRNA::export_genelist(dplyr::filter(combinedData, ChangeDir == twoUpOnly), paste(full_title, "up in", conditions[3], "v", conditions[4]))
+    analyzeRNA::export_genelist(dplyr::filter(combinedData, ChangeDir == bothUp), paste(full_title, "up_in_both", sep = "_"))
+    analyzeRNA::export_genelist(dplyr::filter(combinedData, ChangeDir == bothDown), paste(full_title, "down_in_both"))
+    analyzeRNA::export_genelist(dplyr::filter(combinedData, ChangeDir == oneUpOnly), paste(full_title, "up_in", conditions[1], "v", conditions[2], sep = "_"))
+    analyzeRNA::export_genelist(dplyr::filter(combinedData, ChangeDir == twoUpOnly), paste(full_title, "up_in", conditions[3], "v", conditions[4], sep = "_"))
   }
 
   #return
