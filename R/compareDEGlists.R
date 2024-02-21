@@ -68,10 +68,10 @@ compareDEGlists <- function(deg_df1, deg_df2, conditions = c("numerator1", "deno
 
   if(export) {
     #export
-    analyzeRNA::export_genelist(dplyr::filter(combinedData, ChangeDir == bothUp), paste(full_title, "up_in_both", sep = "_"))
-    analyzeRNA::export_genelist(dplyr::filter(combinedData, ChangeDir == bothDown), paste(full_title, "down_in_both"))
-    analyzeRNA::export_genelist(dplyr::filter(combinedData, ChangeDir == oneUpOnly), paste(full_title, "up_in", conditions[1], "v", conditions[2], sep = "_"))
-    analyzeRNA::export_genelist(dplyr::filter(combinedData, ChangeDir == twoUpOnly), paste(full_title, "up_in", conditions[3], "v", conditions[4], sep = "_"))
+    analyzeRNA::export_genelist(tab = dplyr::filter(combinedData, ChangeDir == bothUp), filename =  paste(full_title, "up_in_both", sep = "_"))
+    analyzeRNA::export_genelist(tab = dplyr::filter(combinedData, ChangeDir == bothDown), filename = paste(full_title, "down_in_both"))
+    analyzeRNA::export_genelist(tab = dplyr::filter(combinedData, ChangeDir == oneUpOnly), filename = paste(full_title, "up_in", conditions[1], "v", conditions[2], sep = "_"))
+    analyzeRNA::export_genelist(tab = dplyr::filter(combinedData, ChangeDir == twoUpOnly), filename = paste(full_title, "up_in", conditions[3], "v", conditions[4], sep = "_"))
   }
 
   #return
