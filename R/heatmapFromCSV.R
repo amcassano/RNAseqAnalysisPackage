@@ -9,6 +9,8 @@
 #' @param height number, defaults to 10, dictates how tall the cells in the heatmap will be
 #' @param annocolors list of strings, list of colors for use in labeling
 #' @param colorscale list of 3 colors sets the color scale, defaults to red (hi) white blue (low)
+#' @param scaling boolean, defaults to TRUE - if rows should be scaled or not
+#' @param displNumbers boolean, defaults to FALSE - if the value of each cell should be displayed within
 #'
 #' @return heatmap plot
 #' @export
@@ -23,23 +25,29 @@ heatmapFromCSV <- function(plottitle,
                            clusterRows = TRUE,
                            gaps = c(),
                            height = 10,
-                           colorscale = c("blue4", "white", "red3")) {
-  #read in the list of genes to include in the heatmap
-  genelist <- utils::read.csv(fname, header = FALSE)
-  colnames(genelist) <- "MGI_Symbol"
-  genelist <- dplyr::distinct(genelist, MGI_Symbol)
+                           colorscale = c("blue4", "white", "red3"),
+                           scaling = TRUE,
+                           displNumbers = FALSE) {
+    # read in the list of genes to include in the heatmap
+    genelist <- utils::read.csv(fname, header = FALSE)
+    colnames(genelist) <- "MGI_Symbol"
+    genelist <- dplyr::distinct(genelist, MGI_Symbol)
 
-  # create data frame with counts for corresponding genes
-  heatmap_data <- dplyr::select(counts_df, -MGI_Desc)
-  heatmap_data <- dplyr::filter(heatmap_data, MGI_Symbol %in% genelist$MGI_Symbol)
-  heatmap_data <-  tibble::rownames_to_column(heatmap_data, var = "GeneID")
+    # create data frame with counts for corresponding genes
+    heatmap_data <- dplyr::select(counts_df, -MGI_Desc)
+    heatmap_data <- dplyr::filter(heatmap_data, MGI_Symbol %in% genelist$MGI_Symbol)
+    heatmap_data <- tibble::rownames_to_column(heatmap_data, var = "GeneID")
 
-  create_heatmap(title = plottitle,
-                 genes_and_counts = heatmap_data,
-                 met = met,
-                 annocolors = annocolors,
-                 clusterRows = clusterRows,
-                 gaps = gaps,
-                 height = height,
-                 colorscale = colorscale)
+    create_heatmap(
+        title = plottitle,
+        genes_and_counts = heatmap_data,
+        met = met,
+        annocolors = annocolors,
+        clusterRows = clusterRows,
+        gaps = gaps,
+        height = height,
+        colorscale = colorscale,
+        scaling = scaling,
+        displNumbers = displNumbers
+    )
 }

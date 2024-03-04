@@ -12,7 +12,9 @@ create_heatmap(
   clusterRows = TRUE,
   gaps = c(),
   height = 10,
-  colorscale
+  colorscale,
+  scaling = TRUE,
+  displNumbers = FALSE
 )
 }
 \arguments{
@@ -31,6 +33,10 @@ create_heatmap(
 \item{height}{number, defaults to 10, dictates how tall the cells in the heatmap will be}
 
 \item{colorscale}{list of 3 colors sets the color scale}
+
+\item{scaling}{boolean, defaults to TRUE - if rows should be scaled or not}
+
+\item{displNumbers}{boolean, defaults to FALSE - if the value of each cell should be displayed within}
 }
 \value{
 pheatmap plot
