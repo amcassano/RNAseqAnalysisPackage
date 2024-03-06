@@ -24,7 +24,7 @@ volcano_plot <- function(deg_df, plotTitle, cond1, cond2, l2fc_cutoff = 1, pval_
   # make labels for genes
   dirUp <- paste("Upregulated in", cond1, "", sep = " ")
   dirDown <- paste("Upregulated in", cond2, "", sep = " ")
-  notsig <- paste("Not significantly", "differentially expressed", sep = "\n")
+  notsig <- paste("Not significantly", "differentially expressed", sep = " ")
   names(dircolors) <- c(dirUp, dirDown, notsig)
   names(dirshapes) <- c(dirUp, dirDown, notsig)
 
@@ -71,7 +71,7 @@ volcano_plot <- function(deg_df, plotTitle, cond1, cond2, l2fc_cutoff = 1, pval_
 
   if(boxlabels){
     volcanoPlot <- volcanoPlot + ggrepel::geom_label_repel(
-      min.segment.length = 0.25, size = 2.25, point.padding = 0.25, box.padding = 0.55, label.padding = 0.25, fill = "white",
+      min.segment.length = 0.25, size = 2.25, point.padding = 0.15, box.padding = 0.4, label.padding = 0.15, fill = "white",
       max.overlaps = overlaps, show.legend = FALSE, na.rm = TRUE, segment.size = 0.35, force = 2, force_pull = 1.25
     ) +
       ggplot2::theme(
@@ -84,8 +84,9 @@ volcano_plot <- function(deg_df, plotTitle, cond1, cond2, l2fc_cutoff = 1, pval_
         plot.subtitle = ggplot2::element_text(hjust = 0.5, size = 11, face = "italic"),
         axis.text = ggplot2::element_text(size = 9),
         axis.title = ggplot2::element_text(size = 10),
-        legend.title = ggplot2::element_text(size = 11),
-        legend.text = ggplot2::element_text(size = 9)
+        legend.title = ggplot2::element_text(size = 9),
+        legend.text = ggplot2::element_text(size = 8),
+        legend.position = "bottom"
       )
   }
   else{
@@ -103,8 +104,9 @@ volcano_plot <- function(deg_df, plotTitle, cond1, cond2, l2fc_cutoff = 1, pval_
         plot.subtitle = ggplot2::element_text(hjust = 0.5, size = 11, face = "italic"),
         axis.text = ggplot2::element_text(size = 9),
         axis.title = ggplot2::element_text(size = 10),
-        legend.title = ggplot2::element_text(size = 11),
-        legend.text = ggplot2::element_text(size = 9)
+        legend.title = ggplot2::element_text(size = 9),
+        legend.text = ggplot2::element_text(size = 8),
+        legend.position = "bottom"
       )
   }
   return(volcanoPlot)
