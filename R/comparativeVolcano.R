@@ -126,8 +126,8 @@ comp_volcano <- function (deg_df1, deg_df2, plotTitle,
                      plot.title = ggplot2::element_text(hjust = 0.5, size = 12, face = "bold"),
                      plot.subtitle = ggplot2::element_text(hjust = 0.5, size = 11, face = "italic"),
                      axis.text = ggplot2::element_text(size = 9),
-                     axis.title = ggplot2::element_text(size = 10), legend.title = ggplot2::element_text(size = 11),
-                     legend.text = ggplot2::element_text(size = 9))
+                     axis.title = ggplot2::element_text(size = 10), legend.title = ggplot2::element_text(size = 8),
+                     legend.text = ggplot2::element_text(size = 7))
   }
   else{
     comboPlot <- comboPlot + ggrepel::geom_text_repel(min.segment.length = 0,
@@ -147,8 +147,8 @@ comp_volcano <- function (deg_df1, deg_df2, plotTitle,
                      plot.title = ggplot2::element_text(hjust = 0.5, size = 12, face = "bold"),
                      plot.subtitle = ggplot2::element_text(hjust = 0.5, size = 11, face = "italic"),
                      axis.text = ggplot2::element_text(size = 9),
-                     axis.title = ggplot2::element_text(size = 10), legend.title = ggplot2::element_text(size = 11),
-                     legend.text = ggplot2::element_text(size = 9))
+                     axis.title = ggplot2::element_text(size = 10), legend.title = ggplot2::element_text(size = 8),
+                     legend.text = ggplot2::element_text(size = 7))
   }
   return(comboPlot)
 }
