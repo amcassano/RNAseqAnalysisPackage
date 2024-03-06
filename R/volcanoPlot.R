@@ -11,6 +11,7 @@
 #' @param cond1 string, name of condition 1
 #' @param cond2 string, name of condition 2
 #' @param overlaps number, defaults to 75, for labels
+#' @param boxlabels boolean, defaults to FALSE, if true draws boxes arond labels
 #'
 #' @return ggplot volcano plot
 #' @export
@@ -19,7 +20,7 @@
 #' volcano_plot(tol_vs_naive, "Tolerant vs. Naive", "Tolerant", "Naive")
 #' volcano_plot(tol_vs_naive, "Tolerant vs. Naive", "Tolerant", "Naive", pval_cutoff = 0.005)
 volcano_plot <- function(deg_df, plotTitle, cond1, cond2, l2fc_cutoff = 1, pval_cutoff = 0.01,
-                         dircolors = c("#a50000", "#00009c", "gray70"), dirshapes = c(19, 19, 19), overlaps = 75) {
+                         dircolors = c("#a50000", "#00009c", "gray70"), dirshapes = c(19, 19, 19), overlaps = 75, boxlabels = FALSE) {
   # make labels for genes
   dirUp <- paste("Upregulated in", cond1, "", sep = " ")
   dirDown <- paste("Upregulated in", cond2, "", sep = " ")
@@ -66,24 +67,45 @@ volcano_plot <- function(deg_df, plotTitle, cond1, cond2, l2fc_cutoff = 1, pval_
       x = "Log2 Fold Change", y = "-Log10(Adj. P Value)"
     ) +
     ggplot2::geom_vline(xintercept = c(-1 * l2fc_cutoff, l2fc_cutoff), col = "#767676") +
-    ggplot2::geom_hline(yintercept = -log10(pval_cutoff), col = "#767676") +
-    ggrepel::geom_text_repel(
+    ggplot2::geom_hline(yintercept = -log10(pval_cutoff), col = "#767676")
+
+  if(boxlabels){
+    volcanoPlot <- volcanoPlot + ggrepel::geom_label_repel(
+      min.segment.length = 0.25, size = 2.25, point.padding = 0.25, box.padding = 0.55, label.padding = 0.25,
+      max.overlaps = overlaps, show.legend = FALSE, na.rm = TRUE, segment.size = 0.35, force = 2, force_pull = 1.25
+    ) +
+      ggplot2::theme(
+        panel.background = ggplot2::element_rect(fill = "transparent"),
+        plot.background = ggplot2::element_rect(fill = "transparent", color = NA),
+        axis.line = ggplot2::element_line("black", 1),
+        aspect.ratio = (10 / 12),
+        panel.grid = ggplot2::element_blank(),
+        plot.title = ggplot2::element_text(hjust = 0.5, size = 12, face = "bold"),
+        plot.subtitle = ggplot2::element_text(hjust = 0.5, size = 11, face = "italic"),
+        axis.text = ggplot2::element_text(size = 9),
+        axis.title = ggplot2::element_text(size = 10),
+        legend.title = ggplot2::element_text(size = 11),
+        legend.text = ggplot2::element_text(size = 9)
+      )
+  }
+  else{
+    volcanoPlot <- volcanoPlot + ggrepel::geom_text_repel(
       min.segment.length = 0.25, size = 2.25, point.padding = 0.25, box.padding = 0.55,
       max.overlaps = overlaps, show.legend = FALSE, na.rm = TRUE, segment.size = 0.35, force = 2, force_pull = 1.25
     ) +
-    ggplot2::theme(
-      panel.background = ggplot2::element_rect(fill = "transparent"),
-      plot.background = ggplot2::element_rect(fill = "transparent", color = NA),
-      axis.line = ggplot2::element_line("black", 1),
-      aspect.ratio = (10 / 12),
-      panel.grid = ggplot2::element_blank(),
-      plot.title = ggplot2::element_text(hjust = 0.5, size = 12, face = "bold"),
-      plot.subtitle = ggplot2::element_text(hjust = 0.5, size = 11, face = "italic"),
-      axis.text = ggplot2::element_text(size = 9),
-      axis.title = ggplot2::element_text(size = 10),
-      legend.title = ggplot2::element_text(size = 11),
-      legend.text = ggplot2::element_text(size = 9)
-    )
-
+      ggplot2::theme(
+        panel.background = ggplot2::element_rect(fill = "transparent"),
+        plot.background = ggplot2::element_rect(fill = "transparent", color = NA),
+        axis.line = ggplot2::element_line("black", 1),
+        aspect.ratio = (10 / 12),
+        panel.grid = ggplot2::element_blank(),
+        plot.title = ggplot2::element_text(hjust = 0.5, size = 12, face = "bold"),
+        plot.subtitle = ggplot2::element_text(hjust = 0.5, size = 11, face = "italic"),
+        axis.text = ggplot2::element_text(size = 9),
+        axis.title = ggplot2::element_text(size = 10),
+        legend.title = ggplot2::element_text(size = 11),
+        legend.text = ggplot2::element_text(size = 9)
+      )
+  }
   return(volcanoPlot)
 }

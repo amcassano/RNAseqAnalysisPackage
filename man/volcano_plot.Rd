@@ -13,7 +13,8 @@ volcano_plot(
   pval_cutoff = 0.01,
   dircolors = c("#a50000", "#00009c", "gray70"),
   dirshapes = c(19, 19, 19),
-  overlaps = 75
+  overlaps = 75,
+  boxlabels = FALSE
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ volcano_plot(
 \item{dirshapes}{list of numbers, shapes for points up, down, and insignificant, defaults to circles for all}
 
 \item{overlaps}{number, defaults to 75, for labels}
+
+\item{boxlabels}{boolean, defaults to FALSE, if true draws boxes arond labels}
 }
 \value{
 ggplot volcano plot

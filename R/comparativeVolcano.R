@@ -9,6 +9,7 @@
 #' @param dircolors list of 5 colors (strings) for both up, both down, up in 1 & down in 2, up in 2 & down in 1, and not changed
 #' @param dirshapes list of 5 shapes (numbers) for both up, both down, up in 1 & down in 2, up in 2 & down in 1, and not changed
 #' @param overlaps number, indicates max overlaps for the labeling
+#' @param boxlabels boolean, defaults to FALSE, if true draws boxes arond labels
 #'
 #' @return plot of log2 fold change vs log 2 fold change
 #' @export
@@ -18,7 +19,7 @@ comp_volcano <- function (deg_df1, deg_df2, plotTitle,
                           conditions = c("numerator1", "denominator1", "num2", "denom2"),
                           l2fc_cutoff = 0.8, pval_cutoff = 0.45,
                           dircolors = c("#a50000", "#00009c", "darkgreen", "purple4", "gray70"),
-                          dirshapes = c(24, 25, 23, 23, 21), overlaps = 50)
+                          dirshapes = c(24, 25, 23, 23, 21), overlaps = 50, boxlabels = FALSE)
 {
   #remove any data points with a Pvalue of NA or of greater than p val cutoff
   deg_df1 <- dplyr::filter(deg_df1, !is.na(Adj_P_Value), Adj_P_Value < pval_cutoff)
@@ -104,25 +105,49 @@ comp_volcano <- function (deg_df1, deg_df2, plotTitle,
                   x = paste("Log2 Fold Change ", cond1, sep = ""),
                   y = paste("Log2 Fold Change ", cond2, sep = "")) +
     ggplot2::geom_vline(xintercept = c(-1 * l2fc_cutoff,l2fc_cutoff), col = "gray85") +
-    ggplot2::geom_hline(yintercept = c(-1 * l2fc_cutoff,l2fc_cutoff), col = "gray85") +
-    ggrepel::geom_text_repel(min.segment.length = 0,
-                             size = 2.75,
-                             point.padding = 0.25,
-                             box.padding = 0.7,
-                             force = 1.35,
-                             force_pull = 1.2,
-                             max.overlaps = overlaps,
-                             show.legend = FALSE,
-                             na.rm =  TRUE,
-                             segment.size = 0.35) +
-    ggplot2::theme(panel.background = ggplot2::element_rect(fill = "transparent"),
-                   plot.background = ggplot2::element_rect(fill = "transparent", color = NA),
-                   axis.line = ggplot2::element_line("black", 1),
-                   aspect.ratio = (10/12), panel.grid = ggplot2::element_blank(),
-                   plot.title = ggplot2::element_text(hjust = 0.5, size = 12, face = "bold"),
-                   plot.subtitle = ggplot2::element_text(hjust = 0.5, size = 11, face = "italic"),
-                   axis.text = ggplot2::element_text(size = 9),
-                   axis.title = ggplot2::element_text(size = 10), legend.title = ggplot2::element_text(size = 11),
-                   legend.text = ggplot2::element_text(size = 9))
+    ggplot2::geom_hline(yintercept = c(-1 * l2fc_cutoff,l2fc_cutoff), col = "gray85")
+  if (boxlabels) {
+    comboPlot <- comboPlot + ggrepel::geom_label_repel(min.segment.length = 0,
+                                                       size = 2.75,
+                                                       point.padding = 0.25,
+                                                       box.padding = 0.7,
+                                                       label.padding = 0.3,
+                                                       force = 1.35,
+                                                       force_pull = 1.2,
+                                                       max.overlaps = overlaps,
+                                                       show.legend = FALSE,
+                                                       na.rm =  TRUE,
+                                                       segment.size = 0.35) +
+      ggplot2::theme(panel.background = ggplot2::element_rect(fill = "transparent"),
+                     plot.background = ggplot2::element_rect(fill = "transparent", color = NA),
+                     axis.line = ggplot2::element_line("black", 1),
+                     aspect.ratio = (10/12), panel.grid = ggplot2::element_blank(),
+                     plot.title = ggplot2::element_text(hjust = 0.5, size = 12, face = "bold"),
+                     plot.subtitle = ggplot2::element_text(hjust = 0.5, size = 11, face = "italic"),
+                     axis.text = ggplot2::element_text(size = 9),
+                     axis.title = ggplot2::element_text(size = 10), legend.title = ggplot2::element_text(size = 11),
+                     legend.text = ggplot2::element_text(size = 9))
+  }
+  else{
+    comboPlot <- comboPlot + ggrepel::geom_text_repel(min.segment.length = 0,
+                                                      size = 2.75,
+                                                      point.padding = 0.25,
+                                                      box.padding = 0.7,
+                                                      force = 1.35,
+                                                      force_pull = 1.2,
+                                                      max.overlaps = overlaps,
+                                                      show.legend = FALSE,
+                                                      na.rm =  TRUE,
+                                                      segment.size = 0.35) +
+      ggplot2::theme(panel.background = ggplot2::element_rect(fill = "transparent"),
+                     plot.background = ggplot2::element_rect(fill = "transparent", color = NA),
+                     axis.line = ggplot2::element_line("black", 1),
+                     aspect.ratio = (10/12), panel.grid = ggplot2::element_blank(),
+                     plot.title = ggplot2::element_text(hjust = 0.5, size = 12, face = "bold"),
+                     plot.subtitle = ggplot2::element_text(hjust = 0.5, size = 11, face = "italic"),
+                     axis.text = ggplot2::element_text(size = 9),
+                     axis.title = ggplot2::element_text(size = 10), legend.title = ggplot2::element_text(size = 11),
+                     legend.text = ggplot2::element_text(size = 9))
+  }
   return(comboPlot)
 }

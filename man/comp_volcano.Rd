@@ -13,7 +13,8 @@ comp_volcano(
   pval_cutoff = 0.45,
   dircolors = c("#a50000", "#00009c", "darkgreen", "purple4", "gray70"),
   dirshapes = c(24, 25, 23, 23, 21),
-  overlaps = 50
+  overlaps = 50,
+  boxlabels = FALSE
 )
 }
 \arguments{
@@ -34,6 +35,8 @@ comp_volcano(
 \item{dirshapes}{list of 5 shapes (numbers) for both up, both down, up in 1 & down in 2, up in 2 & down in 1, and not changed}
 
 \item{overlaps}{number, indicates max overlaps for the labeling}
+
+\item{boxlabels}{boolean, defaults to FALSE, if true draws boxes arond labels}
 }
 \value{
 plot of log2 fold change vs log 2 fold change
