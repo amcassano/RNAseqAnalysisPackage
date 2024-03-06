@@ -54,7 +54,15 @@ comp_volcano <- function (deg_df1, deg_df2, plotTitle,
     twoUpOnly <- paste("Up in ", conditions[3], " & down in ", conditions[1], " (vs. ", conditions[2], ")", sep = "")
     bothDown <- paste("Down in both ", conditions[1], " & ", conditions[3], " (vs. ", conditions[2], ")", sep = "")
     notsig <- paste("Not up or down in either ", conditions[1], " or ", conditions[3], " (vs. ", conditions[2], ")", sep = "")
-    full_title <- paste(conditions[1], "and", conditions[3], "vs", conditions[2])
+    full_title <- paste(conditions[1], "and", conditions[3], "vs.", conditions[2])
+  }
+  else if (conditions[1] == conditions[3]){
+    bothUp <- paste("Up in ", conditions[1], " vs. both ", conditions[2], " and ", conditions[4] sep = "")
+    oneUpOnly <- paste("Up in ", conditions[1], "vs. ", conditions[2], " & down vs. ", conditions[4], sep = "")
+    twoUpOnly <- paste("Up in ", conditions[1], "vs. ", conditions[4], " & down vs. ", conditions[2], sep = "")
+    bothDown <- paste("Down in ", conditions[1], " vs. both ", conditions[2], " and ", conditions[4] sep = "")
+    notsig <- paste("Not up or down in either ", conditions[1], " vs. ", conditions[2], " or ", conditions[4], sep = "")
+    full_title <- paste(conditions[1], "vs.", conditions[2], "and", conditions[4])
   }
   else{
     bothUp <- paste("Up in both", cond1, "&", cond2, sep = " ")
