@@ -108,10 +108,10 @@ comp_volcano <- function (deg_df1, deg_df2, plotTitle,
     ggplot2::geom_hline(yintercept = c(-1 * l2fc_cutoff,l2fc_cutoff), col = "gray85")
   if (boxlabels) {
     comboPlot <- comboPlot + ggrepel::geom_label_repel(min.segment.length = 0,
-                                                       size = 2.75,
-                                                       point.padding = 0.25,
-                                                       box.padding = 0.7,
-                                                       label.padding = 0.3,
+                                                       size = 2.5,
+                                                       point.padding = 0.15,
+                                                       box.padding = 0.45,
+                                                       label.padding = 0.15,
                                                        fill = "white",
                                                        force = 1.35,
                                                        force_pull = 1.2,
@@ -131,7 +131,7 @@ comp_volcano <- function (deg_df1, deg_df2, plotTitle,
   }
   else{
     comboPlot <- comboPlot + ggrepel::geom_text_repel(min.segment.length = 0,
-                                                      size = 2.75,
+                                                      size = 2.5,
                                                       point.padding = 0.25,
                                                       box.padding = 0.7,
                                                       force = 1.35,
