@@ -71,7 +71,7 @@ volcano_plot <- function(deg_df, plotTitle, cond1, cond2, l2fc_cutoff = 1, pval_
 
   if(boxlabels){
     volcanoPlot <- volcanoPlot + ggrepel::geom_label_repel(
-      min.segment.length = 0.25, size = 2.25, point.padding = 0.25, box.padding = 0.55, label.padding = 0.25, color = "white",
+      min.segment.length = 0.25, size = 2.25, point.padding = 0.25, box.padding = 0.55, label.padding = 0.25, fill = "white",
       max.overlaps = overlaps, show.legend = FALSE, na.rm = TRUE, segment.size = 0.35, force = 2, force_pull = 1.25
     ) +
       ggplot2::theme(
