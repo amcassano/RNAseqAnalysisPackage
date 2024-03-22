@@ -110,7 +110,6 @@ pca_analysis <-
       global_theme()
 
     if(label_samples){
-      labelsFunc <- function(...) ggprepel::geom_text_repel(...)
       pca_plot <-
         pca_plot +
         ggrepel::geom_text_repel(
