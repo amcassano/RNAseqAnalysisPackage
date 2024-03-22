@@ -24,6 +24,7 @@
 #' @param circle_transparency alpha for either ellipse or polygon
 #' @param circle_border_width border width for either ellipse or polygon
 #' @param ellipse_type for the ellipse either "t" or "norm"
+#' @param pcs a list of 2 strings that are the principal components to use (c("PC1", "PC2"))
 #'
 #' @return PCA plot
 #' @export

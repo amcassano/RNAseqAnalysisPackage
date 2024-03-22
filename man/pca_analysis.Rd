@@ -74,6 +74,8 @@ pca_analysis(
 \item{circle_border_width}{border width for either ellipse or polygon}
 
 \item{ellipse_type}{for the ellipse either "t" or "norm"}
+
+\item{pcs}{a list of 2 strings that are the principal components to use (c("PC1", "PC2"))}
 }
 \value{
 PCA plot

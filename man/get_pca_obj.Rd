@@ -11,13 +11,13 @@ get_pca_obj(norm_df, metadat, varianceRemove = 0.05)
 
 \item{metadat}{metadata dataframe}
 
-\item{varianceRemove}{Remove this % of variables based on low variance.}
+\item{varianceRemove}{Remove this percentage of variables based on low variance.}
 }
 \value{
 pca_obj
 }
 \description{
-Get PCA object
+Creates the PCA object that is used in the PCA plot as well as other things like the Screeplot
 }
 \examples{
 get_pca_obj(rlog_df, meta, 0.01)

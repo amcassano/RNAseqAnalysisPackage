@@ -1,8 +1,10 @@
 #' Get PCA object
 #'
+#' Creates the PCA object that is used in the PCA plot as well as other things like the Screeplot
+#'
 #' @param norm_df dataframe of normalized counts (rlog df)
 #' @param metadat metadata dataframe
-#' @param varianceRemove 	Remove this % of variables based on low variance.
+#' @param varianceRemove 	Remove this percentage of variables based on low variance.
 #'
 #' @return pca_obj
 #' @export
