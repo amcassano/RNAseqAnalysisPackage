@@ -5,20 +5,75 @@
 \title{PCA Analysis}
 \usage{
 pca_analysis(
-  dseq_transform,
+  norm_df,
   plot_aes,
+  metadat,
+  varianceRemove = 0.05,
   plot_title = "Principal Component Analysis",
-  label_samples = FALSE
+  plot_subtitle = NULL,
+  plot_caption = NULL,
+  draw_polygon = FALSE,
+  draw_ellipses = TRUE,
+  label_samples = FALSE,
+  point_size = 4,
+  point_stroke = 2.5,
+  label_segment_size = 0.35,
+  label_size = 3.5,
+  label_point_padding = 0.25,
+  label_box_padding = 0.75,
+  label_force_pull = 1.2,
+  label_force_push = 1.35,
+  max_overlaps = 30,
+  circle_transparency = 4/15,
+  circle_border_width = 3,
+  ellipse_type = "t",
+  pcs = c("PC1", "PC2")
 )
 }
 \arguments{
-\item{dseq_transform}{DESeqTransform object}
+\item{norm_df}{data frame with the dseq_transform results (i.e. rlog_df)}
 
 \item{plot_aes}{dataframe, containing labels, colors, shapes, and fills for the data points being plotted}
 
+\item{metadat}{metadata dataframe}
+
+\item{varianceRemove}{defaults to 0.05 number that corresponds to the percent}
+
 \item{plot_title}{string, defaults to "Principal Component Analysis"}
 
+\item{plot_subtitle}{subtitle for plot, defaults to null}
+
+\item{plot_caption}{plot caption, defaults to null}
+
+\item{draw_polygon}{boolean; should the groups be circled}
+
+\item{draw_ellipses}{boolean; should stat ellipses be drawn}
+
 \item{label_samples}{boolean, if true, labels for each sample will be added, defaults to FALSE}
+
+\item{point_size}{size of points}
+
+\item{point_stroke}{stroke thickness of points}
+
+\item{label_segment_size}{width of lines connecting dots and labeles}
+
+\item{label_size}{size of the labels}
+
+\item{label_point_padding}{point padding for geom-repel}
+
+\item{label_box_padding}{box padding for geom repel}
+
+\item{label_force_pull}{for geom repel}
+
+\item{label_force_push}{for geom repel}
+
+\item{max_overlaps}{for label overlaps}
+
+\item{circle_transparency}{alpha for either ellipse or polygon}
+
+\item{circle_border_width}{border width for either ellipse or polygon}
+
+\item{ellipse_type}{for the ellipse either "t" or "norm"}
 }
 \value{
 PCA plot
@@ -27,5 +82,5 @@ PCA plot
 Illustrate PCA plot to show sample relationships
 }
 \examples{
-pca_analysis(rlognorm, aesthetics)
+pca_analysis(rlog_df, plot_aes, meta)
 }
