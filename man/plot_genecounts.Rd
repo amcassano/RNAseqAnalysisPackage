@@ -15,7 +15,8 @@ plot_genecounts(
   yaxistozero = FALSE,
   kw_hjust = 0.2,
   kw_vjust = 1,
-  yaxis = "rLog Normalized Reads"
+  yaxis = "rLog Normalized Reads",
+  pval_format = "p.format"
 )
 }
 \arguments{
@@ -40,6 +41,8 @@ plot_genecounts(
 \item{kw_vjust}{integer, dictates the vertical position of the kruskal wallis value}
 
 \item{yaxis}{string, label for the Y axis}
+
+\item{pval_format}{string, one of "p.signif" or "p.format"}
 }
 \value{
 plot of normalized gene counts
