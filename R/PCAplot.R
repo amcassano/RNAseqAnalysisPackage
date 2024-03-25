@@ -95,7 +95,7 @@ pca_analysis <-
     plot_obj$Group <- pca_obj$metadata[, "Group"]
 
     pca_plot <-
-      ggplot2::ggpplot(plot_obj, ggplot2::aes(x = x, y = y, color = Group, shape = Group, fill = Group)) +
+      ggplot2::ggplot(plot_obj, ggplot2::aes(x = x, y = y, color = Group, shape = Group, fill = Group)) +
       ggplot2::geom_point(size = point_size, stroke = point_stroke) +
       ggplot2::scale_color_manual(labels = labs, values = outlines,name = "Group: ") +
       ggplot2::scale_fill_manual(labels = labs, values = fills, name = "Group: ") +
