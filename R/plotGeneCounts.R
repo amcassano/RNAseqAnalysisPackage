@@ -11,6 +11,7 @@
 #' @param yaxis string, label for the Y axis
 #' @param metadat dataframe, meta data
 #' @param plot_aes dataframe, containing labels, colors, shapes, and fills for the data points being plotted
+#' @param pval_format string, one of "p.signif" or "p.format"
 #'
 #' @return plot of normalized gene counts
 #' @export
@@ -20,8 +21,7 @@
 #'
 plot_genecounts <- function(mgi, norm_df, metadat, plot_aes, comparisons = list(),
                             label_samples = FALSE, overlaps_allowed = 10, yaxistozero = FALSE, kw_hjust = 0.2, kw_vjust = 1,
-                            yaxis = "rLog Normalized Reads"){
-
+                            yaxis = "rLog Normalized Reads", pval_format = "p.format") {
   norm_plotdata <- data.frame(t(norm_df[norm_df$MGI_Symbol == as.character(mgi), ]))
   norm_plotdata <- dplyr::select(norm_plotdata, dplyr::contains("ENS"))
   BiocGenerics::colnames(norm_plotdata) <- NULL
@@ -52,24 +52,29 @@ plot_genecounts <- function(mgi, norm_df, metadat, plot_aes, comparisons = list(
       ggplot2::geom_point(size = 3.5, stroke = 2) +
       ggplot2::theme(axis.text.x = ggplot2::element_blank(), axis.ticks.x = ggplot2::element_blank()) +
       add_labels(norm_plotdata, overlaps_allowed)
-  }
-  else {
+  } else {
     countPlot <- countPlot +
       global_theme() +
       ggplot2::geom_jitter(size = 3.5, width = 0.1, height = 0, stroke = 2) +
-      ggplot2::theme(axis.text.x = ggplot2::element_blank(), axis.ticks.x = ggplot2::element_blank(),
-                     panel.grid.major.y = ggplot2::element_line(color = "gray95", size = 0.25, linetype = 2),
-                     panel.grid.minor.y = ggplot2::element_line(color = "gray95", size = 0.25,linetype = 2))
+      ggplot2::theme(
+        axis.text.x = ggplot2::element_blank(), axis.ticks.x = ggplot2::element_blank(),
+        panel.grid.major.y = ggplot2::element_line(color = "gray95", size = 0.25, linetype = 2),
+        panel.grid.minor.y = ggplot2::element_line(color = "gray95", size = 0.25, linetype = 2)
+      )
   }
 
   # edit y axis
-  if (yaxistozero) {countPlot <- countPlot + ggplot2::expand_limits(y = 0)}
-  else if ((yaxismin - 5) < 0) {countPlot <- countPlot + ggplot2::expand_limits(y = c(0, yaxismax + 3))}
-  else {countPlot <- countPlot + ggplot2::expand_limits(y = c(yaxismin - 5, yaxismax + 3))}
+  if (yaxistozero) {
+    countPlot <- countPlot + ggplot2::expand_limits(y = 0)
+  } else if ((yaxismin - 5) < 0) {
+    countPlot <- countPlot + ggplot2::expand_limits(y = c(0, yaxismax + 3))
+  } else {
+    countPlot <- countPlot + ggplot2::expand_limits(y = c(yaxismin - 5, yaxismax + 3))
+  }
 
   # add comparison stats
   countPlot <- countPlot +
-    ggpubr::stat_compare_means(comparisons = comparisons, label.y.npc = "bottom", vjust = 0.5, label = "p.signif",  size = 5.5, step.increase = 0.04) +
+    ggpubr::stat_compare_means(comparisons = comparisons, label.y.npc = "bottom", vjust = 0.5, label = pval_format, size = 5.5, step.increase = 0.04) +
     ggpubr::stat_compare_means(label.y.npc = "bottom", show.legend = FALSE, size = 3.2, vjust = kw_vjust, hjust = kw_hjust)
 
   return(countPlot)
