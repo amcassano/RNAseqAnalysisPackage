@@ -34,5 +34,6 @@ pairwiseDEGresults <-
         # res <- stats::na.omit(res)
       }
     }
+    res <- dplyr::filter(res, !is.na(pvalue), !is.na(padj))
     return(res)
   }
