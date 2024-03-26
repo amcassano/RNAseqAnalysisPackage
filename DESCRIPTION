@@ -30,6 +30,7 @@ Imports:
     org.Mm.eg.db,
     paletteer,
     PCAtools,
+    PERMANOVA,
     pheatmap,
     purrr,
     RColorBrewer,
