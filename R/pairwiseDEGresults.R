@@ -25,13 +25,11 @@ pairwiseDEGresults <-
       if (tidy_result) {
         res <- BiocGenerics::as.data.frame(res)
         res <- tibble::rownames_to_column(res, var = "GeneID")
-        # res <- stats::na.omit(res)
       }
     } else {
       res <- DESeq2::results(deseq_obj, con, tidy = tidy_result)
       if (tidy_result) {
         res <- dplyr::rename(res, "GeneID" = "row")
-        # res <- stats::na.omit(res)
       }
     }
     res <- dplyr::filter(res, !is.na(pvalue), !is.na(padj))

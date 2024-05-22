@@ -6,20 +6,19 @@
 \usage{
 createGenemap(
   allcounts,
+  GMattributes = c("ensembl_gene_id", "mgi_symbol", "mgi_description"),
   bio_mart = "ensembl",
-  map_genome = "mmusculus_gene_ensembl",
-  GMattributes = c("ensembl_gene_id", "mgi_symbol", "mgi_description", "entrezgene_id",
-    "gene_biotype")
+  map_genome = "mmusculus_gene_ensembl"
 )
 }
 \arguments{
 \item{allcounts}{data frame that at a minimum includes ensembl Gene ID for all of the genes in the data set in a column called GeneID}
 
+\item{GMattributes}{list of strings, attributes to include in genemap, defaults to ensmbl ID, mgi symbol, mgi description and gene biotype}
+
 \item{bio_mart, }{string, defaults to ensembl, dictates what is used to build the genemap}
 
 \item{map_genome}{string, defaults to "mmusculus_gene_ensembl", dictates which genome to use to build the gene map}
-
-\item{GMattributes}{list of strings, attributes to include in genemap, defaults to ensmbl ID, mgi symbol, mgi description and gene biotype}
 }
 \value{
 dataframe containing all ensmbl IDs and corresponding MGI symbols and descriptions and gene biotypes

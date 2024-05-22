@@ -23,7 +23,7 @@
 #' @examples
 #' signif_deg(anno_tolvsnaive)
 #' signif_deg(anno_rejvstol, padj_cutoff = 0.01, l2fc_cutoff = 0.5)
-signif_deg <- function(result, padj_cutoff = 0.05, l2fc_cutoff = 0.8, entrezid = TRUE) {
+signif_deg <- function(result, padj_cutoff = 0.05, l2fc_cutoff = 0.8, entrezid = FALSE) {
   ranked <- tibble::rownames_to_column(result, "GeneID")
 
   # create new df, removing any samples with NA as the value for FC or Pvals

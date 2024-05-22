@@ -14,8 +14,11 @@
 #' createGenemap(allcounts = allgenes)
 #' createGenemap(allgenes, GMattributes = c("ensembl_gene_id", "mgi_symbol"))
 #'
-createGenemap <- function(allcounts, bio_mart = "ensembl", map_genome = "mmusculus_gene_ensembl",
-                          GMattributes = c("ensembl_gene_id", "mgi_symbol", "mgi_description", "entrezgene_id", "gene_biotype")) {
+createGenemap <- function(allcounts,
+                          GMattributes = c("ensembl_gene_id", "mgi_symbol", "mgi_description"),
+                          bio_mart = "ensembl",
+                          map_genome = "mmusculus_gene_ensembl"
+                          ) {
   # get list of all gene ids from the list of all counts
   all_genes <- as.data.frame(allcounts$GeneID)
 

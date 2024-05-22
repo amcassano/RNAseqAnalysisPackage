@@ -4,7 +4,7 @@
 \alias{signif_deg}
 \title{Filter and Rank Significant Differentially Expressed Genes}
 \usage{
-signif_deg(result, padj_cutoff = 0.05, l2fc_cutoff = 0.8, entrezid = TRUE)
+signif_deg(result, padj_cutoff = 0.05, l2fc_cutoff = 0.8, entrezid = FALSE)
 }
 \arguments{
 \item{result}{dataframe contains \itemize{
