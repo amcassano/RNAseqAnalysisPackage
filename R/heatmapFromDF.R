@@ -11,6 +11,7 @@
 #' @param colorscale list of 3 colors sets the color scale, defaults to red (hi) white blue (low)
 #' @param scaling boolean, defaults to TRUE - if rows should be scaled or not
 #' @param displNumbers boolean, defaults to FALSE - if the value of each cell should be displayed within
+#' @param savetofile filepath where to save plot Filetype decided by extension. png, pdf, tiff, bmp, jpeg
 #'
 #' @return heatmap plot
 #' @export
@@ -30,7 +31,8 @@ heatmapFromDF <- function(plottitle,
                           height = 10,
                           colorscale = c("blue4", "white", "red3"),
                           scaling = TRUE,
-                          displNumbers = FALSE) {
+                          displNumbers = FALSE,
+                          savetofile = NA) {
     # create data frame for heatmap that combines the genes to plot and counts
     heatmap_data <- dplyr::select(counts_df, -MGI_Desc)
     heatmap_data <- dplyr::filter(heatmap_data, MGI_Symbol %in% genelist$MGI_Symbol)
@@ -46,6 +48,7 @@ heatmapFromDF <- function(plottitle,
         height = height,
         colorscale = colorscale,
         displNumbers = displNumbers,
-        scaling = scaling
+        scaling = scaling,
+        savetofile = savetofile
     )
 }

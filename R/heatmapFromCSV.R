@@ -10,7 +10,8 @@
 #' @param annocolors list of strings, list of colors for use in labeling
 #' @param colorscale list of 3 colors sets the color scale, defaults to red (hi) white blue (low)
 #' @param scaling boolean, defaults to TRUE - if rows should be scaled or not
-#' @param displNumbers boolean, defaults to FALSE - if the value of each cell should be displayed within
+#' @param displNumbers boolean, defaults to FALSE - if the value of each cell should be displayed within#'
+#' @param savetofile filepath where to save plot Filetype decided by extension. png, pdf, tiff, bmp, jpeg.
 #'
 #' @return heatmap plot
 #' @export
@@ -27,7 +28,8 @@ heatmapFromCSV <- function(plottitle,
                            height = 10,
                            colorscale = c("blue4", "white", "red3"),
                            scaling = TRUE,
-                           displNumbers = FALSE) {
+                           displNumbers = FALSE,
+                           savetofile = NA) {
     # read in the list of genes to include in the heatmap
     genelist <- utils::read.csv(fname, header = FALSE)
     colnames(genelist) <- "MGI_Symbol"
@@ -48,6 +50,7 @@ heatmapFromCSV <- function(plottitle,
         height = height,
         colorscale = colorscale,
         scaling = scaling,
-        displNumbers = displNumbers
+        displNumbers = displNumbers,
+        savetofile = savetofile
     )
 }

@@ -10,6 +10,7 @@
 #' @param colorscale list of 3 colors sets the color scale
 #' @param scaling boolean, defaults to TRUE - if rows should be scaled or not
 #' @param displNumbers boolean, defaults to FALSE - if the value of each cell should be displayed within
+#' @param savetofile filepath where to save plot Filetype decided by extension. png, pdf, tiff, bmp, jpeg.
 #'
 #' @return pheatmap plot
 #' @export
@@ -25,7 +26,8 @@ create_heatmap <- function(title,
                            height = 10,
                            colorscale,
                            scaling = TRUE,
-                           displNumbers = FALSE) {
+                           displNumbers = FALSE,
+                           savetofile = NA) {
   if (length(genes_and_counts) == 0) {
     return("No genes match")
   } else {
@@ -39,7 +41,7 @@ create_heatmap <- function(title,
           scale = "row", labels_row = genes_and_counts[, 2], labels_col = c(rep("", ncol(genes_and_counts))),
           fontsize = height + 1.5, fontsize_row = height + 0.25, fontsize_col = 10,
           cellheight = height, cellwidth = height + 2,
-          main = title, border_color = NA, annotation_legend = TRUE, display_numbers = displNumbers
+          main = title, border_color = NA, annotation_legend = TRUE, display_numbers = displNumbers, filename = savetofile
         )
       return(heatmap)
     } else {
@@ -52,7 +54,7 @@ create_heatmap <- function(title,
           labels_row = genes_and_counts[, 2], labels_col = c(rep("", ncol(genes_and_counts))),
           fontsize = height + 1.5, fontsize_row = height + 0.25, fontsize_col = 10,
           cellheight = height, cellwidth = height + 2,
-          main = title, border_color = NA, annotation_legend = TRUE, display_numbers = displNumbers
+          main = title, border_color = NA, annotation_legend = TRUE, display_numbers = displNumbers, filename = savetofile
         )
       return(heatmap)
     }

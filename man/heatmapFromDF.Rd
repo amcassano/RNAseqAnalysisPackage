@@ -15,7 +15,8 @@ heatmapFromDF(
   height = 10,
   colorscale = c("blue4", "white", "red3"),
   scaling = TRUE,
-  displNumbers = FALSE
+  displNumbers = FALSE,
+  savetofile = NA
 )
 }
 \arguments{
@@ -40,6 +41,8 @@ heatmapFromDF(
 \item{scaling}{boolean, defaults to TRUE - if rows should be scaled or not}
 
 \item{displNumbers}{boolean, defaults to FALSE - if the value of each cell should be displayed within}
+
+\item{savetofile}{filepath where to save plot Filetype decided by extension. png, pdf, tiff, bmp, jpeg}
 }
 \value{
 heatmap plot
