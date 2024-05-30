@@ -4,7 +4,7 @@
 \alias{get_pca_obj}
 \title{Get PCA object}
 \usage{
-get_pca_obj(norm_df, metadat, varianceRemove = 0.05)
+get_pca_obj(norm_df, metadat, varianceRemove = 0.9)
 }
 \arguments{
 \item{norm_df}{dataframe of normalized counts (rlog df)}
@@ -20,5 +20,5 @@ pca_obj
 Creates the PCA object that is used in the PCA plot as well as other things like the Screeplot
 }
 \examples{
-get_pca_obj(rlog_df, meta, 0.01)
+get_pca_obj(rlog_df, meta, 0.1)
 }

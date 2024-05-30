@@ -10,11 +10,11 @@
 #' @export
 #'
 #' @examples
-#' get_pca_obj(rlog_df, meta, 0.01)
+#' get_pca_obj(rlog_df, meta, 0.1)
 get_pca_obj <- function(
   norm_df,
   metadat,
-  varianceRemove = 0.5){
+  varianceRemove = 0.9){
   #fix up norm_df for the PCA function
   pca_input <- dplyr::select(norm_df, -c(MGI_Desc))
   pca_input <- tibble::remove_rownames(pca_input)

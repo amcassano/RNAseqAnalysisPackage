@@ -7,7 +7,7 @@
 #' @param label_samples boolean, if true, labels for each sample will be added, defaults to FALSE
 #' @param plot_aes dataframe, containing labels, colors, shapes, and fills for the data points being plotted
 #' @param metadat metadata dataframe
-#' @param varianceRemove defaults to 0.5 number that corresponds to the percent
+#' @param varianceRemove defaults to 0.9 number that corresponds to the percent
 #' @param plot_subtitle subtitle for plot, defaults to null
 #' @param plot_caption plot caption, defaults to null
 #' @param draw_polygon boolean; should the groups be circled
@@ -35,7 +35,7 @@ pca_analysis <-
   function(norm_df,
            plot_aes,
            metadat,
-           varianceRemove = 0.5,
+           varianceRemove = 0.9,
            plot_title = "Principal Component Analysis",
            plot_subtitle = NULL,
            plot_caption = NULL,

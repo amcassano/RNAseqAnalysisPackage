@@ -8,7 +8,7 @@ pca_analysis(
   norm_df,
   plot_aes,
   metadat,
-  varianceRemove = 0.05,
+  varianceRemove = 0.9,
   plot_title = "Principal Component Analysis",
   plot_subtitle = NULL,
   plot_caption = NULL,
@@ -37,7 +37,7 @@ pca_analysis(
 
 \item{metadat}{metadata dataframe}
 
-\item{varianceRemove}{defaults to 0.05 number that corresponds to the percent}
+\item{varianceRemove}{defaults to 0.9 number that corresponds to the percent}
 
 \item{plot_title}{string, defaults to "Principal Component Analysis"}
 
