@@ -1,9 +1,23 @@
-revigoPlots <- function(gsea_results,
+#' Revigo Plots
+#' Creates a revigo plot
+#'
+#' @param gsea_obj gsea object
+#' @param ontol string, one of "BP", "MF", or "CC" - which ontology to use
+#' @param plotkind string, one of "tree", "scatter", and "heat"; dictates plot type
+#' @param scoretype string, one of "pvalue", "qvalue", "nes"; what is used for calculating the score for grouping/coloring blocks
+#' @param plttitle string; plot title
+#' @param sim_threshold number, similarity threshold Some guidance: Large (allowed similarity=0.9), Medium (0.7), Small (0.5), Tiny (0.4) Defaults to Medium (0.7)
+#'
+#' @return plot
+#' @export
+#'
+#' @examples
+#' revigoPlot(gseTolvsRej, "BP", "tree", "pvalue")
+revigoPlot <- function(gsea_obj,
                         ontol = c("BP", "MF", "CC"),
                         plotkind = c("tree", "scatter", "heat"),
                         scoretype = c("pvalue", "qvalue", "nes"),
                         plttitle = "",
-                        algo = "Resnik",
                         sim_threshold = 0.7){
 
   res <- gseaObj@result
@@ -14,7 +28,7 @@ revigoPlots <- function(gsea_results,
     x = res$ID,
     orgdb = "org.Mm.eg.db",
     ont = ontol,
-    method = algo
+    method = "Resnik"
   )
 
   # set the score for each pathway using either normalized enrichment score, or normalized p or q values
