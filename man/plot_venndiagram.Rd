@@ -4,7 +4,13 @@
 \alias{plot_venndiagram}
 \title{Plot Venn Diagram}
 \usage{
-plot_venndiagram(degs_list, plt_title = "", edgecolor = c("#000000"))
+plot_venndiagram(
+  degs_list,
+  plt_title = "",
+  edgecolor = c("#000000"),
+  showintersects = FALSE,
+  colorscale = c("#FFFFFF", "#8c9fbf")
+)
 }
 \arguments{
 \item{degs_list}{list of named lists, lists of MGI symbols from significant DEGs of pairwise comparisons, should be named with the label}
@@ -12,6 +18,10 @@ plot_venndiagram(degs_list, plt_title = "", edgecolor = c("#000000"))
 \item{plt_title}{string, name of the plot}
 
 \item{edgecolor}{list of strings, colors for the circles of the venn diagram, should be in the same order as the lists}
+
+\item{showintersects}{boolean, if true the plot will be interactive and will show the genes in the intersects}
+
+\item{colorscale}{list of two string colors}
 }
 \value{
 ggplot venn diagram
@@ -22,6 +32,9 @@ Can be any number of lists but for best Venn Diagram
 }
 \examples{
 plot_venndiagram(list("Treg" = ranked_TregNaive$MGI_Symbol, "Tol" = ranked_TolNaive$MGI_Symbol))
-
+plot_venndiagram(list("Treg" = ranked_TregNaive$MGI_Symbol, "Tol" = ranked_TolNaive$MGI_Symbol, "Rej" = ranked_RejNaive$MGI_Symbol),
+ edgecolor = c("#ffe280", "#000000", "#b0001b"),
+ show intersects = TRUE,
+ colorscale = c("#fde9ec", "#540f0f"))
 
 }
