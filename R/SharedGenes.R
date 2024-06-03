@@ -10,17 +10,19 @@
 #' @export
 #'
 #' @examples
-#' get_shared_genes(c(".tol", ".rej"), naive_vs_tol, naive_vs_rej)
+#' get_shared_genes(c(".tol", ".rej"), ranked_NaiveTol, ranked_NaiveRej)
 #' get_shared_genes(c(".tol", ".rej", ".ex-tol"), naive_vs_tol, naive_vs_rej, naive_vs_extol)
 #' get_shared_genes(c(".tol", ".rej"), naive_vs_tol, naive_vs_rej, samedir = FALSE)
 get_shared_genes <- function(suffix_list, dataframe1, dataframe2, ..., samedir = TRUE) {
   # set up the intial variables for the interior loop
   dfsToAdd <- list(...)
+  dataframe2 <- list(dataframe2)
   dfsToAdd <- c(dataframe2, dfsToAdd)
   dfsLeft <- length(dfsToAdd)
+  totaldfs <- length(dfsToAdd)
 
   #interior loop to iterate through all of the data frames and find significantly changed shared genes
-  interiorLoop <- function(total_dfs, remaining_dfs, dfs_to_add, suffixes = suffix_list, shared = dataframe1) {
+  interiorLoop <- function(total_dfs, remaining_dfs, dfs_to_add, suffixes, shared) {
     di <- total_dfs - remaining_dfs + 1
     si <- di + 1
     suffix1 <- suffixes[1]
@@ -95,6 +97,10 @@ get_shared_genes <- function(suffix_list, dataframe1, dataframe2, ..., samedir =
     }
   }
 
-  sharedgenes <- interiorLoop(dfsLeft, dfsLeft, dfsToAdd, suffix_list)
+  sharedgenes <- interiorLoop(total_dfs = totaldfs,
+                              remaining_dfs = dfsLeft,
+                              dfs_to_add = dfsToAdd,
+                              suffixes = suffix_list,
+                              shared = dataframe1)
   return(sharedgenes)
 }
