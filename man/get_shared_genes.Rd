@@ -24,7 +24,7 @@ data frame, contains all the genes significantly up/down across given data frame
 Get Shared Genes
 }
 \examples{
-get_shared_genes(c(".tol", ".rej"), naive_vs_tol, naive_vs_rej)
-get_shared_genes(c(".tol", ".rej", ".ex-tol"), naive_vs_tol, naive_vs_rej, naive_vs_extol)
-get_shared_genes(c(".tol", ".rej"), naive_vs_tol, naive_vs_rej, samedir = FALSE)
+get_shared_genes(c(".tol", ".rej"), ranked_NaiveTol, ranked_NaiveRej)
+get_shared_genes(c(".tol", ".rej", ".ex-tol"), ranked_NaiveTol, ranked_NaiveRej, ranked_NaiveExTol)
+get_shared_genes(c(".tol", ".rej"), ranked_TolvsNaive, ranked_RejvsNaive, samedir = FALSE)
 }
