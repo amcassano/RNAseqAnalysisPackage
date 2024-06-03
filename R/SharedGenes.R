@@ -11,8 +11,8 @@
 #'
 #' @examples
 #' get_shared_genes(c(".tol", ".rej"), ranked_NaiveTol, ranked_NaiveRej)
-#' get_shared_genes(c(".tol", ".rej", ".ex-tol"), naive_vs_tol, naive_vs_rej, naive_vs_extol)
-#' get_shared_genes(c(".tol", ".rej"), naive_vs_tol, naive_vs_rej, samedir = FALSE)
+#' get_shared_genes(c(".tol", ".rej", ".ex-tol"), ranked_NaiveTol, ranked_NaiveRej, ranked_NaiveExTol)
+#' get_shared_genes(c(".tol", ".rej"), ranked_TolvsNaive, ranked_RejvsNaive, samedir = FALSE)
 get_shared_genes <- function(suffix_list, dataframe1, dataframe2, ..., samedir = TRUE) {
   # set up the intial variables for the interior loop
   dfsToAdd <- list(...)
