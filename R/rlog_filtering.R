@@ -26,7 +26,7 @@ rlog_filtering <- function(p_thresh, fc_thresh, rlogdf, ...){
     mgis <- dplyr::select(temp_df, MGI_Symbol)
     if (comps_left == 1) {
       genelist_temp <- dplyr::bind_rows(mgis, genelist_temp)
-      genelist_temp <- dplyr::distinct(genelist_temp, genelist_temp$MGI_Symbol, .keep_all = TRUE)
+      genelist_temp <- dplyr::distinct(genelist_temp, MGI_Symbol, .keep_all = TRUE)
       return(genelist_temp)
     }
     else if (comps_left == total_comps) {
@@ -36,7 +36,7 @@ rlog_filtering <- function(p_thresh, fc_thresh, rlogdf, ...){
     }
     else{
       genelist_temp <- dplyr::bind_rows(mgis, genelist_temp)
-      genelist_temp <- dplyr::distinct(genelist_temp, genelist_temp$MGI_Symbol, .keep_all = TRUE)
+      genelist_temp <- dplyr::distinct(genelist_temp, MGI_Symbol, .keep_all = TRUE)
       comps_left <- comps_left - 1
       interior_loop(total_comps, comps_left, comp_list, genelist_temp)
     }
