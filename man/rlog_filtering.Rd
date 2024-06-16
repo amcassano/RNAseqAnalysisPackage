@@ -2,10 +2,7 @@
 % Please edit documentation in R/rlog_filtering.R
 \name{rlog_filtering}
 \alias{rlog_filtering}
-\title{Filter rLog DataFrame
-This function will filter out genes that are not significantly different in any of the pairwise comparisons of interest.
-This chunk will create a filtered dataframe only containing genes that reach significance in your specified pairwise comparisons.
-This is helpful for removing genes that are not relevant to your conditions to minimize distracting noise.}
+\title{Filter rLog DataFrame}
 \usage{
 rlog_filtering(p_thresh, fc_thresh, rlogdf, ...)
 }
@@ -22,7 +19,6 @@ rlog_filtering(p_thresh, fc_thresh, rlogdf, ...)
 dataframe of rlog counts, filtered
 }
 \description{
-Filter rLog DataFrame
 This function will filter out genes that are not significantly different in any of the pairwise comparisons of interest.
 This chunk will create a filtered dataframe only containing genes that reach significance in your specified pairwise comparisons.
 This is helpful for removing genes that are not relevant to your conditions to minimize distracting noise.
