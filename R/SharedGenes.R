@@ -5,13 +5,13 @@
 #' @param dataframe2 data frame, contains at least MGI symbol and description, log 2 fold change, adjusted p value, and change direction
 #' @param ... data frames, contains at least MGI symbol and description, log 2 fold change, adjusted p value, and change direction
 #'
-#' @return data frame, contains all the genes significantly up/down in the same direction across given data frames including fc, p val,
+#' @return data frame, contains all the genes significantly up/down in the same direction across given data frames including fc, p val
 #' @export
 #'
 #' @examples
 #' get_shared_genes(c(".naive_tol", ".naive_rej"), sig_NaiveTol, sig_NaiveRej)
 #' get_shared_genes(c(".naive_tol", ".naive_rej", ".naive_ex-tol"), sig_NaiveTol, sig_NaiveRej, sig_NaiveExTol)
-#' get_shared_genes(c(".naive_tol", ".naive_rej", ".naive_ex-tol", ".naive_memory), sig_NaiveTol, sig_NaiveRej, sig_NaiveExTol, sig_NaiveMemory)
+#' get_shared_genes(c(".naive_tol", ".naive_rej", ".naive_ex-tol", ".naive_memory"), sig_NaiveTol, sig_NaiveRej, sig_NaiveExTol, sig_NaiveMemory)
 get_shared_genes <- function(suffix_list, dataframe1, dataframe2, ...) {
   # set up the intial variables for the interior loop
   dfsToAdd <- list(...)
