@@ -11,8 +11,8 @@
 #'
 #' @examples
 #' annotate_biomart(tol_vs_naive, gmap)
-#' annotate_biomart(tol_vs_naive, gmap, c("MGI_Symbol", "MGI_Desc"))
-annotate_biomart <- function(res, gm, gmattri = c("MGI_Symbol", "MGI_Desc", "EntrezID")) {
+#' annotate_biomart(tol_vs_naive, gmap, c("MGI_Symbol", "MGI_Desc", "EntrezID"))
+annotate_biomart <- function(res, gm, gmattri = c("MGI_Symbol", "MGI_Desc")) {
   # join the annotations with the results
   res <- dplyr::left_join(res, gm, by = c("GeneID" = "ensembl_gene_id"))
 
