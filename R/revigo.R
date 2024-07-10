@@ -20,7 +20,7 @@ revigoPlot <- function(gsea_obj,
                         plttitle = "",
                         sim_threshold = 0.7){
 
-  res <- gseaObj@result
+  res <- gsea_obj@result
   res <- dplyr::filter(res, ONTOLOGY == ontol)
 
   # create similarity matrix
