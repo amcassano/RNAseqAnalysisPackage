@@ -2,7 +2,7 @@
 % Please edit documentation in R/getGSEA.R
 \name{go_GSEA}
 \alias{go_GSEA}
-\title{GSEA Gene ONtology}
+\title{GSEA Gene Ontology}
 \usage{
 go_GSEA(degs, ontol = "ALL", pval_cutoff = 0.05)
 }
@@ -17,7 +17,7 @@ go_GSEA(degs, ontol = "ALL", pval_cutoff = 0.05)
 GSEA object
 }
 \description{
-GSEA Gene ONtology
+GSEA Gene Ontology
 }
 \examples{
 go_GSEA(tol_vs_naive, ontol = "BP")
