@@ -1,7 +1,7 @@
 #' GSEA Gene ONtology
 #'
 #' @param degs annotated, pairwise comparison dataframe, *not* the significant genes
-#' @param ontol string, either "BP", "MF", "CC", or "ALL", defaults to ALL
+#' @param ontol string, either "BP", "MF", "CC", or "ALL", defaults to ALL. note must be ALL if used for REVIGO, can be any choice for use with other plots
 #' @param pval_cutoff number, defaults to 0.05, p value cutoff value
 #'
 #' @return GSEA object
