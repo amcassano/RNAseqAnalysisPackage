@@ -1,7 +1,7 @@
 #' Revigo Plots
 #' Creates a revigo plot
 #'
-#' @param gsea_obj gsea object
+#' @param gsea_obj gsea object - this must be generated with ALL ontology, if its pre-filitered the function wont work
 #' @param ontol string, one of "BP", "MF", or "CC" - which ontology to use
 #' @param plotkind string, one of "tree", "scatter", and "heat"; dictates plot type
 #' @param scoretype string, one of "pvalue", "qvalue", "nes"; what is used for calculating the score for grouping/coloring blocks
