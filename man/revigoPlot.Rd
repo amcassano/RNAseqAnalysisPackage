@@ -15,7 +15,7 @@ revigoPlot(
 )
 }
 \arguments{
-\item{gsea_obj}{gsea object}
+\item{gsea_obj}{gsea object - this must be generated with ALL ontology, if its pre-filitered the function wont work}
 
 \item{ontol}{string, one of "BP", "MF", or "CC" - which ontology to use}
 
