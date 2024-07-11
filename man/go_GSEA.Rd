@@ -9,7 +9,7 @@ go_GSEA(degs, ontol = "ALL", pval_cutoff = 0.05)
 \arguments{
 \item{degs}{annotated, pairwise comparison dataframe, *not* the significant genes}
 
-\item{ontol}{string, either "BP", "MF", "CC", or "ALL", defaults to ALL}
+\item{ontol}{string, either "BP", "MF", "CC", or "ALL", defaults to ALL. note must be ALL if used for REVIGO, can be any choice for use with other plots}
 
 \item{pval_cutoff}{number, defaults to 0.05, p value cutoff value}
 }
