@@ -1,4 +1,4 @@
-#' GSEA Gene ONtology
+#' GSEA Gene Ontology
 #'
 #' @param degs annotated, pairwise comparison dataframe, *not* the significant genes
 #' @param ontol string, either "BP", "MF", "CC", or "ALL", defaults to ALL. note must be ALL if used for REVIGO, can be any choice for use with other plots
