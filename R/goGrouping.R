@@ -3,7 +3,7 @@
 #' @param genes dataframe, list of DEGs, must be annotated and have Log2FoldChange and Adj_P_Value columns
 #' @param pval_cutoff number, defaults to 0.05
 #' @param l2fc_cutoff number, defaults to 0.5
-#' @param ontol string, "BP", "CC", "MF" or "ALL"
+#' @param ontol string, "BP", "CC",  "MF", "ALL", or "BP_MF"
 #' @param lvl number, defaults to 2, the level of GO to query
 #'
 #' @return gg, dataframe
@@ -11,7 +11,7 @@
 #'
 #' @examples
 #' goGrouping(one_vs_two, 0.01, 0.8, "BP", 4)
-goGrouping <- function(genes, pval_cutoff = 0.05, l2fc_cutoff = 0.5, ontol = c("BP", "MF", "CC", "ALL"), lvl = 2) {
+goGrouping <- function(genes, pval_cutoff = 0.05, l2fc_cutoff = 0.5, ontol = c("BP", "MF", "CC", "ALL", "BP_MF"), lvl = 2) {
   genes <- tibble::rownames_to_column(genes, var = "GeneID")
   genes <- dplyr::filter(genes, Adj_P_Value <= pval_cutoff)
   genes <- dplyr::filter(genes, abs(Log2FoldChange) >= l2fc_cutoff)
@@ -44,6 +44,26 @@ goGrouping <- function(genes, pval_cutoff = 0.05, l2fc_cutoff = 0.5, ontol = c("
       )
     )
   }
+  else if(ontol == "BP_MF"){
+    gg <- dplyr::bind_rows(
+      clusterProfiler::groupGO(
+        gene = genes$GeneID,
+        OrgDb = "org.Mm.eg.db",
+        ont = "BP",
+        keyType = "ENSEMBL",
+        level = lvl,
+        readable = TRUE
+      ),
+      clusterProfiler::groupGO(
+        gene = genes$GeneID,
+        OrgDb = "org.Mm.eg.db",
+        ont = "MF",
+        keyType = "ENSEMBL",
+        level = lvl,
+        readable = TRUE
+      )
+    )
+  }
   else{
     gg <- clusterProfiler::groupGO(
       gene = genes$GeneID,
@@ -64,7 +84,7 @@ goGrouping <- function(genes, pval_cutoff = 0.05, l2fc_cutoff = 0.5, ontol = c("
 #' Group GO from rLog DF
 #'
 #' @param rlogdf rlog dataframe - ideally filtered to only include significantly changed/relevant genes
-#' @param ontol string, "BP", "CC",  "MF" or "ALL"
+#' @param ontol string, "BP", "CC",  "MF", "ALL", or "BP_MF"
 #' @param lvl number, defaults to 2, the level of GO to query
 #'
 #' @return gg, dataframe
@@ -72,7 +92,7 @@ goGrouping <- function(genes, pval_cutoff = 0.05, l2fc_cutoff = 0.5, ontol = c("
 #'
 #' @examples
 #' goGrouping_rlog(sig_rlog, "BP", 3)
-goGrouping_rlog <- function(rlogdf, ontol = c("BP", "MF", "CC", "ALL"), lvl = 2) {
+goGrouping_rlog <- function(rlogdf, ontol = c("BP", "MF", "CC", "ALL", "BP_MF"), lvl = 2) {
   genes <- tibble::rownames_to_column(rlogdf, var = "GeneID")
   genes <- dplyr::distinct(genes, GeneID)
   if (ontol == "ALL") {
@@ -123,17 +143,48 @@ goGrouping_rlog <- function(rlogdf, ontol = c("BP", "MF", "CC", "ALL"), lvl = 2)
 
 #' Get Go Groups from all levels (2-6)
 #'
-#' @param genes dataframe, list of DEGs, must be annotated and have Log2FoldChange and Adj_P_Value columns
+#' @param rlogdf rlog dataframe - ideally filtered to only include significantly changed/relevant genes
 #' @param pval_cutoff number, defaults to 0.05
 #' @param l2fc_cutoff number, defaults to 0.5
-#' @param ontol string, "BP", "CC", "MF" or "ALL"
+#' @param ontol string, "BP", "CC",  "MF", "ALL", or "BP_MF"
 #'
 #' @return gg, dataframe
 #' @export
 #'
 #' @examples
 #' goGrouping_all_levels(one_vs_two, 0.01, 0.8, "BP")
-goGrouping_all_levels <- function(genes, pval_cutoff = 0.05, l2fc_cutoff = 0.5, ontol = c("BP", "MF", "CC", "ALL")){
+goGrouping_all_levels <- function(rlogdf, pval_cutoff = 0.05, l2fc_cutoff = 0.5, ontol = c("BP", "MF", "CC", "ALL", "BP_MF")){
+  gogroups <- dplyr::bind_rows(
+    goGrouping_rlog(rlogdf = rlogdf,
+                    ontol = ontol,
+                    lvl = 2),
+    goGrouping_rlog(rlogdf = rlogdf,
+                    ontol = ontol,
+                    lvl = 3),
+    goGrouping_rlog(rlogdf = rlogdf,
+                    ontol = ontol,
+                    lvl = 4),
+    goGrouping_rlog(rlogdf = rlogdf,
+                    ontol = ontol,
+                    lvl = 5),
+    goGrouping_rlog(rlogdf = rlogdf,
+                    ontol = ontol,
+                    lvl = 6)
+  )
+  return(gogroups)
+}
+
+#' Get Go Groups from all levels (2-6) from rLogDF
+#'
+#' @param genes dataframe, list of DEGs, must be annotated and have Log2FoldChange and Adj_P_Value columns
+#' @param ontol string, "BP", "CC",  "MF", "ALL", or "BP_MF"
+#'
+#' @return gg, dataframe
+#' @export
+#'
+#' @examples
+#' goGrouping_all_levels(one_vs_two, 0.01, 0.8, "BP")
+goGrouping_rlog_all_levels <- function(genes, ontol = c("BP", "MF", "CC", "ALL", "BP_MF")){
   gogroups <- dplyr::bind_rows(
     goGrouping(genes = genes,
                pval_cutoff = pval_cutoff,
