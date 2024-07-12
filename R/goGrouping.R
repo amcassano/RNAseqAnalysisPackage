@@ -143,7 +143,7 @@ goGrouping_rlog <- function(rlogdf, ontol = c("BP", "MF", "CC", "ALL", "BP_MF"),
 
 #' Get Go Groups from all levels (2-6)
 #'
-#' @param rlogdf rlog dataframe - ideally filtered to only include significantly changed/relevant genes
+#' @param genes dataframe, list of DEGs, must be annotated and have Log2FoldChange and Adj_P_Value columns
 #' @param pval_cutoff number, defaults to 0.05
 #' @param l2fc_cutoff number, defaults to 0.5
 #' @param ontol string, "BP", "CC",  "MF", "ALL", or "BP_MF"
@@ -153,38 +153,7 @@ goGrouping_rlog <- function(rlogdf, ontol = c("BP", "MF", "CC", "ALL", "BP_MF"),
 #'
 #' @examples
 #' goGrouping_all_levels(one_vs_two, 0.01, 0.8, "BP")
-goGrouping_all_levels <- function(rlogdf, pval_cutoff = 0.05, l2fc_cutoff = 0.5, ontol = c("BP", "MF", "CC", "ALL", "BP_MF")){
-  gogroups <- dplyr::bind_rows(
-    goGrouping_rlog(rlogdf = rlogdf,
-                    ontol = ontol,
-                    lvl = 2),
-    goGrouping_rlog(rlogdf = rlogdf,
-                    ontol = ontol,
-                    lvl = 3),
-    goGrouping_rlog(rlogdf = rlogdf,
-                    ontol = ontol,
-                    lvl = 4),
-    goGrouping_rlog(rlogdf = rlogdf,
-                    ontol = ontol,
-                    lvl = 5),
-    goGrouping_rlog(rlogdf = rlogdf,
-                    ontol = ontol,
-                    lvl = 6)
-  )
-  return(gogroups)
-}
-
-#' Get Go Groups from all levels (2-6) from rLogDF
-#'
-#' @param genes dataframe, list of DEGs, must be annotated and have Log2FoldChange and Adj_P_Value columns
-#' @param ontol string, "BP", "CC",  "MF", "ALL", or "BP_MF"
-#'
-#' @return gg, dataframe
-#' @export
-#'
-#' @examples
-#' goGrouping_rlog_all_levels(one_vs_two, 0.01, 0.8, "BP")
-goGrouping_rlog_all_levels <- function(genes, ontol = c("BP", "MF", "CC", "ALL", "BP_MF")){
+goGrouping_all_levels <- function(genes, pval_cutoff = 0.05, l2fc_cutoff = 0.5, ontol = c("BP", "MF", "CC", "ALL", "BP_MF")){
   gogroups <- dplyr::bind_rows(
     goGrouping(genes = genes,
                pval_cutoff = pval_cutoff,
@@ -211,6 +180,36 @@ goGrouping_rlog_all_levels <- function(genes, ontol = c("BP", "MF", "CC", "ALL",
                l2fc_cutoff = l2fc_cutoff,
                ontol = ontol,
                lvl = 6)
+  )
+  return(gogroups)
+}
+
+#' Get Go Groups from all levels (2-6) from rLogDF
+#'
+#' @param rlogdf rlog dataframe - ideally filtered to only include significantly changed/relevant genes
+#' @param ontol string, "BP", "CC",  "MF", "ALL", or "BP_MF"
+#' @return gg, dataframe
+#' @export
+#'
+#' @examples
+#' goGrouping_rlog_all_levels(one_vs_two, 0.01, 0.8, "BP")
+goGrouping_rlog_all_levels <- function(rlogdf, ontol = c("BP", "MF", "CC", "ALL", "BP_MF")){
+  gogroups <- dplyr::bind_rows(
+    goGrouping_rlog(rlogdf = rlogdf,
+                    ontol = ontol,
+                    lvl = 2),
+    goGrouping_rlog(rlogdf = rlogdf,
+                    ontol = ontol,
+                    lvl = 3),
+    goGrouping_rlog(rlogdf = rlogdf,
+                    ontol = ontol,
+                    lvl = 4),
+    goGrouping_rlog(rlogdf = rlogdf,
+                    ontol = ontol,
+                    lvl = 5),
+    goGrouping_rlog(rlogdf = rlogdf,
+                    ontol = ontol,
+                    lvl = 6)
   )
   return(gogroups)
 }
