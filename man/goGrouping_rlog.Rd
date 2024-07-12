@@ -4,12 +4,12 @@
 \alias{goGrouping_rlog}
 \title{Group GO from rLog DF}
 \usage{
-goGrouping_rlog(rlogdf, ontol = c("BP", "MF", "CC", "ALL"), lvl = 2)
+goGrouping_rlog(rlogdf, ontol = c("BP", "MF", "CC", "ALL", "BP_MF"), lvl = 2)
 }
 \arguments{
 \item{rlogdf}{rlog dataframe - ideally filtered to only include significantly changed/relevant genes}
 
-\item{ontol}{string, "BP", "CC",  "MF" or "ALL"}
+\item{ontol}{string, "BP", "CC",  "MF", "ALL", or "BP_MF"}
 
 \item{lvl}{number, defaults to 2, the level of GO to query}
 }

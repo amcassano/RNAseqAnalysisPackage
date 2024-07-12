@@ -9,7 +9,7 @@ goGrouping(
   genes,
   pval_cutoff = 0.05,
   l2fc_cutoff = 0.5,
-  ontol = c("BP", "MF", "CC", "ALL"),
+  ontol = c("BP", "MF", "CC", "ALL", "BP_MF"),
   lvl = 2
 )
 }
@@ -20,7 +20,7 @@ goGrouping(
 
 \item{l2fc_cutoff}{number, defaults to 0.5}
 
-\item{ontol}{string, "BP", "CC", "MF" or "ALL"}
+\item{ontol}{string, "BP", "CC",  "MF", "ALL", or "BP_MF"}
 
 \item{lvl}{number, defaults to 2, the level of GO to query}
 }
