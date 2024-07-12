@@ -183,7 +183,7 @@ goGrouping_all_levels <- function(rlogdf, pval_cutoff = 0.05, l2fc_cutoff = 0.5,
 #' @export
 #'
 #' @examples
-#' goGrouping_all_levels(one_vs_two, 0.01, 0.8, "BP")
+#' goGrouping_rlog_all_levels(one_vs_two, 0.01, 0.8, "BP")
 goGrouping_rlog_all_levels <- function(genes, ontol = c("BP", "MF", "CC", "ALL", "BP_MF")){
   gogroups <- dplyr::bind_rows(
     goGrouping(genes = genes,
