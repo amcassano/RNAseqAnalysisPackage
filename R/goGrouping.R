@@ -18,23 +18,27 @@ goGrouping <- function(genes, pval_cutoff = 0.05, l2fc_cutoff = 0.5, ontol = c("
   genes <- dplyr::distinct(genes, GeneID)
   if (ontol == "ALL") {
     gg <- dplyr::bind_rows(
-      clusterProfiler::groupGO(
-        gene = genes$GeneID,
-        OrgDb = "org.Mm.eg.db",
-        ont = "BP",
-        keyType = "ENSEMBL",
-        level = lvl,
-        readable = TRUE
+      as.data.frame(
+        clusterProfiler::groupGO(
+          gene = genes$GeneID,
+          OrgDb = "org.Mm.eg.db",
+          ont = "BP",
+          keyType = "ENSEMBL",
+          level = lvl,
+          readable = TRUE
+        )
       ),
-      clusterProfiler::groupGO(
-        gene = genes$GeneID,
-        OrgDb = "org.Mm.eg.db",
-        ont = "MF",
-        keyType = "ENSEMBL",
-        level = lvl,
-        readable = TRUE
+      as.data.frame(
+        clusterProfiler::groupGO(
+          gene = genes$GeneID,
+          OrgDb = "org.Mm.eg.db",
+          ont = "MF",
+          keyType = "ENSEMBL",
+          level = lvl,
+          readable = TRUE
+        )
       ),
-      clusterProfiler::groupGO(
+      as.data.frame(clusterProfiler::groupGO(
         gene = genes$GeneID,
         OrgDb = "org.Mm.eg.db",
         ont = "CC",
@@ -42,44 +46,49 @@ goGrouping <- function(genes, pval_cutoff = 0.05, l2fc_cutoff = 0.5, ontol = c("
         level = lvl,
         readable = TRUE
       )
-    )
-  }
+      )
+      }
   if(ontol == "BP_MF"){
     gg <- dplyr::bind_rows(
-      clusterProfiler::groupGO(
-        gene = genes$GeneID,
-        OrgDb = "org.Mm.eg.db",
-        ont = "BP",
-        keyType = "ENSEMBL",
-        level = lvl,
-        readable = TRUE
+      as.data.frame(
+        clusterProfiler::groupGO(
+          gene = genes$GeneID,
+          OrgDb = "org.Mm.eg.db",
+          ont = "BP",
+          keyType = "ENSEMBL",
+          level = lvl,
+          readable = TRUE
+        )
       ),
+      as.data.frame(
+        clusterProfiler::groupGO(
+          gene = genes$GeneID,
+          OrgDb = "org.Mm.eg.db",
+          ont = "MF",
+          keyType = "ENSEMBL",
+          level = lvl,
+          readable = TRUE
+        )
+      )
+    )
+  }
+  else{
+    gg <- as.data.frame(
       clusterProfiler::groupGO(
         gene = genes$GeneID,
         OrgDb = "org.Mm.eg.db",
-        ont = "MF",
+        ont = ontol,
         keyType = "ENSEMBL",
         level = lvl,
         readable = TRUE
       )
     )
   }
-  else{
-    gg <- clusterProfiler::groupGO(
-      gene = genes$GeneID,
-      OrgDb = "org.Mm.eg.db",
-      ont = ontol,
-      keyType = "ENSEMBL",
-      level = lvl,
-      readable = TRUE
-    )
-  }
-  gg <- as.data.frame(gg)
   gg <- dplyr::filter(gg, Count > 0)
   gg <- dplyr::arrange(gg, desc(Count))
   gg <- tibble::remove_rownames(gg)
   return(gg)
-}
+  }
 
 #' Group GO from rLog DF
 #'
@@ -97,64 +106,75 @@ goGrouping_rlog <- function(rlogdf, ontol = c("BP", "MF", "CC", "ALL", "BP_MF"),
   genes <- dplyr::distinct(genes, GeneID)
   if (ontol == "ALL") {
     gg <- dplyr::bind_rows(
-      clusterProfiler::groupGO(
-        gene = genes$GeneID,
-        OrgDb = "org.Mm.eg.db",
-        ont = "BP",
-        keyType = "ENSEMBL",
-        level = lvl,
-        readable = TRUE
+      as.data.frame(
+        clusterProfiler::groupGO(
+          gene = genes$GeneID,
+          OrgDb = "org.Mm.eg.db",
+          ont = "BP",
+          keyType = "ENSEMBL",
+          level = lvl,
+          readable = TRUE
+        )
       ),
-      clusterProfiler::groupGO(
-        gene = genes$GeneID,
-        OrgDb = "org.Mm.eg.db",
-        ont = "MF",
-        keyType = "ENSEMBL",
-        level = lvl,
-        readable = TRUE
+      as.data.frame(
+        clusterProfiler::groupGO(
+          gene = genes$GeneID,
+          OrgDb = "org.Mm.eg.db",
+          ont = "MF",
+          keyType = "ENSEMBL",
+          level = lvl,
+          readable = TRUE
+        )
       ),
-      clusterProfiler::groupGO(
-        gene = genes$GeneID,
-        OrgDb = "org.Mm.eg.db",
-        ont = "CC",
-        keyType = "ENSEMBL",
-        level = lvl,
-        readable = TRUE
+      as.data.frame(
+        clusterProfiler::groupGO(
+          gene = genes$GeneID,
+          OrgDb = "org.Mm.eg.db",
+          ont = "CC",
+          keyType = "ENSEMBL",
+          level = lvl,
+          readable = TRUE
+        )
       )
     )
   }
   if(ontol == "BP_MF"){
     gg <- dplyr::bind_rows(
-      clusterProfiler::groupGO(
-        gene = genes$GeneID,
-        OrgDb = "org.Mm.eg.db",
-        ont = "BP",
-        keyType = "ENSEMBL",
-        level = lvl,
-        readable = TRUE
+      as.data.frame(
+        clusterProfiler::groupGO(
+          gene = genes$GeneID,
+          OrgDb = "org.Mm.eg.db",
+          ont = "BP",
+          keyType = "ENSEMBL",
+          level = lvl,
+          readable = TRUE
+        )
       ),
+      as.data.frame(
+        clusterProfiler::groupGO(
+          gene = genes$GeneID,
+          OrgDb = "org.Mm.eg.db",
+          ont = "MF",
+          keyType = "ENSEMBL",
+          level = lvl,
+          readable = TRUE
+        )
+      )
+    )
+  }
+  else{
+    gg <- as.data.frame(
       clusterProfiler::groupGO(
         gene = genes$GeneID,
         OrgDb = "org.Mm.eg.db",
-        ont = "MF",
+        ont = ontol,
         keyType = "ENSEMBL",
         level = lvl,
         readable = TRUE
       )
     )
   }
-  else{
-    gg <- clusterProfiler::groupGO(
-      gene = genes$GeneID,
-      OrgDb = "org.Mm.eg.db",
-      ont = ontol,
-      keyType = "ENSEMBL",
-      level = lvl,
-      readable = TRUE
-    )
-  }
 
-  gg <- as.data.frame(gg)
   gg <- dplyr::filter(gg, Count > 0)
   gg <- dplyr::arrange(gg, desc(Count))
   gg <- tibble::remove_rownames(gg)
