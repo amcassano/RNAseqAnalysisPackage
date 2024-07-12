@@ -5,14 +5,14 @@
 \title{Get Go Groups from all levels (2-6)}
 \usage{
 goGrouping_all_levels(
-  rlogdf,
+  genes,
   pval_cutoff = 0.05,
   l2fc_cutoff = 0.5,
   ontol = c("BP", "MF", "CC", "ALL", "BP_MF")
 )
 }
 \arguments{
-\item{rlogdf}{rlog dataframe - ideally filtered to only include significantly changed/relevant genes}
+\item{genes}{dataframe, list of DEGs, must be annotated and have Log2FoldChange and Adj_P_Value columns}
 
 \item{pval_cutoff}{number, defaults to 0.05}
 

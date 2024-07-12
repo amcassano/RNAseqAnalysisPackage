@@ -4,10 +4,10 @@
 \alias{goGrouping_rlog_all_levels}
 \title{Get Go Groups from all levels (2-6) from rLogDF}
 \usage{
-goGrouping_rlog_all_levels(genes, ontol = c("BP", "MF", "CC", "ALL", "BP_MF"))
+goGrouping_rlog_all_levels(rlogdf, ontol = c("BP", "MF", "CC", "ALL", "BP_MF"))
 }
 \arguments{
-\item{genes}{dataframe, list of DEGs, must be annotated and have Log2FoldChange and Adj_P_Value columns}
+\item{rlogdf}{rlog dataframe - ideally filtered to only include significantly changed/relevant genes}
 
 \item{ontol}{string, "BP", "CC",  "MF", "ALL", or "BP_MF"}
 }
