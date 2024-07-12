@@ -44,7 +44,7 @@ goGrouping <- function(genes, pval_cutoff = 0.05, l2fc_cutoff = 0.5, ontol = c("
       )
     )
   }
-  else if(ontol == "BP_MF"){
+  if(ontol == "BP_MF"){
     gg <- dplyr::bind_rows(
       clusterProfiler::groupGO(
         gene = genes$GeneID,
@@ -117,6 +117,26 @@ goGrouping_rlog <- function(rlogdf, ontol = c("BP", "MF", "CC", "ALL", "BP_MF"),
         gene = genes$GeneID,
         OrgDb = "org.Mm.eg.db",
         ont = "CC",
+        keyType = "ENSEMBL",
+        level = lvl,
+        readable = TRUE
+      )
+    )
+  }
+  if(ontol == "BP_MF"){
+    gg <- dplyr::bind_rows(
+      clusterProfiler::groupGO(
+        gene = genes$GeneID,
+        OrgDb = "org.Mm.eg.db",
+        ont = "BP",
+        keyType = "ENSEMBL",
+        level = lvl,
+        readable = TRUE
+      ),
+      clusterProfiler::groupGO(
+        gene = genes$GeneID,
+        OrgDb = "org.Mm.eg.db",
+        ont = "MF",
         keyType = "ENSEMBL",
         level = lvl,
         readable = TRUE
