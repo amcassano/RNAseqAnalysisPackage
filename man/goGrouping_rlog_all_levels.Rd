@@ -18,5 +18,5 @@ gg, dataframe
 Get Go Groups from all levels (2-6) from rLogDF
 }
 \examples{
-goGrouping_all_levels(one_vs_two, 0.01, 0.8, "BP")
+goGrouping_rlog_all_levels(one_vs_two, 0.01, 0.8, "BP")
 }
