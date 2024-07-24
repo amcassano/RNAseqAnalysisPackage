@@ -11,68 +11,41 @@
 #'
 #' @examples
 #' goGrouping(one_vs_two, 0.01, 0.8, "BP", 4)
-goGrouping <- function(genes, pval_cutoff = 0.05, l2fc_cutoff = 0.5, ontol = c("BP", "MF", "CC", "ALL", "BP_MF"), lvl = 2) {
-  genes <- tibble::rownames_to_column(genes, var = "GeneID")
-  genes <- dplyr::filter(genes, Adj_P_Value <= pval_cutoff)
-  genes <- dplyr::filter(genes, abs(Log2FoldChange) >= l2fc_cutoff)
-  genes <- dplyr::distinct(genes, GeneID)
-  if (ontol == "ALL") {
-    gg <- dplyr::bind_rows(
-      as.data.frame(
-        clusterProfiler::groupGO(
-          gene = genes$GeneID,
-          OrgDb = "org.Mm.eg.db",
-          ont = "BP",
-          keyType = "ENSEMBL",
-          level = lvl,
-          readable = TRUE
-        )
-      ),
-      as.data.frame(
-        clusterProfiler::groupGO(
-          gene = genes$GeneID,
-          OrgDb = "org.Mm.eg.db",
-          ont = "MF",
-          keyType = "ENSEMBL",
-          level = lvl,
-          readable = TRUE
-        )
-      ),
-      as.data.frame(clusterProfiler::groupGO(
-        gene = genes$GeneID,
-        OrgDb = "org.Mm.eg.db",
-        ont = "CC",
-        keyType = "ENSEMBL",
-        level = lvl,
-        readable = TRUE
-      )
-      )
-      }
-  if(ontol == "BP_MF"){
-    gg <- dplyr::bind_rows(
-      as.data.frame(
-        clusterProfiler::groupGO(
-          gene = genes$GeneID,
-          OrgDb = "org.Mm.eg.db",
-          ont = "BP",
-          keyType = "ENSEMBL",
-          level = lvl,
-          readable = TRUE
-        )
-      ),
-      as.data.frame(
-        clusterProfiler::groupGO(
-          gene = genes$GeneID,
-          OrgDb = "org.Mm.eg.db",
-          ont = "MF",
-          keyType = "ENSEMBL",
-          level = lvl,
-          readable = TRUE
-        )
-      )
-    )
+goGrouping <- function(genes,
+                       pval_cutoff = 0.05,
+                       l2fc_cutoff = 0.5,
+                       ontol = c("BP", "MF", "CC", "ALL", "BP_MF"),
+                       lvl = 2) {
+  if (ontol != "ALL" | ontol != "BP" | ontol != "MF" | ontol != "CC" | ontol != "BP_MF") {
+    return("Please make sure ontol is one of the following: 'BP', 'CC', 'MF', 'ALL' or 'BP_MF'")
+  }
+  else if (ontol == "ALL") {
+    bp <- goGrouping(genes, pval_cutoff, l2fc_cutoff, "BP", lvl)
+    mf <- goGrouping(genes, pval_cutoff, l2fc_cutoff, "MF", lvl)
+    cc <- goGrouping(genes, pval_cutoff, l2fc_cutoff, "CC", lvl)
+    gg <- dplyr::bind_rows(bp, mf, cc, .id = "tbl")
+    gg$Ontol <- NULL
+    gg$Ontol[gg$tbl == "1"] <- "BP"
+    gg$Ontol[gg$tbl == "2"] <- "MF"
+    gg$Ontol[gg$tbl == "3"] <- "CC"
+    gg <- dplyr::select(gg, -tbl)
+    return(gg)
+  }
+  else if (ontol == "BP_MF") {
+    bp <- goGrouping(genes, pval_cutoff, l2fc_cutoff, "BP", lvl)
+    mf <- goGrouping(genes, pval_cutoff, l2fc_cutoff, "MF", lvl)
+    gg <- dplyr::bind_rows(bp, mf,.id = "tbl")
+    gg$Ontol <- NULL
+    gg$Ontol[gg$tbl == "1"] <- "BP"
+    gg$Ontol[gg$tbl == "2"] <- "MF"
+    gg <- dplyr::select(gg, -tbl)
+    return(gg)
   }
   else{
+    genes <- tibble::rownames_to_column(genes, var = "GeneID")
+    genes <- dplyr::filter(genes, Adj_P_Value <= pval_cutoff)
+    genes <- dplyr::filter(genes, abs(Log2FoldChange) >= l2fc_cutoff)
+    genes <- dplyr::distinct(genes, GeneID)
     gg <- as.data.frame(
       clusterProfiler::groupGO(
         gene = genes$GeneID,
@@ -83,12 +56,13 @@ goGrouping <- function(genes, pval_cutoff = 0.05, l2fc_cutoff = 0.5, ontol = c("
         readable = TRUE
       )
     )
+    gg <- dplyr::filter(gg, Count > 0)
+    gg <- dplyr::arrange(gg, desc(Count))
+    gg <- tibble::remove_rownames(gg)
+    gg <- dplyr::select(gg, -GeneRatio)
+    return(gg)
   }
-  gg <- dplyr::filter(gg, Count > 0)
-  gg <- dplyr::arrange(gg, desc(Count))
-  gg <- tibble::remove_rownames(gg)
-  return(gg)
-  }
+}
 
 #' Group GO from rLog DF
 #'
@@ -101,68 +75,37 @@ goGrouping <- function(genes, pval_cutoff = 0.05, l2fc_cutoff = 0.5, ontol = c("
 #'
 #' @examples
 #' goGrouping_rlog(sig_rlog, "BP", 3)
-goGrouping_rlog <- function(rlogdf, ontol = c("BP", "MF", "CC", "ALL", "BP_MF"), lvl = 2) {
-  genes <- tibble::rownames_to_column(rlogdf, var = "GeneID")
-  genes <- dplyr::distinct(genes, GeneID)
-  if (ontol == "ALL") {
-    gg <- dplyr::bind_rows(
-      as.data.frame(
-        clusterProfiler::groupGO(
-          gene = genes$GeneID,
-          OrgDb = "org.Mm.eg.db",
-          ont = "BP",
-          keyType = "ENSEMBL",
-          level = lvl,
-          readable = TRUE
-        )
-      ),
-      as.data.frame(
-        clusterProfiler::groupGO(
-          gene = genes$GeneID,
-          OrgDb = "org.Mm.eg.db",
-          ont = "MF",
-          keyType = "ENSEMBL",
-          level = lvl,
-          readable = TRUE
-        )
-      ),
-      as.data.frame(
-        clusterProfiler::groupGO(
-          gene = genes$GeneID,
-          OrgDb = "org.Mm.eg.db",
-          ont = "CC",
-          keyType = "ENSEMBL",
-          level = lvl,
-          readable = TRUE
-        )
-      )
-    )
+goGrouping_rlog <- function(rlogdf,
+                            ontol = c("BP", "MF", "CC", "ALL", "BP_MF"),
+                            lvl = 2) {
+  if (ontol != "ALL" | ontol != "BP" | ontol != "MF" | ontol != "CC" | ontol != "BP_MF") {
+    return("Please make sure ontol is one of the following: 'BP', 'CC', 'MF', 'ALL' or 'BP_MF'")
   }
-  if(ontol == "BP_MF"){
-    gg <- dplyr::bind_rows(
-      as.data.frame(
-        clusterProfiler::groupGO(
-          gene = genes$GeneID,
-          OrgDb = "org.Mm.eg.db",
-          ont = "BP",
-          keyType = "ENSEMBL",
-          level = lvl,
-          readable = TRUE
-        )
-      ),
-      as.data.frame(
-        clusterProfiler::groupGO(
-          gene = genes$GeneID,
-          OrgDb = "org.Mm.eg.db",
-          ont = "MF",
-          keyType = "ENSEMBL",
-          level = lvl,
-          readable = TRUE
-        )
-      )
-    )
+  else if (ontol == "ALL") {
+    bp <-  goGrouping_rlog(rlogdf, "BP", lvl)
+    mf <- goGrouping_rlog(rlogdf, "MF", lvl)
+    cc <- goGrouping_rlog(rlogdf, "CC", lvl)
+    gg <- dplyr::bind_rows(bp, mf, cc, .id = "tbl")
+    gg$Ontol <- NULL
+    gg$Ontol[gg$tbl == "1"] <- "BP"
+    gg$Ontol[gg$tbl == "2"] <- "MF"
+    gg$Ontol[gg$tbl == "3"] <- "CC"
+    gg <- dplyr::select(gg, -tbl)
+    return(gg)
+  }
+  else if (ontol == "BP_MF") {
+    bp <-  goGrouping_rlog(rlogdf, "BP", lvl)
+    mf <- goGrouping_rlog(rlogdf, "MF", lvl)
+    gg <- dplyr::bind_rows(bp, mf, .id = "tbl")
+    gg$Ontol <- NULL
+    gg$Ontol[gg$tbl == "1"] <- "BP"
+    gg$Ontol[gg$tbl == "2"] <- "MF"
+    gg <- dplyr::select(gg, -tbl)
+    return(gg)
   }
   else{
+    genes <- tibble::rownames_to_column(rlogdf, var = "GeneID")
+    genes <- dplyr::distinct(genes, GeneID)
     gg <- as.data.frame(
       clusterProfiler::groupGO(
         gene = genes$GeneID,
@@ -173,12 +116,12 @@ goGrouping_rlog <- function(rlogdf, ontol = c("BP", "MF", "CC", "ALL", "BP_MF"),
         readable = TRUE
       )
     )
+    gg <- dplyr::filter(gg, Count > 0)
+    gg <- dplyr::arrange(gg, desc(Count))
+    gg <- tibble::remove_rownames(gg)
+    gg <- dplyr::select(gg, -GeneRatio)
+    return(gg)
   }
-
-  gg <- dplyr::filter(gg, Count > 0)
-  gg <- dplyr::arrange(gg, desc(Count))
-  gg <- tibble::remove_rownames(gg)
-  return(gg)
 }
 
 #' Get Go Groups from all levels (2-6)
@@ -193,35 +136,24 @@ goGrouping_rlog <- function(rlogdf, ontol = c("BP", "MF", "CC", "ALL", "BP_MF"),
 #'
 #' @examples
 #' goGrouping_all_levels(one_vs_two, 0.01, 0.8, "BP")
-goGrouping_all_levels <- function(genes, pval_cutoff = 0.05, l2fc_cutoff = 0.5, ontol = c("BP", "MF", "CC", "ALL", "BP_MF")){
-  gogroups <- dplyr::bind_rows(
-    goGrouping(genes = genes,
-               pval_cutoff = pval_cutoff,
-               l2fc_cutoff = l2fc_cutoff,
-               ontol = ontol,
-               lvl = 2),
-    goGrouping(genes = genes,
-               pval_cutoff = pval_cutoff,
-               l2fc_cutoff = l2fc_cutoff,
-               ontol = ontol,
-               lvl = 3),
-    goGrouping(genes = genes,
-               pval_cutoff = pval_cutoff,
-               l2fc_cutoff = l2fc_cutoff,
-               ontol = ontol,
-               lvl = 4),
-    goGrouping(genes = genes,
-               pval_cutoff = pval_cutoff,
-               l2fc_cutoff = l2fc_cutoff,
-               ontol = ontol,
-               lvl = 5),
-    goGrouping(genes = genes,
-               pval_cutoff = pval_cutoff,
-               l2fc_cutoff = l2fc_cutoff,
-               ontol = ontol,
-               lvl = 6)
-  )
-  return(gogroups)
+goGrouping_all_levels <- function(genes,
+                                  pval_cutoff = 0.05,
+                                  l2fc_cutoff = 0.5,
+                                  ontol = c("BP", "MF", "CC", "ALL", "BP_MF")) {
+  lvl2 <- goGrouping(genes, pval_cutoff, l2fc_cutoff, ontol, lvl = 2)
+  lvl3 <- goGrouping(genes, pval_cutoff, l2fc_cutoff, ontol, lvl = 3)
+  lvl4 <- goGrouping(genes, pval_cutoff, l2fc_cutoff, ontol, lvl = 4)
+  lvl5 <- goGrouping(genes, pval_cutoff, l2fc_cutoff, ontol, lvl = 5)
+  lvl6 <- goGrouping(genes, pval_cutoff, l2fc_cutoff, ontol, lvl = 6)
+  gg <- dplyr::bind_rows(lvl2, lvl3, lvl4, lvl5, lvl6, .id = "tbl")
+  gg$Level <- NULL
+  gg$Level[gg$tbl == "1"] <- "2"
+  gg$Level[gg$tbl == "2"] <- "3"
+  gg$Level[gg$tbl == "3"] <- "4"
+  gg$Level[gg$tbl == "4"] <- "5"
+  gg$Level[gg$tbl == "5"] <- "6"
+  gg <- dplyr::select(gg, -tbl)
+  return(gg)
 }
 
 #' Get Go Groups from all levels (2-6) from rLogDF
@@ -232,26 +164,23 @@ goGrouping_all_levels <- function(genes, pval_cutoff = 0.05, l2fc_cutoff = 0.5, 
 #' @export
 #'
 #' @examples
-#' goGrouping_rlog_all_levels(one_vs_two, 0.01, 0.8, "BP")
-goGrouping_rlog_all_levels <- function(rlogdf, ontol = c("BP", "MF", "CC", "ALL", "BP_MF")){
-  gogroups <- dplyr::bind_rows(
-    goGrouping_rlog(rlogdf = rlogdf,
-                    ontol = ontol,
-                    lvl = 2),
-    goGrouping_rlog(rlogdf = rlogdf,
-                    ontol = ontol,
-                    lvl = 3),
-    goGrouping_rlog(rlogdf = rlogdf,
-                    ontol = ontol,
-                    lvl = 4),
-    goGrouping_rlog(rlogdf = rlogdf,
-                    ontol = ontol,
-                    lvl = 5),
-    goGrouping_rlog(rlogdf = rlogdf,
-                    ontol = ontol,
-                    lvl = 6)
-  )
-  return(gogroups)
+#' goGrouping_rlog_all_levels(sigrlog, "BP")
+goGrouping_rlog_all_levels <- function(rlogdf,
+                                       ontol = c("BP", "MF", "CC", "ALL", "BP_MF")) {
+  lvl2 <- goGrouping_rlog(rlogdf, ontol, 2)
+  lvl3 <- goGrouping_rlog(rlogdf, ontol, 3)
+  lvl4 <- goGrouping_rlog(rlogdf, ontol, 4)
+  lvl5 <- goGrouping_rlog(rlogdf, ontol, 5)
+  lvl6 <- goGrouping_rlog(rlogdf, ontol, 6)
+  gg <- dplyr::bind_rows(lvl2, lvl3, lvl4, lvl5, lvl6, .id = "tbl")
+  gg$Level <- NULL
+  gg$Level[gg$tbl == "1"] <- "2"
+  gg$Level[gg$tbl == "2"] <- "3"
+  gg$Level[gg$tbl == "3"] <- "4"
+  gg$Level[gg$tbl == "4"] <- "5"
+  gg$Level[gg$tbl == "5"] <- "6"
+  gg <- dplyr::select(gg, -tbl)
+  return(gg)
 }
 
 
@@ -266,7 +195,9 @@ goGrouping_rlog_all_levels <- function(rlogdf, ontol = c("BP", "MF", "CC", "ALL"
 #'
 #' @examples
 #' genelistFromGOGroup(goGrouping(one_vs_two), 2)
-genelistFromGOGroup <- function(gogroup, rownum = NULL, goid = NULL) {
+genelistFromGOGroup <- function(gogroup,
+                                rownum = NULL,
+                                goid = NULL) {
   if (!is.null(rownum)) {
     gogroup <- dplyr::slice(gogroup, rownum)
   } else if (!is.null(goid)) {
