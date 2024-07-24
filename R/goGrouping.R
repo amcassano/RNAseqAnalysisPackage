@@ -16,10 +16,7 @@ goGrouping <- function(genes,
                        l2fc_cutoff = 0.5,
                        ontol = c("BP", "MF", "CC", "ALL", "BP_MF"),
                        lvl = 2) {
-  if (ontol != "ALL" | ontol != "BP" | ontol != "MF" | ontol != "CC" | ontol != "BP_MF") {
-    return("Please make sure ontol is one of the following: 'BP', 'CC', 'MF', 'ALL' or 'BP_MF'")
-  }
-  else if (ontol == "ALL") {
+  if (ontol == "ALL") {
     bp <- goGrouping(genes, pval_cutoff, l2fc_cutoff, ontol = "BP", lvl)
     mf <- goGrouping(genes, pval_cutoff, l2fc_cutoff, ontol = "MF", lvl)
     cc <- goGrouping(genes, pval_cutoff, l2fc_cutoff, ontol = "CC", lvl)
@@ -78,10 +75,7 @@ goGrouping <- function(genes,
 goGrouping_rlog <- function(rlogdf,
                             ontol = c("BP", "MF", "CC", "ALL", "BP_MF"),
                             lvl = 2) {
-  if (ontol != "ALL" | ontol != "BP" | ontol != "MF" | ontol != "CC" | ontol != "BP_MF") {
-    return("Please make sure ontol is one of the following: 'BP', 'CC', 'MF', 'ALL' or 'BP_MF'")
-  }
-  else if (ontol == "ALL") {
+ if (ontol == "ALL") {
     bp <-  goGrouping_rlog(rlogdf, "BP", lvl)
     mf <- goGrouping_rlog(rlogdf, "MF", lvl)
     cc <- goGrouping_rlog(rlogdf, "CC", lvl)
