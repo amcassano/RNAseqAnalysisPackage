@@ -20,9 +20,9 @@ goGrouping <- function(genes,
     return("Please make sure ontol is one of the following: 'BP', 'CC', 'MF', 'ALL' or 'BP_MF'")
   }
   else if (ontol == "ALL") {
-    bp <- goGrouping(genes, pval_cutoff, l2fc_cutoff, "BP", lvl)
-    mf <- goGrouping(genes, pval_cutoff, l2fc_cutoff, "MF", lvl)
-    cc <- goGrouping(genes, pval_cutoff, l2fc_cutoff, "CC", lvl)
+    bp <- goGrouping(genes, pval_cutoff, l2fc_cutoff, ontol = "BP", lvl)
+    mf <- goGrouping(genes, pval_cutoff, l2fc_cutoff, ontol = "MF", lvl)
+    cc <- goGrouping(genes, pval_cutoff, l2fc_cutoff, ontol = "CC", lvl)
     gg <- dplyr::bind_rows(bp, mf, cc, .id = "tbl")
     gg$Ontol <- NULL
     gg$Ontol[gg$tbl == "1"] <- "BP"
