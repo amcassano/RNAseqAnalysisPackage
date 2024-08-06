@@ -49,5 +49,5 @@ Imports:
     utils,
     uwot
 Encoding: UTF-8
-LazyData: false
+LazyData: true
 RoxygenNote: 7.2.3
