@@ -1,13 +1,17 @@
-Package: analyzeRNA
 Type: Package
+Package: analyzeRNA
 Title: Assist in Analysis of RNAseq Data
-Version: 0.1.0
-Author: Alexandra Cassano
-Maintainer: Alexandra Cassano <acassano@uchicago.edu>
-Description: Helps with analysis of RNAsequencing code. Created especially for members of the Alegre lab with little-no computational experience. 
+Version: 0.2.0
+Authors@R: c(
+    person("Alexandra", "Cassano", , "acassano@uchicago.edu", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0003-3144-8716")),
+    person("Domenic", "Abbondanza", , "dabbondanza@uchicago.edu", role = c("aut", "cre"))
+  )
+Description: Helps with analysis of RNAsequencing code. Created especially
+    for members of the Alegre lab with little-no computational experience.
 License: GPL (>= 3)
-Encoding: UTF-8
-RoxygenNote: 7.2.3
+Depends: 
+    R (>= 2.10)
 Imports: 
     BiocGenerics,
     BiocManager,
@@ -27,6 +31,7 @@ Imports:
     ggupset,
     ggVennDiagram,
     knitr,
+    magrittr,
     org.Mm.eg.db,
     paletteer,
     PCAtools,
@@ -43,6 +48,6 @@ Imports:
     treemap,
     utils,
     uwot
-Depends: 
-    R (>= 2.10)
+Encoding: UTF-8
 LazyData: false
+RoxygenNote: 7.2.3
