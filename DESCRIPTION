@@ -5,7 +5,7 @@ Version: 0.2.0
 Authors@R: c(
     person("Alexandra", "Cassano", , "acassano@uchicago.edu", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0003-3144-8716")),
-    person("Domenic", "Abbondanza", , "dabbondanza@uchicago.edu", role = c("aut", "cre"))
+    person("Domenic", "Abbondanza", , "dabbondanza@uchicago.edu", role = c("ctb"))
   )
 Description: Helps with analysis of RNAsequencing code. Created especially
     for members of the Alegre lab with little-no computational experience.
