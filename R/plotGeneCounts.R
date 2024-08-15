@@ -74,7 +74,7 @@ plot_genecounts <- function(mgi, norm_df, metadat, plot_aes, comparisons = list(
 
   # add comparison stats
   countPlot <- countPlot +
-    ggpubr::stat_compare_means(comparisons = comparisons, label.y.npc = "bottom", vjust = 0.5, label = pval_format, size = 5.5, step.increase = 0.04) +
+    ggpubr::stat_compare_means(comparisons = comparisons, method = "t.test", paired = FALSE, label.y.npc = "bottom", vjust = 0.5, label = pval_format, size = 5.5, step.increase = 0.04) +
     ggpubr::stat_compare_means(label.y.npc = "bottom", show.legend = FALSE, size = 3.2, vjust = kw_vjust, hjust = kw_hjust)
 
   return(countPlot)
