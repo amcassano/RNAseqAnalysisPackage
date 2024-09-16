@@ -18,20 +18,19 @@ prefilterCounts <- function(rawcounts, numberofsamples, avg_count_minimum = 200,
   row_min <- avg_count_minimum * (numberofsamples - 1)
   row_min_frac <- avg_count_minimum * frac_samples
   rawcounts <- tibble::column_to_rownames(rawcounts, var = "Geneid")
-  rawcounts <- dplyr::select(rawcounts, -Geneid)
   rawcounts$rowmax <- apply(rawcounts, 1, max)
   rawcounts$rowsum <- apply(rawcounts, 1, sum)
-  rawcounts <- tibble::rownames_to_column(raw_counts, var = "rowid")
-  rawcounts <- rawcounts %>% dplyr::rowwise %>%
+  rawcounts <- tibble::rownames_to_column(rawcounts, var = "rowid")
+  rawcounts <- rawcounts %>% dplyr::rowwise() %>%
     dplyr::mutate(topfrac = sum(sort(dplyr::c_across(
-      tidyselect::starts_with("row")
+      !tidyselect::starts_with("row")
     ), decreasing = TRUE)[1:frac_samples])) %>%
     dplyr::ungroup()
   rawcounts <- dplyr::filter(rawcounts,
                               rowsum - rowmax * 2 >= row_min |
                                 topfrac >= row_min_frac)
-  rawcounts <- dplyr::select(raw_counts, -c(rowsum, rowmax))
-  rawcounts <- dplyr::column_to_rownames(rawcounts, var = "rowid")
+  rawcounts <- dplyr::select(rawcounts, -c(rowsum, rowmax))
+  rawcounts <- tibble::column_to_rownames(rawcounts, var = "rowid")
   rawcounts <- dplyr::select(rawcounts, -rowid)
   return(rawcounts)
 }
