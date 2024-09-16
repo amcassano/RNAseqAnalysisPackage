@@ -31,6 +31,5 @@ prefilterCounts <- function(rawcounts, numberofsamples, avg_count_minimum = 200,
                                 topfrac >= row_min_frac)
   rawcounts <- dplyr::select(rawcounts, -c(rowsum, rowmax))
   rawcounts <- tibble::column_to_rownames(rawcounts, var = "rowid")
-  rawcounts <- dplyr::select(rawcounts, -rowid)
   return(rawcounts)
 }
