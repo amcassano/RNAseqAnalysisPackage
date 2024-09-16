@@ -5,7 +5,12 @@
 \title{Pre Filter Counts CSV
 Filters out genes with counts below the threshold set, improves signal to noise ratio}
 \usage{
-prefilterCounts(rawcounts, numberofsamples, avg_count_minimum = 200)
+prefilterCounts(
+  rawcounts,
+  numberofsamples,
+  avg_count_minimum = 200,
+  stringency = 2
+)
 }
 \arguments{
 \item{rawcounts}{raw counts dataframe}
@@ -13,6 +18,8 @@ prefilterCounts(rawcounts, numberofsamples, avg_count_minimum = 200)
 \item{numberofsamples}{number, the total number of samples in the counts dataframe}
 
 \item{avg_count_minimum}{number, defaults to 200, higher number will be more stringent filtering, lower number will be more generous}
+
+\item{stringency}{number, the denominator for the second filtering. defaults to 2 which means that genes where the top half of the counts meet the avg will be kept. if 3 then only 1/3 of counts need to meet it etc}
 }
 \value{
 counts dataframe
