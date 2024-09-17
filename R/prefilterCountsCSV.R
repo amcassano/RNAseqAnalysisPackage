@@ -29,7 +29,7 @@ prefilterCounts <- function(rawcounts, numberofsamples, avg_count_minimum = 200,
   rawcounts <- dplyr::filter(rawcounts,
                               rowsum - rowmax * 2 >= row_min |
                                 topfrac >= row_min_frac)
-  rawcounts <- dplyr::select(rawcounts, -c(rowsum, rowmax))
+  rawcounts <- dplyr::select(rawcounts, -c(rowsum, rowmax, topfrac))
   rawcounts <- tibble::column_to_rownames(rawcounts, var = "rowid")
   return(rawcounts)
 }
