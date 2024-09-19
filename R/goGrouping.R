@@ -183,6 +183,7 @@ goGrouping_rlog_all_levels <- function(rlogdf,
 #'
 #' @param gogroup dataframe, output of goGrouping function
 #' @param rownum number, which row to return genes from
+#' @param goid string, goid can be used in place of a row number
 #'
 #' @return dataframe, MGI symbols
 #' @export

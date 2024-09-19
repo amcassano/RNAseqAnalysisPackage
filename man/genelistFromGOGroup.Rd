@@ -10,6 +10,8 @@ genelistFromGOGroup(gogroup, rownum = NULL, goid = NULL)
 \item{gogroup}{dataframe, output of goGrouping function}
 
 \item{rownum}{number, which row to return genes from}
+
+\item{goid}{string, goid can be used in place of a row number}
 }
 \value{
 dataframe, MGI symbols

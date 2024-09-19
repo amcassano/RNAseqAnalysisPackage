@@ -52,3 +52,30 @@ heatmapFromDF <- function(plottitle,
         savetofile = savetofile
     )
 }
+
+#' Heatmap from Go Grouping results
+#'
+#' @param counts_df dataframe containing annotated normalized counts
+#' @param metadata dataframe with metadata info
+#' @param gogroup dataframe with the output of goGrouping
+#' @param anno_colors list of strings, list of colors for use in labeling
+#' @param rownum number, which row of the go grouping results to plot
+#' @param ... any other parameters for create_heatmap()
+#'
+#' @return heatmap made with pheatmap
+#' @export
+#'
+#' @examples
+#' heatmapFromGoGrouping(rlog_df, meta, tol_vs_rej_gogrouping, list(tol_color, rej_color, naive_color), 5)
+#' heatmapFromGoGrouping(rlog_df, meta, tol_vs_rej_gogrouping, list(tol_color, rej_color, naive_color), 5, height = 6, gaps = c(3, 6))
+heatmapFromGoGrouping <- function(counts_df, metadata, gogroup, anno_colors,
+                                  rownum = NULL, ...){
+    genelist_fromgg <- genelistFromGOGroup(gogroup = gogroup, rownum = rownum)
+    gogroup <- dplyr::slice(gogroup, rownum)
+    goid_title <- paste0(gogroup$ID, "/n", gogroup$Description)
+    heatmapFromDF(plottitle = goid_title,
+                  genelist = genelist_fromgg,
+                  met = metadata,
+                  annocolors = anno_colors, ...)
+
+}
